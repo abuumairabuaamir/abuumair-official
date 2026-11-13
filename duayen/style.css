@@ -1,0 +1,217 @@
+/* Local TTF Fonts Setup */
+@font-face {
+    font-family: 'Amiri';
+    src: url('amiri.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Jameel';
+    src: url('jameel.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Majeed';
+    src: url('majeed.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-weight: normal !important;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #0f766e;
+    --bg-color: #f8fafc;
+    --card-bg: #ffffff;
+    --text-main: #334155;
+    --text-light: #64748b;
+    --border-color: #e2e8f0;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: 'Jameel', 'Amiri', sans-serif; /* Jameel font update kar diya */
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Inline Arabic Class for Majeed Font */
+.inline-arabic {
+    font-family: 'Majeed', 'Amiri', serif;
+    font-size: 1.2em;
+    color: var(--primary-color);
+}
+
+.app-header {
+    background-color: var(--primary-color);
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    padding-top: calc(env(safe-area-inset-top) + 15px);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    flex-grow: 1;
+    text-align: center;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.3rem;
+    cursor: pointer;
+    padding: 5px;
+    width: 40px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.search-section {
+    background-color: var(--primary-color);
+    padding: 0 20px 15px 20px;
+}
+
+.search-box {
+    background-color: white;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    padding: 5px 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.search-icon {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-left: 10px;
+}
+
+#searchInput {
+    flex-grow: 1;
+    border: none;
+    padding: 10px 0;
+    font-family: inherit;
+    font-size: 1.1rem;
+    outline: none;
+    background: transparent;
+}
+
+#content {
+    padding: 15px 20px;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 20px);
+}
+
+.list-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.list-card-title {
+    font-size: 1.4rem;
+    color: var(--primary-color);
+    margin: 0;
+    flex-grow: 1;
+}
+
+.chapter-icon {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.bookmark-icon {
+    color: #cbd5e1;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    margin-right: 15px;
+    cursor: pointer;
+    padding: 0;
+}
+
+.bookmark-icon.active {
+    color: #f59e0b;
+}
+
+.detail-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.matan-ar {
+    font-family: 'Amiri', serif;
+    font-size: 1.9rem;
+    text-align: center;
+    color: var(--primary-color);
+    line-height: 2;
+    margin-bottom: 20px;
+}
+
+.matan-ur {
+    font-family: 'Jameel', serif;
+    font-size: 1.6rem;
+    text-align: right;
+    color: var(--primary-color);
+    line-height: 2.2;
+    margin-bottom: 20px;
+}
+
+.detail-urdu {
+    font-size: 1.5rem;
+    text-align: right;
+    line-height: 2.2;
+    color: var(--text-main);
+    margin-bottom: 20px;
+}
+
+.divider {
+    border: 0;
+    border-top: 1px solid var(--border-color);
+    margin: 20px 0;
+}
+
+.takhreej-box {
+    background: #f8fafc;
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    color: var(--text-light);
+    text-align: right;
+}
+
+.takhreej-text {
+    margin: 0 0 8px 0;
+}
+
+.hukm-text {
+    margin: 0;
+    color: #dc2626;
+}
