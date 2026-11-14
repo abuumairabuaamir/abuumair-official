@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Push state helper taake browser/Android back button history track kar sake
-def pushHistoryState(stateData) {
+function pushHistoryState(stateData) {
     history.pushState(stateData, '', '');
 }
 
@@ -126,7 +126,8 @@ function goBack() {
 
 // Core Back Navigation Logic (Controlled via History & Android Back Button)
 function handleBackNavigation() {
-    document.getElementById('searchInput').value = '';
+    const searchInput = document.getElementById('searchInput');
+    if (searchInput) searchInput.value = '';
     
     if (currentView === 'detail') {
         if (selectedChapter) {
@@ -136,9 +137,6 @@ function handleBackNavigation() {
         }
     } else if (currentView === 'chapter' || currentView === 'bookmarks' || currentView === 'search') {
         renderChapters();
-    } else {
-        // Agar home screen par hain toh app background/close hone dega
-        // Kuch return karne ki zaroorat nahi, default behavior hoga
     }
 }
 
@@ -153,7 +151,7 @@ function toggleBookmark(event, id) {
     }
     localStorage.setItem('kitab_sunnat_bookmarks', JSON.stringify(bookmarkedIds));
     
-    if (currentView === 'bookmarks') showBookmarks();
+    if (currentView === 'bookmarks') showBookmarks(false);
     else if (currentView === 'chapter') openChapter(selectedChapter, false);
     else if (currentView === 'search') searchDua();
 }
