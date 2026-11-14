@@ -6,14 +6,25 @@ let currentListData = [];
 
 document.addEventListener('DOMContentLoaded', () => {
     renderChapters();
+    
+    // Android WebViews aur Browser history ke liye Popstate listener
+    window.addEventListener('popstate', (event) => {
+        handleBackNavigation();
+    });
 });
+
+// Push state helper taake browser/Android back button history track kar sake
+def pushHistoryState(stateData) {
+    history.pushState(stateData, '', '');
+}
 
 // 1. Home Screen (Show Chapters)
 function renderChapters() {
     currentView = 'home';
+    selectedChapter = '';
     const content = document.getElementById('content');
     document.getElementById('backBtn').classList.add('hidden');
-    document.getElementById('pageTitle').innerText = 'فہرست ابواب';
+    document.getElementById('pageTitle').innerText = 'کتاب وسنت کی دعائیں';
     
     const chapters = [...new Set(allDuas.map(d => d.chapter))];
     
@@ -29,9 +40,13 @@ function renderChapters() {
 }
 
 // 2. Chapter Screen
-function openChapter(chapter) {
+function openChapter(chapter, pushState = true) {
     currentView = 'chapter';
     selectedChapter = chapter;
+    if (pushState) {
+        pushHistoryState({ view: 'chapter', chapter: chapter });
+    }
+    
     const content = document.getElementById('content');
     document.getElementById('backBtn').classList.remove('hidden');
     document.getElementById('pageTitle').innerText = chapter;
@@ -70,8 +85,12 @@ function renderDuaList(list) {
 }
 
 // 3. Detail Screen
-function openDua(id) {
+function openDua(id, pushState = true) {
     currentView = 'detail';
+    if (pushState) {
+        pushHistoryState({ view: 'detail', id: id });
+    }
+    
     const item = allDuas.find(d => d.id === id);
     if (!item) return;
 
@@ -80,7 +99,6 @@ function openDua(id) {
 
     const content = document.getElementById('content');
     
-    // Yahan font-family ko 'Jameel' kar diya gaya hai
     let rawiHtml = item.rawi ? `<p style="font-family: 'Jameel', serif; font-size: 1.4rem; text-align: right; color: #64748b; margin-bottom: 5px;">${item.rawi}</p>` : '';
     let tarjumaHtml = item.tarjuma ? `<hr class="divider"><p style="font-family: 'Jameel', serif; font-size: 1.5rem; text-align: right; line-height: 2.2; color: var(--text-main); margin-bottom: 20px;">${item.tarjuma}</p>` : '';
     
@@ -101,20 +119,26 @@ function openDua(id) {
     window.scrollTo(0, 0);
 }
 
-// Back Navigation
+// Header Back Button Click Handler
 function goBack() {
+    window.history.back();
+}
+
+// Core Back Navigation Logic (Controlled via History & Android Back Button)
+function handleBackNavigation() {
     document.getElementById('searchInput').value = '';
+    
     if (currentView === 'detail') {
         if (selectedChapter) {
-            openChapter(selectedChapter);
-        } else if (document.getElementById('pageTitle').innerText === 'محفوظ دعائیں') {
-            showBookmarks();
+            openChapter(selectedChapter, false);
         } else {
             renderChapters();
         }
     } else if (currentView === 'chapter' || currentView === 'bookmarks' || currentView === 'search') {
-        selectedChapter = '';
         renderChapters();
+    } else {
+        // Agar home screen par hain toh app background/close hone dega
+        // Kuch return karne ki zaroorat nahi, default behavior hoga
     }
 }
 
@@ -130,13 +154,17 @@ function toggleBookmark(event, id) {
     localStorage.setItem('kitab_sunnat_bookmarks', JSON.stringify(bookmarkedIds));
     
     if (currentView === 'bookmarks') showBookmarks();
-    else if (currentView === 'chapter') openChapter(selectedChapter);
+    else if (currentView === 'chapter') openChapter(selectedChapter, false);
     else if (currentView === 'search') searchDua();
 }
 
-function showBookmarks() {
+function showBookmarks(pushState = true) {
     currentView = 'bookmarks';
     selectedChapter = '';
+    if (pushState) {
+        pushHistoryState({ view: 'bookmarks' });
+    }
+    
     document.getElementById('pageTitle').innerText = 'محفوظ دعائیں';
     document.getElementById('backBtn').classList.remove('hidden');
     
@@ -156,7 +184,6 @@ function searchDua() {
     document.getElementById('backBtn').classList.remove('hidden');
     document.getElementById('pageTitle').innerText = 'تلاش کے نتائج';
     
-    // Yahan arabic aur urdu_tarjuma ko matan aur tarjuma se badal diya gaya hai
     const filtered = allDuas.filter(d => 
         (d.title && d.title.includes(query)) || 
         (d.chapter && d.chapter.includes(query)) || 
