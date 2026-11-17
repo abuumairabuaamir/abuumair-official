@@ -124,6 +124,7 @@
             padding: 4px; 
             border-radius: 20px; 
             border: 1px solid var(--border-color); 
+            align-items: center;
         }
         .lang-btn { 
             background: none; 
@@ -135,6 +136,10 @@
             border-radius: 15px; 
             cursor: pointer; 
             transition: 0.3s; 
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 24px;
         }
         .lang-btn.active { 
             background: var(--primary-green); 
@@ -190,20 +195,56 @@
 
         footer { text-align: center; padding: 40px 20px; color: var(--text-gray); background: var(--white); margin-top: 50px; border-top: 1px solid var(--border-color); font-weight: 400; font-size: 0.95rem; }
         
+        /* =========================================
+           MOBILE VIEW FIXES
+           ========================================= */
         @media (max-width: 768px) {
-            nav { padding: 10px 15px; flex-direction: column; gap: 10px; }
-            .nav-brand { margin: 0 auto; font-size: 1.3rem; }
+            nav { 
+                padding: 10px 15px; 
+                flex-direction: column; 
+                gap: 10px; 
+                align-items: stretch;
+            }
             
-            .nav-scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; -ms-overflow-style: none; scrollbar-width: none; }
+            .nav-top-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                width: 100%;
+            }
+
+            .nav-brand { font-size: 1.2rem; }
+            
+            .lang-switcher {
+                padding: 2px;
+                border-radius: 15px;
+            }
+            .lang-btn {
+                padding: 2px 8px;
+                font-size: 0.75rem;
+                height: 20px;
+            }
+
+            .nav-scroll-wrapper { 
+                width: 100%; 
+                overflow-x: auto; 
+                -webkit-overflow-scrolling: touch; 
+                -ms-overflow-style: none; 
+                scrollbar-width: none; 
+                display: flex;
+                justify-content: center;
+            }
             .nav-scroll-wrapper::-webkit-scrollbar { display: none; }
             
-            .nav-controls { width: max-content; margin: 0 auto; padding-bottom: 5px; gap: 6px; }
-            .nav-btn { font-size: 0.85rem; padding: 5px 10px; }
-            .nav-divider { margin: 0 5px; height: 20px; }
-            .lang-switcher { padding: 3px; }
-            .lang-btn { padding: 3px 10px; font-size: 0.8rem; }
-
-            .hero { padding: 140px 15px 40px; } 
+            .nav-controls { 
+                width: max-content; 
+                margin: 0 auto; 
+                padding-bottom: 5px; 
+                gap: 5px; 
+            }
+            .nav-btn { font-size: 0.8rem; padding: 4px 8px; }
+            
+            .hero { padding: 120px 15px 40px; } 
             .hero h1 { font-size: 2.2rem; }
             /* Adjusted hero h1 for Urdu on mobile so it fits nicely */
             body.lang-ur .hero h1 { font-size: 2.5rem; }
@@ -217,10 +258,18 @@
 <body class="lang-ar">
 
     <nav>
-        <a href="#" class="nav-brand">
-            <i class="fas fa-leaf"></i> أبو عمير
-        </a>
-        
+        <div class="nav-top-row">
+            <a href="#" class="nav-brand">
+                <i class="fas fa-leaf"></i> أبو عمير
+            </a>
+            
+            <div class="lang-switcher">
+                <button class="lang-btn active" onclick="setLanguage('ar')" id="btn-ar">عربي</button>
+                <button class="lang-btn" onclick="setLanguage('ur')" id="btn-ur" style="font-family: 'Jameel', serif; padding-bottom: 0px;">اردو</button>
+                <button class="lang-btn" onclick="setLanguage('en')" id="btn-en" style="font-family: 'Montserrat', sans-serif;">EN</button>
+            </div>
+        </div>
+
         <div class="nav-scroll-wrapper">
             <div class="nav-controls">
                 <a href="#about" class="nav-btn" data-i18n="nav_about">من أنا</a>
@@ -228,14 +277,6 @@
                 <a href="#skills" class="nav-btn" data-i18n="nav_skills">المهارات</a>
                 <a href="#projects" class="nav-btn" data-i18n="nav_projects">المشاريع</a>
                 <a href="#contact" class="nav-btn" data-i18n="nav_contact">تواصل معي</a>
-
-                <div class="nav-divider"></div>
-
-                <div class="lang-switcher">
-                    <button class="lang-btn active" onclick="setLanguage('ar')" id="btn-ar">عربي</button>
-                    <button class="lang-btn" onclick="setLanguage('ur')" id="btn-ur" style="font-family: 'Jameel', serif; font-size: 1rem; padding-bottom: 2px;">اردو</button>
-                    <button class="lang-btn" onclick="setLanguage('en')" id="btn-en" style="font-family: 'Montserrat', sans-serif;">EN</button>
-                </div>
             </div>
         </div>
     </nav>
@@ -244,8 +285,7 @@
         <div class="hero-img-box">
             <img src="assets/photo.jpeg" alt="Abu Umair Profile">
         </div>
-        <!-- Yahan se style tag hata diya gaya hai taake font auto adjust ho sake -->
-        <h1 data-i18n="hero_name">أبو عمير أبو عامر الهندي</h1>
+        <h1 data-i18n="hero_name" style="font-family: 'Cairo', sans-serif;">أبو عمير أبو عامر الهندي</h1>
         
         <div class="hero-badges">
             <div class="hero-badge"><i class="fas fa-graduation-cap" style="color: var(--gold);"></i> <span data-i18n="hero_grad">خريج الجامعة الإسلامية بالمدينة</span></div>
@@ -394,7 +434,7 @@
     <footer>
         <div style="font-family: 'Cairo', sans-serif; font-size: 1.2rem; color: var(--primary-green); font-weight: 800; margin-bottom: 10px;">أبو عمير أبو عامر الهندي</div>
         &copy; 2026 <span data-i18n="footer_rights">All Rights Reserved</span> | 
-        <a href="mailto:contact@abuumair.in" style="color: var(--primary-green); text-decoration: none; font-weight: 600;">contact@abuumair.in</a>
+        <a href="mailto:contact@abuumair.in" style="color: var(--primary-green); text-decoration: none;">contact@abuumair.in</a>
     </footer>
 
     <!-- Multilingual JavaScript System -->
