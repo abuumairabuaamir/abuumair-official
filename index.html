@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أبو عمير أبو عامر الهندي | Official Website</title>
+    <title data-i18n="page_title">أبو عمير أبو عامر الهندي | Official Website</title>
     <meta name="description" content="Official website of Abu Umair Abu Aamir Alhindi - Arabic Teacher at Knowledge International School, Madinah University Graduate, and Islamic App Developer.">
     
     <!-- Professional English & Arabic Fonts -->
@@ -30,274 +30,213 @@
         html, body { max-width: 100%; overflow-x: hidden; }
         * { box-sizing: border-box; margin: 0; padding: 0; scroll-behavior: smooth; }
 
-        body {
-            background-color: var(--light-bg);
-            color: var(--text-dark);
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 400;
-            line-height: 1.8;
+        /* Dynamic Fonts based on Body Class */
+        body { background-color: var(--light-bg); color: var(--text-dark); line-height: 1.8; transition: all 0.3s ease; }
+        
+        body.lang-en { font-family: 'Montserrat', sans-serif; font-weight: 400; }
+        body.lang-ar { font-family: 'Cairo', sans-serif; font-weight: 400; }
+        body.lang-ur { font-family: 'Jameel', serif; font-size: 1.25rem; }
+
+        /* =========================================
+           STRICTLY NO BOLD FOR URDU
+           ========================================= */
+        body.lang-ur h1, body.lang-ur h2, body.lang-ur h3, 
+        body.lang-ur div, body.lang-ur p, body.lang-ur span, 
+        body.lang-ur a, body.lang-ur li, body.lang-ur button,
+        body.lang-ur footer {
+            font-weight: normal !important;
         }
+        
+        /* Fix for Urdu Hero Name Size */
+        body.lang-ur .hero h1 { font-size: 3.5rem; line-height: 1.4; }
 
-        /* Font Classes */
-        .ar-font { font-family: 'Cairo', sans-serif; } 
-        .ur-font { font-family: 'Jameel', serif !important; font-size: 1.35rem; line-height: 2.2; font-weight: normal; }
-        .amiri-font { font-family: 'Amiri', serif !important; font-size: 1.3rem; line-height: 2.2; font-weight: normal; }
+        /* Specific About Me Font Rule */
+        body.lang-ar #about-text { font-family: 'Amiri', serif !important; font-size: 1.3rem; }
+        body.lang-en #about-text { font-family: 'Montserrat', sans-serif !important; font-size: 1.05rem; }
+        body.lang-ur #about-text { font-family: 'Jameel', serif !important; font-size: 1.3rem; }
 
-        /* Slim & Fixed Navbar */
+        /* =========================================
+           UNIFIED SINGLE-STRIP NAVBAR
+           ========================================= */
         nav {
             background-color: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(10px);
-            padding: 8px 50px; 
+            padding: 8px 40px; 
             display: flex;
             justify-content: space-between;
             align-items: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
             position: fixed; 
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
+            top: 0; left: 0; width: 100%; z-index: 1000;
             border-bottom: 1px solid var(--border-color);
+            gap: 15px;
         }
         
         .nav-brand {
+            flex-shrink: 0; 
             font-size: 1.4rem; 
-            font-weight: 800;
-            color: var(--primary-green);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            font-weight: 800; 
+            color: var(--primary-green); 
+            text-decoration: none; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
         }
+        body.lang-en .nav-brand { font-family: 'Cairo', sans-serif; } 
         .nav-brand i { color: var(--gold); font-size: 1.1rem; }
 
-        .nav-links { display: flex; gap: 10px; }
-        .nav-btn {
-            text-decoration: none;
-            color: var(--text-dark);
-            font-weight: 600;
+        .nav-scroll-wrapper {
+            flex-grow: 1;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .nav-controls {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .nav-btn { 
+            text-decoration: none; 
+            color: var(--text-dark); 
+            font-weight: 600; 
             font-size: 0.9rem; 
-            padding: 6px 15px; 
-            border-radius: 8px;
-            transition: all 0.3s ease;
+            padding: 6px 12px; 
+            border-radius: 8px; 
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+            white-space: nowrap;
         }
         .nav-btn:hover { background-color: #f1f5f9; color: var(--primary-green); }
 
+        .nav-divider { 
+            width: 1px; 
+            height: 22px; 
+            background-color: #cbd5e1; 
+            margin: 0 10px; 
+        }
+
+        .lang-switcher { 
+            display: flex; 
+            gap: 2px; 
+            background: #f1f5f9; 
+            padding: 4px; 
+            border-radius: 20px; 
+            border: 1px solid var(--border-color); 
+        }
+        .lang-btn { 
+            background: none; 
+            border: none; 
+            padding: 4px 12px; 
+            font-size: 0.85rem; 
+            font-weight: 600; 
+            color: var(--text-gray); 
+            border-radius: 15px; 
+            cursor: pointer; 
+            transition: 0.3s; 
+        }
+        .lang-btn.active { 
+            background: var(--primary-green); 
+            color: white; 
+            box-shadow: 0 2px 8px rgba(4, 75, 54, 0.15);
+        }
+
         /* Hero Section */
-        .hero {
-            background: linear-gradient(135deg, var(--primary-green) 0%, #012016 100%);
-            color: var(--white);
-            padding: 110px 20px 80px; 
-            text-align: center;
-            border-bottom: 5px solid var(--gold);
-            position: relative;
-        }
-        .hero-img-box {
-            position: relative;
-            display: inline-block;
-            margin-bottom: 25px;
-        }
-        .hero img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 4px solid var(--gold);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            position: relative;
-            z-index: 2;
-        }
+        .hero { background: linear-gradient(135deg, var(--primary-green) 0%, #012016 100%); color: var(--white); padding: 110px 20px 80px; text-align: center; border-bottom: 5px solid var(--gold); position: relative; }
+        .hero-img-box { position: relative; display: inline-block; margin-bottom: 25px; }
+        .hero img { width: 150px; height: 150px; object-fit: cover; border-radius: 50%; border: 4px solid var(--gold); box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: relative; z-index: 2; }
         .hero h1 { font-size: 3rem; margin-bottom: 20px; font-weight: 700; }
         
-        .hero-badges {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        .hero-badge {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 8px 20px;
-            border-radius: 30px;
-            font-size: 1.05rem;
-            backdrop-filter: blur(5px);
-            font-weight: 400;
-        }
+        .hero-badges { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; max-width: 800px; margin: 0 auto; }
+        .hero-badge { background: rgba(255, 255, 255, 0.1); border: 1px solid rgba(255, 255, 255, 0.2); padding: 8px 20px; border-radius: 30px; font-size: 1.05rem; backdrop-filter: blur(5px); font-weight: 600; display: flex; align-items: center; gap: 8px; }
 
         .container { max-width: 950px; margin: 50px auto; padding: 0 20px; }
 
-        .section-header {
-            display: inline-block;
-            background-color: var(--light-gold);
-            color: var(--primary-green);
-            padding: 8px 25px;
-            border-radius: 30px;
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 30px;
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            text-align: center;
-        }
-        .section-header span.ar { margin-left: 10px; font-weight: 700; }
-        
+        .section-header { display: inline-block; background-color: var(--light-gold); color: var(--primary-green); padding: 8px 25px; border-radius: 30px; font-size: 1.25rem; font-weight: 700; margin-bottom: 30px; border: 1px solid rgba(212, 175, 55, 0.3); text-align: center; }
         .section-wrapper { text-align: center; margin-top: 50px; scroll-margin-top: 80px; }
 
-        .card {
-            background: var(--white);
-            border-radius: 12px;
-            padding: 35px 40px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03);
-            text-align: right;
-            border: 1px solid var(--border-color);
-        }
+        .card { background: var(--white); border-radius: 12px; padding: 35px 40px; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid var(--border-color); text-align: justify; text-justify: inter-word;}
 
-        .tabs {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-        }
-        .tab-btn {
-            background: #f1f5f9;
-            border: none;
-            padding: 8px 25px;
-            font-size: 0.95rem;
-            color: var(--text-gray);
-            cursor: pointer;
-            border-radius: 25px;
-            transition: all 0.3s;
-            font-family: inherit;
-            font-weight: 600;
-        }
-        .tab-btn:hover { background: #e2e8f0; }
-        .tab-btn.active { background: var(--primary-green); color: var(--white); box-shadow: 0 4px 10px rgba(4, 75, 54, 0.15); }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; align-items: stretch; margin-bottom: 40px; }
+        body[dir="rtl"] .grid-2 { text-align: right; }
+        body[dir="ltr"] .grid-2 { text-align: left; }
         
-        .tab-content { display: none; font-size: 1.1rem; color: var(--text-gray); font-weight: 400; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s; }
-        
-        #Arabic, #Urdu, #English { text-align: justify; text-justify: inter-word; }
-        
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* FIXED EQUAL HEIGHT (No Overlap) */
-        .grid-2 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            text-align: right;
-            align-items: stretch;
-            margin-bottom: 40px; 
-        }
-        
-        .grid-2 .section-wrapper {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .grid-2 .card {
-            flex-grow: 1; 
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
+        .grid-2 .section-wrapper { display: flex; flex-direction: column; }
+        .grid-2 .card { flex-grow: 1; display: flex; flex-direction: column; justify-content: center; }
 
         .info-list { list-style: none; width: 100%; }
-        .info-list li {
-            padding: 15px 0;
-            border-bottom: 1px solid #f1f5f9;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.05rem;
-        }
+        .info-list li { padding: 15px 0; border-bottom: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; font-size: 1.05rem; }
         .info-list li:last-child { border-bottom: none; }
-        .info-label { color: var(--primary-green); font-weight: 600; font-size: 1.05rem; }
-        .info-sub { color: var(--text-gray); font-size: 0.95rem; font-weight: 400; }
+        .info-label { color: var(--primary-green); font-weight: 600; font-size: 1.1rem; }
+        .info-sub { color: var(--text-gray); font-size: 0.95rem; font-weight: 400; margin-top: 4px; }
+        .info-content { flex-grow: 1; }
+        
+        body[dir="ltr"] .info-list li { flex-direction: row-reverse; text-align: left; }
+        body[dir="rtl"] .info-list li { flex-direction: row; text-align: right; }
 
         .apps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; text-align: center; }
-        .app-box {
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 25px 20px;
-            background: var(--white);
-            transition: all 0.3s;
-        }
+        .app-box { border: 1px solid var(--border-color); border-radius: 12px; padding: 25px 20px; background: var(--white); transition: all 0.3s; }
         .app-box:hover { transform: translateY(-5px); border-color: var(--gold); box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
         .app-icon { font-size: 2.5rem; color: var(--primary-green); margin-bottom: 15px; }
-        .app-title { font-size: 1.15rem; font-weight: 600; margin-bottom: 15px; color: var(--text-dark); }
+        .app-title { font-size: 1.25rem; font-weight: 700; margin-bottom: 15px; color: var(--text-dark); }
         
-        .btn-outline {
-            display: block; padding: 10px; margin-top: 10px;
-            border: 1px solid var(--primary-green); border-radius: 8px;
-            text-decoration: none; color: var(--primary-green); font-weight: 500;
-            transition: all 0.3s;
-        }
+        .btn-outline { display: block; padding: 10px; margin-top: 10px; border: 1px solid var(--primary-green); border-radius: 8px; text-decoration: none; color: var(--primary-green); font-weight: 600; transition: all 0.3s; }
         .btn-outline:hover { background: var(--primary-green); color: var(--white); }
 
         .social-flex { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; }
-        
-        .social-tag {
-            padding: 10px 22px; border-radius: 30px;
-            background: var(--white); color: var(--text-dark); border: 1px solid var(--border-color);
-            text-decoration: none; display: flex; align-items: center; gap: 8px;
-            font-weight: 500; transition: all 0.3s;
-            font-size: 1rem;
-        }
+        .social-tag { padding: 10px 22px; border-radius: 30px; background: var(--white); color: var(--text-dark); border: 1px solid var(--border-color); text-decoration: none; display: flex; align-items: center; gap: 8px; font-weight: 600; transition: all 0.3s; font-size: 1rem; }
         .social-tag:hover { border-color: var(--primary-green); box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
 
-        footer { 
-            text-align: center; 
-            padding: 40px 20px; 
-            color: var(--text-gray); 
-            background: var(--white); 
-            margin-top: 50px; 
-            border-top: 1px solid var(--border-color); 
-            font-weight: 400;
-            font-size: 0.95rem;
-        }
+        footer { text-align: center; padding: 40px 20px; color: var(--text-gray); background: var(--white); margin-top: 50px; border-top: 1px solid var(--border-color); font-weight: 400; font-size: 0.95rem; }
         
         @media (max-width: 768px) {
-            nav { padding: 8px 10px; flex-direction: column; gap: 6px; }
-            .nav-brand { font-size: 1.2rem; }
-            .nav-links { 
-                width: 100%;
-                justify-content: center;
-                flex-wrap: nowrap;
-                gap: 4px; 
-            }
-            .nav-btn { 
-                font-size: 0.75rem; 
-                padding: 4px 8px; 
-                white-space: nowrap; 
-            }
+            nav { padding: 10px 15px; flex-direction: column; gap: 10px; }
+            .nav-brand { margin: 0 auto; font-size: 1.3rem; }
             
-            .hero { padding: 110px 15px 40px; } 
+            .nav-scroll-wrapper { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; -ms-overflow-style: none; scrollbar-width: none; }
+            .nav-scroll-wrapper::-webkit-scrollbar { display: none; }
+            
+            .nav-controls { width: max-content; margin: 0 auto; padding-bottom: 5px; gap: 6px; }
+            .nav-btn { font-size: 0.85rem; padding: 5px 10px; }
+            .nav-divider { margin: 0 5px; height: 20px; }
+            .lang-switcher { padding: 3px; }
+            .lang-btn { padding: 3px 10px; font-size: 0.8rem; }
+
+            .hero { padding: 140px 15px 40px; } 
             .hero h1 { font-size: 2.2rem; }
+            /* Adjusted hero h1 for Urdu on mobile so it fits nicely */
+            body.lang-ur .hero h1 { font-size: 2.5rem; }
             .hero-badges { flex-direction: column; align-items: center; gap: 10px; }
-            
             .container { padding: 0 15px; margin-top: 30px; }
             .card { padding: 25px 20px; }
-            
-            .section-wrapper { margin-top: 40px; }
             .grid-2, .apps-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body>
+<body class="lang-ar">
 
     <nav>
-        <a href="#" class="nav-brand ar-font">
+        <a href="#" class="nav-brand">
             <i class="fas fa-leaf"></i> أبو عمير
         </a>
-        <div class="nav-links">
-            <a href="#about" class="nav-btn">About</a>
-            <a href="#education" class="nav-btn">Education</a>
-            <a href="#skills" class="nav-btn">Skills</a>
-            <a href="#projects" class="nav-btn">Projects</a>
-            <a href="#contact" class="nav-btn">Contact</a>
+        
+        <div class="nav-scroll-wrapper">
+            <div class="nav-controls">
+                <a href="#about" class="nav-btn" data-i18n="nav_about">من أنا</a>
+                <a href="#education" class="nav-btn" data-i18n="nav_edu">المؤهلات</a>
+                <a href="#skills" class="nav-btn" data-i18n="nav_skills">المهارات</a>
+                <a href="#projects" class="nav-btn" data-i18n="nav_projects">المشاريع</a>
+                <a href="#contact" class="nav-btn" data-i18n="nav_contact">تواصل معي</a>
+
+                <div class="nav-divider"></div>
+
+                <div class="lang-switcher">
+                    <button class="lang-btn active" onclick="setLanguage('ar')" id="btn-ar">عربي</button>
+                    <button class="lang-btn" onclick="setLanguage('ur')" id="btn-ur" style="font-family: 'Jameel', serif; font-size: 1rem; padding-bottom: 2px;">اردو</button>
+                    <button class="lang-btn" onclick="setLanguage('en')" id="btn-en" style="font-family: 'Montserrat', sans-serif;">EN</button>
+                </div>
+            </div>
         </div>
     </nav>
 
@@ -305,71 +244,64 @@
         <div class="hero-img-box">
             <img src="assets/photo.jpeg" alt="Abu Umair Profile">
         </div>
-        <h1 class="ar-font">أبو عمير أبو عامر الهندي</h1>
+        <!-- Yahan se style tag hata diya gaya hai taake font auto adjust ho sake -->
+        <h1 data-i18n="hero_name">أبو عمير أبو عامر الهندي</h1>
         
-        <div class="hero-badges ar-font" style="direction: rtl;">
-            <div class="hero-badge"><i class="fas fa-graduation-cap" style="color: var(--gold); margin-left: 5px;"></i> خريج الجامعة الإسلامية بالمدينة</div>
-            <div class="hero-badge"><i class="fas fa-chalkboard-teacher" style="color: var(--gold); margin-left: 5px;"></i> مدرس اللغة العربية</div>
-            <div class="hero-badge"><i class="fas fa-code" style="color: var(--gold); margin-left: 5px;"></i> مطور تطبيقات إسلامية</div>
+        <div class="hero-badges">
+            <div class="hero-badge"><i class="fas fa-graduation-cap" style="color: var(--gold);"></i> <span data-i18n="hero_grad">خريج الجامعة الإسلامية بالمدينة</span></div>
+            <div class="hero-badge"><i class="fas fa-chalkboard-teacher" style="color: var(--gold);"></i> <span data-i18n="hero_teacher">مدرس اللغة العربية</span></div>
+            <div class="hero-badge"><i class="fas fa-code" style="color: var(--gold);"></i> <span data-i18n="hero_dev">مطور تطبيقات إسلامية</span></div>
         </div>
     </header>
 
     <div class="container">
         
         <div id="about" class="section-wrapper">
-            <div class="section-header">
-                About Me <span class="ar ar-font">| من أنا</span>
+            <div class="section-header" data-i18n="sec_about">
+                نبذة شخصية
             </div>
             <div class="card">
-                <div class="tabs">
-                    <button class="tab-btn ar-font active" onclick="openTab(event, 'Arabic')">العربية</button>
-                    <button class="tab-btn ur-font" onclick="openTab(event, 'Urdu')" style="padding-bottom: 2px;">اردو</button>
-                    <button class="tab-btn" onclick="openTab(event, 'English')">English</button>
-                </div>
-
-                <div id="Arabic" class="tab-content active amiri-font" style="direction: rtl;">
+                <div id="about-text">
                     أنا أبو عمير أبو عامر الهندي، خريج كلية الحديث الشريف والدراسات الإسلامية بالجامعة الإسلامية بالمدينة المنورة بتقدير "ممتاز" لعام 2022م. أعمل حالياً مدرساً للغة العربية والمواد الإسلامية في مدرسة العلم العالمية ببهتكل، كرناتكا. أهتم بكتابة المقالات باللغتين العربية والأردية، وإلقاء الخطب والدروس العلمية، بالإضافة إلى تطوير التطبيقات الإسلامية التقنية لخدمة طلاب العلم.
-                </div>
-
-                <div id="Urdu" class="tab-content ur-font" style="direction: rtl;">
-                    میرا نام ابوعمیر بن ابوعامر ہے ، میں ہندوستان کے صوبہ اترپردیش کے ضلع سنت کبیر نگر سے تعلق رکھتا ہوں۔ میں نے عالم اسلام کی مایہ ناز یونیورسٹی "جامعہ اسلامیہ مدینہ منوره" سے گریجویشن کی ڈگری ممتاز نمبرات کے ساتھ حاصل کی ہے۔ فی الحال میں صوبہ کرناٹک کے شہر "بھٹکل" میں واقع "مدرسہ العلم العالمیہ" میں عربی زبان اور اسلامی علوم کے مدرس کے طور پر خدمات انجام دے رہا ہوں۔ تدریس کے ساتھ ساتھ مجھے تحریر و تقریر اور جدید ٹیکنالوجی (ایپ ڈیولپمنٹ) کے ذریعے دین کی خدمت کا شوق ہے۔
-                </div>
-
-                <div id="English" class="tab-content" style="direction: ltr;">
-                    I am Abu Umair, an educator and developer based in Bhatkal, Karnataka. I hold a Bachelor's degree with honors (Excellent) from the Islamic University of Madinah, Saudi Arabia. Currently, I serve as an Arabic and Islamic Studies teacher at Knowledge International Arabic School. Beyond the classroom, I am passionate about bridging traditional Islamic knowledge with modern technology through mobile app development and academic writing.
                 </div>
             </div>
         </div>
 
         <div class="grid-2">
             <div id="education" class="section-wrapper">
-                <div class="section-header">
-                    Education <span class="ar ar-font">| المؤهلات</span>
+                <div class="section-header" data-i18n="sec_edu">
+                    المؤهلات العلمية
                 </div>
-                <div class="card ar-font" style="direction: rtl;">
+                <div class="card">
                     <ul class="info-list">
                         <li>
-                            <div>
-                                <div class="info-label">بكالوريوس في الحديث الشريف</div>
-                                <div class="info-sub">الجامعة الإسلامية بالمدينة المنورة (2022)</div>
+                            <div class="info-content">
+                                <div class="info-label" data-i18n="edu_1_title">الماجستير في اللغة العربية</div>
+                                <div class="info-sub" data-i18n="edu_1_sub">الجامعة الملية الإسلامية بنيودلهي (2025)</div>
                             </div>
                         </li>
                         <li>
-                            <div>
-                                <div class="info-label">شهادة الفضيلة</div>
-                                <div class="info-sub">الجامعة الإسلامية بـ(دريا آباد) (2019)</div>
+                            <div class="info-content">
+                                <div class="info-label" data-i18n="edu_2_title">بكالوريوس في الحديث الشريف</div>
+                                <div class="info-sub" data-i18n="edu_2_sub">الجامعة الإسلامية بالمدينة المنورة (2022)</div>
                             </div>
                         </li>
                         <li>
-                            <div>
-                                <div class="info-label">شهادة العالمية</div>
-                                <div class="info-sub">الجامعة الإسلامية بـ(دريا آباد) (2016)</div>
+                            <div class="info-content">
+                                <div class="info-label" data-i18n="edu_3_title">الفضيلة في الحديث الشريف</div>
+                                <div class="info-sub" data-i18n="edu_3_sub">الجامعة الإسلامية بـ(دريا آباد) (2019)</div>
                             </div>
                         </li>
                         <li>
-                            <div>
-                                <div class="info-label">حفظ القرآن الكريم</div>
-                                <div class="info-sub">الجامعة الإسلامية بـ(دريا آباد)</div>
+                            <div class="info-content">
+                                <div class="info-label" data-i18n="edu_4_title">العالمية في العلوم الإسلامية والعربية</div>
+                                <div class="info-sub" data-i18n="edu_4_sub">الجامعة الإسلامية بـ(دريا آباد) (2016)</div>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="info-content">
+                                <div class="info-label" data-i18n="edu_5_title">إجازة في حفظ القرآن الكريم</div>
+                                <div class="info-sub" data-i18n="edu_5_sub">الجامعة الإسلامية بـ(دريا آباد)</div>
                             </div>
                         </li>
                     </ul>
@@ -377,31 +309,40 @@
             </div>
 
             <div id="skills" class="section-wrapper">
-                <div class="section-header">
-                    Skills <span class="ar ar-font">| المهارات</span>
+                <div class="section-header" data-i18n="sec_skills">
+                    المهارات والخبرات
                 </div>
-                <div class="card ar-font" style="direction: rtl;">
+                <div class="card">
                     <ul class="info-list">
                         <li>
-                            <div class="info-label">الخطابة والتدريس</div>
-                            <i class="fas fa-microphone-alt" style="color:var(--gold); font-size:1.1rem;"></i>
+                            <div class="info-content">
+                                <div class="info-label" data-i18n="skill_1">الخطابة والتدريس</div>
+                            </div>
+                            <i class="fas fa-microphone-alt" style="color:var(--gold); font-size:1.2rem;"></i>
                         </li>
                         <li>
-                            <div class="info-label">كتابة المقالات والترجمة</div>
-                            <i class="fas fa-pen-nib" style="color:var(--gold); font-size:1.1rem;"></i>
+                            <div class="info-content">
+                                <div class="info-label" data-i18n="skill_2">كتابة المقالات والترجمة</div>
+                            </div>
+                            <i class="fas fa-pen-nib" style="color:var(--gold); font-size:1.2rem;"></i>
                         </li>
                         <li>
-                            <div class="info-label">تطوير تطبيقات الأندرويد</div>
-                            <i class="fab fa-android" style="color:var(--gold); font-size:1.1rem;"></i>
-                        </li>
-                        <!-- Nayi Skills Yahan Add Ki Gayi Hain -->
-                        <li>
-                            <div class="info-label">المكتبة الشاملة وجامع خادم الحرمين</div>
-                            <i class="fas fa-book-reader" style="color:var(--gold); font-size:1.1rem;"></i>
+                            <div class="info-content">
+                                <div class="info-label" data-i18n="skill_3">تطوير تطبيقات الأندرويد</div>
+                            </div>
+                            <i class="fab fa-android" style="color:var(--gold); font-size:1.2rem;"></i>
                         </li>
                         <li>
-                            <div class="info-label">إتقان برامج الأوفيس (وورد، إكسل)</div>
-                            <i class="fab fa-microsoft" style="color:var(--gold); font-size:1.1rem;"></i>
+                            <div class="info-content">
+                                <div class="info-label" data-i18n="skill_4">المكتبة الشاملة وجامع خادم الحرمين</div>
+                            </div>
+                            <i class="fas fa-book-reader" style="color:var(--gold); font-size:1.2rem;"></i>
+                        </li>
+                        <li>
+                            <div class="info-content">
+                                <div class="info-label" data-i18n="skill_5">إتقان برامج الأوفيس (وورد، إكسل)</div>
+                            </div>
+                            <i class="fab fa-microsoft" style="color:var(--gold); font-size:1.2rem;"></i>
                         </li>
                     </ul>
                 </div>
@@ -409,40 +350,41 @@
         </div>
 
         <div id="projects" class="section-wrapper">
-            <div class="section-header">
-                Digital Projects <span class="ar ar-font">| المشاريع الرقمية</span>
+            <div class="section-header" data-i18n="sec_projects">
+                المشاريع الرقمية
             </div>
             
             <div class="apps-grid">
                 <div class="app-box">
                     <div class="app-icon"><i class="fas fa-book-open"></i></div>
-                    <div class="app-title">Daily Azkar</div>
-                    <a href="https://dailyazkar.abuumair.in" class="btn-outline" target="_blank"><i class="fas fa-globe"></i> Website</a>
-                    <a href="https://play.google.com/store/apps/details?id=com.abuumair.dailyazkar" class="btn-outline" target="_blank"><i class="fab fa-google-play"></i> Play Store</a>
+                    <div class="app-title" style="font-family: 'Montserrat', sans-serif;">Daily Azkar</div>
+                    <a href="https://dailyazkar.abuumair.in" class="btn-outline" target="_blank"><i class="fas fa-globe"></i> <span data-i18n="btn_web">Website</span></a>
+                    <a href="https://play.google.com/store/apps/details?id=com.abuumair.dailyazkar" class="btn-outline" target="_blank"><i class="fab fa-google-play"></i> <span data-i18n="btn_app">Play Store</span></a>
                 </div>
 
                 <div class="app-box">
                     <div class="app-icon"><i class="fas fa-tasks"></i></div>
-                    <div class="app-title">Mutoon Tracker</div>
-                    <a href="https://play.google.com/store/apps/details?id=com.umair.mutoontracker" class="btn-outline" target="_blank"><i class="fab fa-google-play"></i> Play Store</a>
+                    <div class="app-title" style="font-family: 'Montserrat', sans-serif;">Mutoon Tracker</div>
+                    <a href="https://play.google.com/store/apps/details?id=com.umair.mutoontracker" class="btn-outline" target="_blank"><i class="fab fa-google-play"></i> <span data-i18n="btn_app">Play Store</span></a>
                 </div>
 
                 <div class="app-box">
                     <div class="app-icon"><i class="fas fa-hands-praying"></i></div>
-                    <div class="app-title ur-font" style="font-size: 1.5rem; line-height: 1;">کتاب وسنت کی دعائیں</div>
-                    <a href="/duayen/" class="btn-outline" target="_blank"><i class="fas fa-external-link-alt"></i> Open Web App</a>
+                    <div class="app-title" style="font-family: 'Jameel', serif; font-size: 1.6rem; font-weight: normal; line-height: 1;">کتاب وسنت کی دعائیں</div>
+                    <a href="/duayen/" class="btn-outline" target="_blank"><i class="fas fa-external-link-alt"></i> <span data-i18n="btn_open">Open Web App</span></a>
                 </div>
             </div>
         </div>
 
         <div id="contact" class="section-wrapper">
-            <div class="section-header">
-                Get in Touch <span class="ar ar-font">| تواصل معي</span>
+            <div class="section-header" data-i18n="sec_contact">
+                تواصل معي
             </div>
             
             <div class="social-flex" style="margin-top: 25px;">
-                <a href="mailto:contact@abuumair.in" class="social-tag"><i class="fas fa-envelope" style="color: var(--primary-green);"></i> Email</a>
+                <a href="mailto:contact@abuumair.in" class="social-tag"><i class="fas fa-envelope" style="color: var(--primary-green);"></i> <span data-i18n="social_email">Email</span></a>
                 <a href="https://wa.me/919889371280" class="social-tag" target="_blank"><i class="fab fa-whatsapp" style="color: #25D366;"></i> WhatsApp</a>
+                <a href="https://www.instagram.com/a_umair_aamir" class="social-tag" target="_blank"><i class="fab fa-instagram" style="color: #E1306C;"></i> Instagram</a>
                 <a href="https://youtube.com/@abumairabuaamir" class="social-tag" target="_blank"><i class="fab fa-youtube" style="color: #ff0000;"></i> YouTube</a>
                 <a href="https://t.me/dailyazkarabuumair" class="social-tag" target="_blank"><i class="fab fa-telegram" style="color: #0088cc;"></i> Telegram</a>
             </div>
@@ -450,25 +392,97 @@
     </div>
 
     <footer>
-        <div class="ar-font" style="font-size: 1.2rem; color: var(--primary-green); font-weight: 600; margin-bottom: 10px;">أبو عمير أبو عامر الهندي</div>
-        &copy; 2026 All Rights Reserved | 
-        <a href="mailto:contact@abuumair.in" style="color: var(--primary-green); text-decoration: none; font-weight: 500;">contact@abuumair.in</a>
+        <div style="font-family: 'Cairo', sans-serif; font-size: 1.2rem; color: var(--primary-green); font-weight: 800; margin-bottom: 10px;">أبو عمير أبو عامر الهندي</div>
+        &copy; 2026 <span data-i18n="footer_rights">All Rights Reserved</span> | 
+        <a href="mailto:contact@abuumair.in" style="color: var(--primary-green); text-decoration: none; font-weight: 600;">contact@abuumair.in</a>
     </footer>
 
+    <!-- Multilingual JavaScript System -->
     <script>
-        function openTab(evt, langName) {
-            var i, tabcontent, tablinks;
-            tabcontent = document.getElementsByClassName("tab-content");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].classList.remove("active");
+        const translations = {
+            "ar": {
+                "page_title": "أبو عمير أبو عامر الهندي | الموقع الرسمي",
+                "nav_about": "من أنا", "nav_edu": "المؤهلات", "nav_skills": "المهارات", "nav_projects": "المشاريع", "nav_contact": "تواصل معي",
+                "hero_name": "أبو عمير أبو عامر الهندي",
+                "hero_grad": "خريج الجامعة الإسلامية بالمدينة", "hero_teacher": "مدرس اللغة العربية", "hero_dev": "مطور تطبيقات إسلامية",
+                "sec_about": "نبذة شخصية",
+                "about_text": "أنا أبو عمير أبو عامر الهندي، خريج كلية الحديث الشريف والدراسات الإسلامية بالجامعة الإسلامية بالمدينة المنورة بتقدير \"ممتاز\" لعام 2022م. أعمل حالياً مدرساً للغة العربية والمواد الإسلامية في مدرسة العلم العالمية ببهتكل، كرناتكا. أهتم بكتابة المقالات باللغتين العربية والأردية، وإلقاء الخطب والدروس العلمية، بالإضافة إلى تطوير التطبيقات الإسلامية التقنية لخدمة طلاب العلم.",
+                "sec_edu": "المؤهلات العلمية",
+                "edu_1_title": "الماجستير في اللغة العربية", "edu_1_sub": "الجامعة الملية الإسلامية بنيودلهي (2025)",
+                "edu_2_title": "بكالوريوس في الحديث الشريف", "edu_2_sub": "الجامعة الإسلامية بالمدينة المنورة (2022)",
+                "edu_3_title": "الفضيلة في الحديث الشريف", "edu_3_sub": "الجامعة الإسلامية بـ(دريا آباد) (2019)",
+                "edu_4_title": "العالمية في العلوم الإسلامية والعربية", "edu_4_sub": "الجامعة الإسلامية بـ(دريا آباد) (2016)",
+                "edu_5_title": "إجازة في حفظ القرآن الكريم", "edu_5_sub": "الجامعة الإسلامية بـ(دريا آباد)",
+                "sec_skills": "المهارات والخبرات",
+                "skill_1": "الخطابة والتدريس", "skill_2": "كتابة المقالات والترجمة", "skill_3": "تطوير تطبيقات الأندرويد", "skill_4": "المكتبة الشاملة وجامع خادم الحرمين", "skill_5": "إتقان برامج الأوفيس (وورد، إكسل)",
+                "sec_projects": "المشاريع الرقمية",
+                "btn_web": "الموقع", "btn_app": "التطبيق", "btn_open": "تصفح التطبيق",
+                "sec_contact": "تواصل معي",
+                "social_email": "البريد",
+                "footer_rights": "جميع الحقوق محفوظة"
+            },
+            "ur": {
+                "page_title": "ابو عمیر ابو عامر الہندی | آفیشل ویب سائٹ",
+                "nav_about": "تعارف", "nav_edu": "تعلیم", "nav_skills": "مہارتیں", "nav_projects": "پراجیکٹس", "nav_contact": "رابطہ کریں",
+                "hero_name": "ابو عمیر ابو عامر الہندی",
+                "hero_grad": "مدینہ یونیورسٹی سے فارغ التحصیل", "hero_teacher": "عربی زبان و اسلامیات کے استاذ", "hero_dev": "اسلامک ایپ ڈیولپر",
+                "sec_about": "تعارف",
+                "about_text": "میرا نام ابوعمیر بن ابوعامر ہے، میں ہندوستان کے صوبہ اترپردیش کے ضلع سنت کبیر نگر سے تعلق رکھتا ہوں۔ میں نے عالم اسلام کی مایہ ناز یونیورسٹی \"جامعہ اسلامیہ مدینہ منوره\" سے گریجویشن کی ڈگری ممتاز نمبرات کے ساتھ حاصل کی ہے۔ فی الحال میں صوبہ کرناٹک کے شہر \"بھٹکل\" میں واقع \"مدرسہ العلم العالمیہ\" میں عربی زبان اور اسلامی علوم کے مدرس کے طور پر خدمات انجام دے رہا ہوں۔ تدریس کے ساتھ ساتھ مجھے تحریر و تقریر اور جدید ٹیکنالوجی (ایپ ڈیولپمنٹ) کے ذریعے دین کی خدمت کا شوق ہے۔",
+                "sec_edu": "تعلیمی قابلیت",
+                "edu_1_title": "ایم اے عربی (Master of Arts)", "edu_1_sub": "جامعہ ملیہ اسلامیہ، نئی دہلی (2025)",
+                "edu_2_title": "بی اے حدیث (Bachelor in Hadith)", "edu_2_sub": "مدینہ یونیورسٹی، سعودی عرب (2022)",
+                "edu_3_title": "فضیلت (حدیث شریف)", "edu_3_sub": "جامعہ اسلامیہ دریا آباد (2019)",
+                "edu_4_title": "عالمیت (عربی و اسلامیات)", "edu_4_sub": "جامعہ اسلامیہ دریا آباد (2016)",
+                "edu_5_title": "حفظ قرآن مجید", "edu_5_sub": "جامعہ اسلامیہ دریا آباد",
+                "sec_skills": "مہارتیں اور تجربات",
+                "skill_1": "خطابت اور تدریس", "skill_2": "مقالہ نگاری اور ترجمہ", "skill_3": "اینڈرائڈ ایپ ڈیولپمنٹ", "skill_4": "مکتبہ شاملہ اور جامع خادم الحرمین", "skill_5": "ایم ایس آفس (ورڈ، ایکسل)",
+                "sec_projects": "ڈیجیٹل پراجیکٹس",
+                "btn_web": "ویب سائٹ", "btn_app": "ایپ ڈاؤنلوڈ", "btn_open": "ویب ایپ کھولیں",
+                "sec_contact": "رابطہ کریں",
+                "social_email": "ای میل",
+                "footer_rights": "جملہ حقوق محفوظ ہیں"
+            },
+            "en": {
+                "page_title": "Abu Umair Abu Aamir | Official Website",
+                "nav_about": "About", "nav_edu": "Education", "nav_skills": "Skills", "nav_projects": "Projects", "nav_contact": "Contact",
+                "hero_name": "Abu Umair Abu Aamir Alhindi",
+                "hero_grad": "Graduate of Islamic University of Madinah", "hero_teacher": "Arabic & Islamic Studies Teacher", "hero_dev": "Islamic App Developer",
+                "sec_about": "About Me",
+                "about_text": "I am Abu Umair, an educator and developer based in Bhatkal, Karnataka. I hold a Bachelor's degree with honors (Excellent) from the Islamic University of Madinah, Saudi Arabia. Currently, I serve as an Arabic and Islamic Studies teacher at Knowledge International Arabic School. Beyond the classroom, I am passionate about bridging traditional Islamic knowledge with modern technology through mobile app development and academic writing.",
+                "sec_edu": "Education & Qualifications",
+                "edu_1_title": "Master of Arts (MA) in Arabic", "edu_1_sub": "Jamia Millia Islamia, New Delhi (2025)",
+                "edu_2_title": "Bachelor in Hadith Studies", "edu_2_sub": "Islamic University of Madinah (2022)",
+                "edu_3_title": "Fazilah (Islamic Studies)", "edu_3_sub": "Jamia Islamia, Dariyabad (2019)",
+                "edu_4_title": "Alimiyah (Islamic & Arabic Studies)", "edu_4_sub": "Jamia Islamia, Dariyabad (2016)",
+                "edu_5_title": "Ijazah in Hifz-e-Quran", "edu_5_sub": "Jamia Islamia, Dariyabad",
+                "sec_skills": "Expertise & Skills",
+                "skill_1": "Public Speaking & Teaching", "skill_2": "Article Writing & Translation", "skill_3": "Android App Development", "skill_4": "Maktaba Shamela Proficiency", "skill_5": "MS Office (Word, Excel)",
+                "sec_projects": "Digital Projects",
+                "btn_web": "Website", "btn_app": "Play Store", "btn_open": "Open Web App",
+                "sec_contact": "Get in Touch",
+                "social_email": "Email",
+                "footer_rights": "All Rights Reserved"
             }
-            tablinks = document.getElementsByClassName("tab-btn");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].classList.remove("active");
-            }
-            document.getElementById(langName).classList.add("active");
-            evt.currentTarget.classList.add("active");
+        };
+
+        function setLanguage(lang) {
+            document.body.className = 'lang-' + lang;
+            document.body.setAttribute('dir', lang === 'en' ? 'ltr' : 'rtl');
+
+            document.querySelectorAll('.lang-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById('btn-' + lang).classList.add('active');
+
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if(translations[lang][key]) {
+                    el.innerText = translations[lang][key];
+                }
+            });
+
+            document.getElementById('about-text').innerText = translations[lang]['about_text'];
         }
+
+        setLanguage('ar');
     </script>
 </body>
 </html>
