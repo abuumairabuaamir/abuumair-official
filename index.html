@@ -11,8 +11,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
-        /* Strict Jameel Font Setup for Urdu */
+        /* Local Fonts Setup */
         @font-face { font-family: 'Jameel'; src: url('jameel.ttf'); }
+        @font-face { font-family: 'Amiri'; src: url('amiri.ttf'); }
 
         :root {
             --primary-green: #044b36;
@@ -37,8 +38,10 @@
             line-height: 1.8;
         }
 
+        /* Font Classes */
         .ar-font { font-family: 'Cairo', sans-serif; } 
         .ur-font { font-family: 'Jameel', serif !important; font-size: 1.35rem; line-height: 2.2; font-weight: normal; }
+        .amiri-font { font-family: 'Amiri', serif !important; font-size: 1.3rem; line-height: 2.2; font-weight: normal; }
 
         /* Slim & Fixed Navbar */
         nav {
@@ -179,14 +182,29 @@
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* FIXED EQUAL HEIGHT (No Overlap) */
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 25px;
             text-align: right;
+            align-items: stretch;
+            margin-bottom: 40px; 
+        }
+        
+        .grid-2 .section-wrapper {
+            display: flex;
+            flex-direction: column;
         }
 
-        .info-list { list-style: none; }
+        .grid-2 .card {
+            flex-grow: 1; 
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .info-list { list-style: none; width: 100%; }
         .info-list li {
             padding: 15px 0;
             border-bottom: 1px solid #f1f5f9;
@@ -241,33 +259,22 @@
             font-size: 0.95rem;
         }
         
-        /* =========================================
-           MOBILE VIEW FIXES (No Photo Overlap)
-           ========================================= */
         @media (max-width: 768px) {
-            /* Slim Header padding & setup */
-            nav { padding: 8px 15px; flex-direction: column; gap: 5px; }
+            nav { padding: 8px 10px; flex-direction: column; gap: 6px; }
             .nav-brand { font-size: 1.2rem; }
-            
-            /* Horizontal Scroll for links to keep navbar single-line thin */
             .nav-links { 
                 width: 100%;
                 justify-content: center;
                 flex-wrap: nowrap;
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                padding-bottom: 5px;
+                gap: 4px; 
             }
-            /* Hide scrollbar for clean look */
-            .nav-links::-webkit-scrollbar { display: none; }
-            .nav-links { -ms-overflow-style: none; scrollbar-width: none; }
+            .nav-btn { 
+                font-size: 0.75rem; 
+                padding: 4px 8px; 
+                white-space: nowrap; 
+            }
             
-            /* Smaller buttons on mobile */
-            .nav-btn { font-size: 0.85rem; padding: 4px 12px; white-space: nowrap; }
-            
-            /* Pushing hero down so the fixed header doesn't cover the photo */
-            .hero { padding: 130px 20px 40px; } 
-            
+            .hero { padding: 110px 15px 40px; } 
             .hero h1 { font-size: 2.2rem; }
             .hero-badges { flex-direction: column; align-items: center; gap: 10px; }
             
@@ -281,7 +288,6 @@
 </head>
 <body>
 
-    <!-- Professional Slim Freezed Nav Header -->
     <nav>
         <a href="#" class="nav-brand ar-font">
             <i class="fas fa-leaf"></i> أبو عمير
@@ -295,7 +301,6 @@
         </div>
     </nav>
 
-    <!-- Professional Hero Section -->
     <header class="hero">
         <div class="hero-img-box">
             <img src="assets/photo.jpeg" alt="Abu Umair Profile">
@@ -311,7 +316,6 @@
 
     <div class="container">
         
-        <!-- About Section -->
         <div id="about" class="section-wrapper">
             <div class="section-header">
                 About Me <span class="ar ar-font">| من أنا</span>
@@ -323,7 +327,7 @@
                     <button class="tab-btn" onclick="openTab(event, 'English')">English</button>
                 </div>
 
-                <div id="Arabic" class="tab-content active ar-font" style="direction: rtl;">
+                <div id="Arabic" class="tab-content active amiri-font" style="direction: rtl;">
                     أنا أبو عمير أبو عامر الهندي، خريج كلية الحديث الشريف والدراسات الإسلامية بالجامعة الإسلامية بالمدينة المنورة بتقدير "ممتاز" لعام 2022م. أعمل حالياً مدرساً للغة العربية والمواد الإسلامية في مدرسة العلم العالمية ببهتكل، كرناتكا. أهتم بكتابة المقالات باللغتين العربية والأردية، وإلقاء الخطب والدروس العلمية، بالإضافة إلى تطوير التطبيقات الإسلامية التقنية لخدمة طلاب العلم.
                 </div>
 
@@ -338,7 +342,6 @@
         </div>
 
         <div class="grid-2">
-            <!-- Education Section -->
             <div id="education" class="section-wrapper">
                 <div class="section-header">
                     Education <span class="ar ar-font">| المؤهلات</span>
@@ -373,7 +376,6 @@
                 </div>
             </div>
 
-            <!-- Skills Section -->
             <div id="skills" class="section-wrapper">
                 <div class="section-header">
                     Skills <span class="ar ar-font">| المهارات</span>
@@ -392,16 +394,20 @@
                             <div class="info-label">تطوير تطبيقات الأندرويد</div>
                             <i class="fab fa-android" style="color:var(--gold); font-size:1.1rem;"></i>
                         </li>
+                        <!-- Nayi Skills Yahan Add Ki Gayi Hain -->
                         <li>
-                            <div class="info-label">البحث في المكتبة الشاملة</div>
+                            <div class="info-label">المكتبة الشاملة وجامع خادم الحرمين</div>
                             <i class="fas fa-book-reader" style="color:var(--gold); font-size:1.1rem;"></i>
+                        </li>
+                        <li>
+                            <div class="info-label">إتقان برامج الأوفيس (وورد، إكسل)</div>
+                            <i class="fab fa-microsoft" style="color:var(--gold); font-size:1.1rem;"></i>
                         </li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <!-- Projects / Apps Section -->
         <div id="projects" class="section-wrapper">
             <div class="section-header">
                 Digital Projects <span class="ar ar-font">| المشاريع الرقمية</span>
@@ -429,7 +435,6 @@
             </div>
         </div>
 
-        <!-- Contact Section -->
         <div id="contact" class="section-wrapper">
             <div class="section-header">
                 Get in Touch <span class="ar ar-font">| تواصل معي</span>
