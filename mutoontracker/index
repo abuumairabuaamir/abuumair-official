@@ -9,7 +9,7 @@
         /* --- 1. FONT SETUP --- */
         @font-face { 
             font-family: 'AmiriLocal'; 
-            src: url('Amiri.ttf'); 
+            src: url('amiri.ttf'); 
         }
         
         @font-face { 
