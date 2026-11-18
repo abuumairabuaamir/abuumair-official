@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Mutoon Tracker</title>
+    
+    <style>
+        /* --- 1. FONT SETUP --- */
+        @font-face { 
+            font-family: 'AmiriLocal'; 
+            src: url('Amiri.ttf'); 
+        }
+        
+        @font-face { 
+            font-family: 'JameelLocal'; 
+            src: url('jameel.ttf'); 
+        }
+        
+        /* --- GLOBAL RULES (Sab par lagu honge) --- */
+        * {
+            /* Button aur Input ko bhi Body ka font lene par majboor karein */
+            font-family: inherit; 
+            font-weight: normal !important; /* Bold bilkul band */
+            -webkit-tap-highlight-color: transparent;
+            box-sizing: border-box;
+        }
+
+        body { 
+            /* Default Font (JS ise change karega) */
+            font-family: 'JameelLocal', sans-serif; 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            padding-bottom: 80px; 
+            user-select: none; 
+            transition: all 0.3s ease; 
+        }
+
+        /* Bold tags ko bas size bada karein */
+        b, strong, h1, h2, h3, h4, h5, h6 { 
+            font-weight: normal !important; 
+        }
+
+        /* --- ICONS --- */
+        .icon { width: 24px; height: 24px; fill: currentColor; pointer-events: none; vertical-align: middle; }
+        .icon-lg { width: 32px; height: 32px; fill: currentColor; pointer-events: none; }
+        .icon-teal { fill: #00796b; }
+        .icon-edit { fill: #fbc02d; } 
+        .icon-trash { fill: #ef5350; } 
+        .icon-white { fill: white; }
+        .icon-grey { fill: #ccc; }
+        .icon-green { fill: #25D366; } 
+        .icon-blue { fill: #1976D2; }
+        .icon-gold { fill: #FFD700; }
+        .icon-orange { fill: #f57c00; }
+
+        /* --- HEADER --- */
+        .header { 
+            background-color: #00796b; color: white; 
+            padding-top: calc(15px + env(safe-area-inset-top)); padding-bottom: 15px; padding-left: 15px; padding-right: 15px;
+            text-align: center; font-size: 1.6rem; /* Header Size Bada */
+            position: sticky; top: 0; z-index: 100; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2); display: flex; align-items: center; justify-content: space-between; 
+        }
+        .header-title { flex-grow: 1; text-align: center; }
+        .back-btn-area { width: 50px; height: 50px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+
+        /* --- WELCOME SCREEN --- */
+        #welcomeScreen { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: linear-gradient(135deg, #004d40, #00796b); 
+            z-index: 3000; 
+            display: flex; flex-direction: column; 
+            align-items: center; justify-content: center; 
+            text-align: center; color: white; padding: 20px;
+        }
+        .logo-container { 
+            width: 100px; height: 100px; background: rgba(255,255,255,0.1); 
+            border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.2); animation: float 3s ease-in-out infinite; 
+        }
+        @keyframes float { 0% {transform: translateY(0px);} 50% {transform: translateY(-10px);} 100% {transform: translateY(0px);} }
+
+        /* LANGUAGE SELECTOR */
+        .lang-select {
+            margin-bottom: 20px; padding: 8px; border-radius: 20px; border: 1px solid white;
+            background: rgba(255,255,255,0.2); color: white; 
+            font-size: 1.2rem; /* Size fix */
+            outline: none; text-align: center; cursor: pointer;
+        }
+        .lang-select option { background: #004d40; color: white; }
+
+        .enter-btn { 
+            background: white; color: #004d40; padding: 12px 40px; 
+            border-radius: 30px; font-size: 1.5rem; /* Bismillah Button Size */
+            border: none; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2); cursor: pointer; margin-top: 20px; 
+            display: flex; align-items: center; gap: 10px; 
+        }
+
+        /* --- LISTS --- */
+        #gradesContainer, #studentsListContainer, #historyContainer, #infoContainer { padding: 10px; }
+        .grade-card, .student-card, .info-card { 
+            background: white; margin-bottom: 15px; padding: 15px; border-radius: 10px; 
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 6px solid #00796b; 
+            display: flex; justify-content: space-between; align-items: center;
+        }
+        
+        /* RTL Fixes */
+        body[dir="rtl"] .grade-card, body[dir="rtl"] .student-card { border-left: none; border-right: 6px solid #00796b; }
+        body[dir="rtl"] .icon-right-arrow { transform: rotate(180deg); }
+
+        .grade-actions { display: flex; gap: 10px; align-items: center; }
+        .action-btn { 
+            width: 45px; height: 45px; border-radius: 50%; background: #f9f9f9; 
+            cursor: pointer; display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        .action-btn:active { background: #eee; transform: scale(0.95); }
+
+        /* Card Text Sizes */
+        .card-title { font-size: 1.4rem; margin-bottom: 4px; color: #000; }
+        .card-subtitle { font-size: 1.1rem; color: #666; }
+
+        /* --- HISTORY --- */
+        .profile-header { text-align: center; padding: 20px 0; background: white; margin-bottom: 10px; border-bottom: 1px solid #eee; }
+        .profile-name { font-size: 2rem; color: #00796b; }
+        
+        /* Add Record Button Font Fix */
+        .add-record-btn { 
+            background: #00796b; color: white; width: 90%; margin: 10px auto; 
+            display: flex; align-items: center; justify-content: center; gap: 8px; 
+            padding: 15px; border: none; border-radius: 8px; 
+            font-size: 1.4rem; /* Bada Size */
+            cursor: pointer; 
+        }
+        
+        .history-item { border-left: 4px solid #ccc; padding: 10px 15px; background: white; margin-bottom: 10px; border-radius: 4px; position: relative; box-shadow: 0 1px 2px rgba(0,0,0,0.05); }
+        body[dir="rtl"] .history-item { border-left: none; border-right: 4px solid #ccc; }
+        
+        .history-date { font-size: 1.1rem; }
+        .history-quality { font-size: 1.1rem; color: #555; }
+
+        .del-entry { position: absolute; right: 0; top: 0; padding: 15px; cursor: pointer; z-index: 10; }
+        body[dir="rtl"] .del-entry { right: auto; left: 0; }
+        
+        .sync-status { font-size: 0.9rem; color: #999; margin-top: 5px; font-style: italic; }
+
+        /* --- INFO --- */
+        .info-card { display: block; border-left-color: #ffca28; }
+        .info-card h3 { font-size: 1.5rem; color: #00796b; margin-top: 0; margin-bottom: 10px; }
+        .info-card p { font-size: 1.1rem; }
+        body[dir="rtl"] .info-card { border-left: none; border-right-color: #ffca28; }
+        .info-link { display: flex; align-items: center; gap: 10px; color: #00796b; text-decoration: none; font-size: 1.3rem; margin-top: 5px; padding: 12px; background: #e0f2f1; border-radius: 5px; cursor: pointer; }
+        
+        /* --- FAB --- */
+        .fab { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; background: #ffca28; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(0,0,0,0.4); cursor: pointer; z-index: 200; }
+        body[dir="rtl"] .fab { right: auto; left: 30px; }
+
+        /* --- MODALS --- */
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); align-items: center; justify-content: center; z-index: 2500; }
+        .modal-content { background: white; padding: 25px; width: 85%; border-radius: 12px; animation: popIn 0.2s; }
+        @keyframes popIn { from {transform: scale(0.8);} to {transform: scale(1);} }
+        
+        .modal-content h3 { font-size: 1.6rem; margin-top: 0; color: #00796b; }
+        label { font-size: 1.2rem; display: block; margin-top: 10px; margin-bottom: 5px; }
+        
+        /* INPUTS & SELECTS Font Fix */
+        input, select { 
+            width: 100%; padding: 12px; margin: 0 0 15px 0; 
+            border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; 
+            font-size: 1.3rem; /* Input text size */
+        }
+        
+        .btn-save { width: 100%; padding: 12px; background: #00796b; color: white; border: none; border-radius: 6px; font-size: 1.4rem; }
+        .btn-cancel { width: 100%; padding: 10px; background: transparent; color: #666; border: none; margin-top: 10px; font-size: 1.2rem; }
+        .btn-danger { width: 100%; padding: 12px; background: #ef5350; color: white; border: none; border-radius: 6px; font-size: 1.4rem; margin-bottom: 10px; }
+
+        /* Badges */
+        .b-mumtaz { border-left-color: #2e7d32; background: #e8f5e9; }
+        .b-jayyid { border-left-color: #ff9800; background: #fff3e0; }
+        .b-weak { border-left-color: #ef5350; background: #ffebee; }
+        .b-absent { border-left-color: #37474f; background: #eceff1; }
+    </style>
+</head>
+<body dir="ltr">
+
+    <svg style="display: none;">
+        <symbol id="icon-madina-logo" viewBox="0 0 100 100">
+            <path d="M50 15 C30 15, 15 35, 15 50 L15 60 L85 60 L85 50 C85 35, 70 15, 50 15 Z" fill="#4caf50"/> 
+            <path d="M50 10 L50 15" stroke="#ffca28" stroke-width="3"/>
+            <circle cx="50" cy="8" r="3" fill="#ffca28"/>
+            <path d="M15 65 L48 65 L50 70 L52 65 L85 65 L85 85 L52 85 L50 90 L48 85 L15 85 Z" fill="#ffca28"/>
+            <path d="M18 68 L45 68 M55 68 L82 68" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+        </symbol>
+        <symbol id="icon-back" viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></symbol>
+        <symbol id="icon-plus" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></symbol>
+        <symbol id="icon-edit" viewBox="0 0 24 24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></symbol>
+        <symbol id="icon-trash" viewBox="0 0 24 24"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></symbol>
+        <symbol id="icon-right" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></symbol>
+        <symbol id="icon-info" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></symbol>
+        <symbol id="icon-shield" viewBox="0 0 24 24"><path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8z"/></symbol>
+        <symbol id="icon-share" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></symbol>
+        <symbol id="icon-whatsapp" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
+        <symbol id="icon-card" viewBox="0 0 24 24"><path d="M20 4H4c-1.11 0-1.99.89-1.99 2L2 18c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V6c0-1.11-.89-2-2-2zm0 14H4v-6h16v6zm0-10H4V6h16v2z"/></symbol>
+    </svg>
+
+    <div id="welcomeScreen">
+        <div class="logo-container"><svg style="width: 80px; height: 80px;"><use href="#icon-madina-logo"></use></svg></div>
+        
+        <select class="lang-select" id="langSelector" onchange="changeLanguage()">
+            <option value="en">English</option>
+            <option value="ur">اردو (Urdu)</option>
+            <option value="ar">العربية (Arabic)</option>
+        </select>
+
+        <div style="font-family: 'AmiriLocal', serif; font-size: 2.2rem; margin-bottom: 15px; font-weight: normal !important;">خَيْرُكُمْ مَنْ تَعَلَّمَ الْقُرْآنَ وَعَلَّمَهُ</div>
+        
+        <div id="welcomeHadith" style="font-size: 1.4rem; opacity: 0.9; padding: 0 20px;">"Tum mein se behtareen wo hai jo Quran seekhe aur sikhaye."</div>
+        
+        <button class="enter-btn" onclick="enterApp()">
+            <span data-key="start">Bismillah</span> 
+            <svg class="icon icon-teal icon-right-arrow"><use href="#icon-right"></use></svg>
+        </button>
+    </div>
+
+    <div id="view-grades" style="display: none;">
+        <div class="header">
+            <div class="back-btn-area" onclick="navigateTo('info')"><svg class="icon icon-white"><use href="#icon-info"></use></svg></div>
+            <span class="header-title" data-key="appTitle">Mutoon Tracker</span>
+            <div style="width:50px;"></div>
+        </div>
+        <div id="gradesContainer"></div>
+        <div class="fab" onclick="openEditGradeModal()"><svg class="icon-lg"><use href="#icon-plus"></use></svg></div>
+    </div>
+
+    <div id="view-students" style="display: none;">
+        <div class="header">
+            <div class="back-btn-area" onclick="handleBack()"><svg class="icon icon-white icon-right-arrow" style="transform: rotate(180deg);"><use href="#icon-back"></use></svg></div>
+            <span class="header-title" id="headerGradeName">Grade</span><div style="width:50px;"></div>
+        </div>
+        <div id="studentsListContainer"></div>
+        <div class="fab" onclick="openEditStudentModal()"><svg class="icon-lg"><use href="#icon-plus"></use></svg></div>
+    </div>
+
+    <div id="view-history" style="display: none;">
+        <div class="header">
+            <div class="back-btn-area" onclick="handleBack()"><svg class="icon icon-white icon-right-arrow" style="transform: rotate(180deg);"><use href="#icon-back"></use></svg></div>
+            <span class="header-title" data-key="historyTitle">Student History</span><div style="width:50px;"></div>
+        </div>
+        <div class="profile-header">
+            <h2 id="profileName" class="profile-name">Name</h2>
+            <div id="profileAge" style="color:#666; font-size:1.1rem;">Age</div>
+        </div>
+        <button class="add-record-btn" onclick="openReportModal()">
+            <svg class="icon icon-white"><use href="#icon-edit"></use></svg> <span data-key="addRecord">Add Record</span>
+        </button>
+        <div id="historyContainer"></div>
+    </div>
+
+    <div id="view-info" style="display: none;">
+        <div class="header">
+            <div class="back-btn-area" onclick="handleBack()"><svg class="icon icon-white icon-right-arrow" style="transform: rotate(180deg);"><use href="#icon-back"></use></svg></div>
+            <span class="header-title" data-key="aboutApp">About App</span><div style="width:50px;"></div>
+        </div>
+        <div id="infoContainer">
+            <div class="logo-container" style="width:80px; height:80px; margin: 20px auto; background:#00796b;"><svg style="width: 50px; height: 50px;"><use href="#icon-madina-logo"></use></svg></div>
+            
+            <div class="info-card" style="border-left-color: #ffd700;">
+                <h3 style="color:#f57f17;" data-key="supportUs">Support Us</h3>
+                <p data-key="supportText">Ye App sadqa-e-jariya hai. Agar aap is project ko jari rakhne mein madad karna chahte hain, to neeche click karein:</p>
+                <div onclick="openDonationLink()" class="info-link" style="background:#fff8e1; color:#f57f17; border: 1px solid #ffd54f;">
+                    <svg class="icon icon-orange"><use href="#icon-card"></use></svg> <span data-key="donateBtn">Support Us (Razorpay)</span>
+                </div>
+                <div onclick="shareApp()" class="info-link" style="background:#e0f7fa; color:#006064; margin-top:10px;">
+                    <svg class="icon icon-teal"><use href="#icon-share"></use></svg> <span data-key="shareBtn">Share App</span>
+                </div>
+            </div>
+
+            <div class="info-card">
+                <h3 data-key="privacy">Privacy Policy</h3>
+                <a href="https://sites.google.com/view/mutoontracker/home" target="_blank" class="info-link">
+                    <svg class="icon icon-teal"><use href="#icon-shield"></use></svg> <span data-key="privacyLink">Privacy Policy Website</span>
+                </a>
+            </div>
+            
+            <div class="info-card">
+                <h3>Developer Info</h3>
+                <p><strong>Developed by:</strong> Abu Umair Abu Aamir</p>
+                <a href="https://wa.me/919889371280" target="_blank" class="info-link" style="color:#25D366; background:#e8f5e9;">
+                    <svg class="icon icon-green"><use href="#icon-whatsapp"></use></svg> WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="deleteConfirmModal">
+        <div class="modal-content">
+            <h3 style="color:#ef5350" data-key="deleteTitle">Delete?</h3>
+            <p id="deleteMsg">Confirm?</p>
+            <button class="btn-danger" id="confirmDeleteBtn" data-key="yesDelete">Yes, Delete</button>
+            <button class="btn-cancel" onclick="closeModal('deleteConfirmModal')" data-key="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <div class="modal" id="gradeModal">
+        <div class="modal-content">
+            <h3 id="gradeModalTitle" data-key="newGrade">New Grade</h3>
+            <input type="hidden" id="gradeIdInput">
+            <label data-key="gradeName">Grade Name:</label>
+            <input type="text" id="gradeNameInput">
+            <button class="btn-save" onclick="saveGrade()" data-key="save">Save</button>
+            <button class="btn-cancel" onclick="closeModal('gradeModal')" data-key="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <div class="modal" id="studentModal">
+        <div class="modal-content">
+            <h3 id="stModalTitle" data-key="newStudent">New Student</h3>
+            <input type="hidden" id="stIdInput">
+            <input type="text" id="stNameInput" placeholder="">
+            <input type="number" id="stAgeInput" placeholder="">
+            <button class="btn-save" onclick="saveStudent()" data-key="save">Save</button>
+            <button class="btn-cancel" onclick="closeModal('studentModal')" data-key="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <div class="modal" id="reportModal">
+        <div class="modal-content">
+            <h3 data-key="newRecord">New Record</h3>
+            <label data-key="teacherName">Teacher Name:</label><input type="text" id="teacherName">
+            <label data-key="date">Date:</label><input type="date" id="repDate">
+            <label data-key="subject">Subject:</label><input type="text" id="repSubject">
+            <label data-key="lesson">Lesson:</label><input type="text" id="repLesson">
+            <label data-key="quality">Quality:</label>
+            <select id="repQuality">
+                <option value="Mumtaz">Mumtaz (Excellent)</option>
+                <option value="Jayyid">Jayyid (Good)</option>
+                <option value="Weak">Weak</option>
+                <option value="Absent">Absent</option>
+            </select>
+            <button class="btn-save" onclick="saveReport()" data-key="save">Save</button>
+            <button class="btn-cancel" onclick="closeModal('reportModal')" data-key="cancel">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxGQUzEpd8holjlB04JGRMNlR3JMaC9mC1gqO2EhHFZSJwIo1xq-nNqBiNTGMqwuCEjTQ/exec"; 
+        const RAZORPAY_LINK = "https://razorpay.me/@islamicapp";
+
+        // --- TRANSLATION DATA ---
+        const i18n = {
+            en: {
+                appTitle: "Mutoon Tracker", start: "Bismillah",
+                historyTitle: "Student History", addRecord: "Add Record", aboutApp: "About App",
+                supportUs: "Support Us", supportText: "This app is Sadqa-e-Jariya. Support us to keep it running:",
+                donateBtn: "Support Us (Razorpay)", shareBtn: "Share App", privacy: "Privacy Policy",
+                privacyLink: "Privacy Policy Website", deleteTitle: "Delete?", yesDelete: "Yes, Delete",
+                cancel: "Cancel", newGrade: "New Grade", editGrade: "Edit Grade", gradeName: "Grade Name:",
+                save: "Save", newStudent: "New Student", editStudent: "Edit Student",
+                teacherName: "Teacher Name:", date: "Date:", subject: "Book/Subject:", lesson: "Lesson:", quality: "Quality:",
+                newRecord: "New Record",
+                welcomeMsg: "\"The best among you is the one who learns the Quran and teaches it.\"",
+                studentsCount: "Students", newStudentStatus: "New Student",
+                delGradeMsg: "Deleting grade will delete all students. Confirm?",
+                delStMsg: "Delete student and all records?",
+                delRecMsg: "Delete record from App?",
+                enterName: "Enter Name", enterAge: "Enter Age", enterGName: "Enter Grade Name",
+                q_mumtaz: "Mumtaz", q_jayyid: "Jayyid", q_weak: "Weak", q_absent: "Absent"
+            },
+            ur: {
+                appTitle: "متون ٹریکر", start: "بسم اللہ",
+                historyTitle: "طالب علم کا ریکارڈ", addRecord: "ریکارڈ جوڑیں", aboutApp: "ایپ کے بارے میں",
+                supportUs: "تعاون کریں", supportText: "یہ ایپ صدقہ جاریہ ہے۔ اس پروجیکٹ کو جاری رکھنے کے لیے مدد کریں:",
+                donateBtn: "تعاون کریں (Razorpay)", shareBtn: "ایپ شیئر کریں", privacy: "پرائیویسی پالیسی",
+                privacyLink: "ویب سائٹ دیکھیں", deleteTitle: "ڈیلیٹ کریں؟", yesDelete: "ہاں، ڈیلیٹ",
+                cancel: "کینسل", newGrade: "نیا درجہ / کلاس", editGrade: "درجہ تبدیل کریں", gradeName: "درجہ کا نام:",
+                save: "محفوظ کریں", newStudent: "نیا طالب علم", editStudent: "طالب علم تبدیل",
+                teacherName: "استاد کا نام:", date: "تاریخ:", subject: "کتاب / مضمون:", lesson: "سبق:", quality: "کیفیت:",
+                newRecord: "نیا سبق",
+                welcomeMsg: "\"تم میں سے بہترین وہ ہے جو قرآن سیکھے اور سکھائے۔\"",
+                studentsCount: "طلباء", newStudentStatus: "نیا طالب علم",
+                delGradeMsg: "درجہ ڈیلیٹ کرنے سے تمام طلباء بھی ڈیلیٹ ہو جائیں گے۔",
+                delStMsg: "طالب علم اور سارا ریکارڈ ڈیلیٹ ہو جائے گا۔",
+                delRecMsg: "ریکارڈ ایپ سے ڈیلیٹ کریں؟",
+                enterName: "نام لکھیں", enterAge: "عمر لکھیں", enterGName: "درجہ کا نام لکھیں",
+                q_mumtaz: " ممتاز ", q_jayyid: " جید ", q_weak: " کمزور ", q_absent: " غیر حاضر "
+            },
+            ar: {
+                appTitle: "متابع المتون", start: "بسم الله",
+                historyTitle: "سجل الطالب", addRecord: "إضافة سجل", aboutApp: "عن التطبيق",
+                supportUs: "ادعمنا", supportText: "هذا التطبيق صدقة جارية. ساهم في استمراره:",
+                donateBtn: "تبرع (Razorpay)", shareBtn: "مشاركة التطبيق", privacy: "سياسة الخصوصية",
+                privacyLink: "زيارة الموقع", deleteTitle: "حذف؟", yesDelete: "نعم، حذف",
+                cancel: "إلغاء", newGrade: "صف جديد", editGrade: "تعديل الصف", gradeName: "اسم الصف:",
+                save: "حفظ", newStudent: "طالب جديد", editStudent: "تعديل الطالب",
+                teacherName: "اسم المعلم:", date: "التاريخ:", subject: "الكتاب/المادة:", lesson: "الدرس:", quality: "التقدير:",
+                newRecord: "تسجيل جديد",
+                // Translation EMPTY for Arabic
+                welcomeMsg: "", 
+                studentsCount: "طلاب", newStudentStatus: "طالب جديد",
+                delGradeMsg: "حذف الصف سيؤدي لحذف جميع الطلاب.",
+                delStMsg: "حذف الطالب وجميع سجلاته؟",
+                delRecMsg: "حذف السجل من التطبيق؟",
+                enterName: "أدخل الاسم", enterAge: "أدخل العمر", enterGName: "أدخل اسم الصف",
+                q_mumtaz: " ممتاز ", q_jayyid: " جيد ", q_weak: " ضعيف ", q_absent: " غائب "
+            }
+        };
+
+        let currentLang = localStorage.getItem('m_lang') || 'en';
+
+        // --- DATA ---
+        let grades = JSON.parse(localStorage.getItem('m_grades')) || [{id: 'g1', name: 'Hifz Class'}];
+        let students = JSON.parse(localStorage.getItem('m_students')) || [];
+
+        let currentView = 'welcome';
+        let activeGradeId = null;
+        let activeStudentId = null;
+        let deleteType = null; let deleteTargetId = null;
+
+        document.getElementById('repDate').valueAsDate = new Date();
+        const savedTeacher = localStorage.getItem('m_teacher_name');
+        if(savedTeacher) document.getElementById('teacherName').value = savedTeacher;
+
+        // Apply Language on Load
+        document.getElementById('langSelector').value = currentLang;
+        applyLanguage(currentLang);
+
+        // --- LANGUAGE LOGIC (WITH FONT SWITCH & HIDE TRANSLATION) ---
+        function changeLanguage() {
+            const lang = document.getElementById('langSelector').value;
+            currentLang = lang;
+            localStorage.setItem('m_lang', lang);
+            applyLanguage(lang);
+        }
+
+        function applyLanguage(lang) {
+            // 1. Set Direction & Font
+            if(lang === 'ur' || lang === 'en') {
+                document.body.style.fontFamily = "'JameelLocal', sans-serif";
+                document.body.setAttribute('dir', lang === 'ur' ? 'rtl' : 'ltr');
+                document.getElementById('welcomeHadith').style.display = 'block'; // Show Trans
+            } else if(lang === 'ar') {
+                document.body.style.fontFamily = "'AmiriLocal', serif";
+                document.body.setAttribute('dir', 'rtl');
+                document.getElementById('welcomeHadith').style.display = 'none'; // Hide Trans
+            }
+
+            // 2. Update Static Text
+            document.querySelectorAll('[data-key]').forEach(el => {
+                const key = el.getAttribute('data-key');
+                if(i18n[lang][key]) el.innerText = i18n[lang][key];
+            });
+
+            // 3. Update Dynamic Placeholders
+            document.getElementById('welcomeHadith').innerText = i18n[lang].welcomeMsg;
+            document.getElementById('stNameInput').placeholder = i18n[lang].enterName;
+            document.getElementById('stAgeInput').placeholder = i18n[lang].enterAge;
+            document.getElementById('gradeNameInput').placeholder = i18n[lang].enterGName;
+            document.getElementById('teacherName').placeholder = i18n[lang].enterName;
+
+            // 4. Update Select Options (Quality)
+            const qOpts = document.getElementById('repQuality').options;
+            qOpts[0].text = i18n[lang].q_mumtaz;
+            qOpts[1].text = i18n[lang].q_jayyid;
+            qOpts[2].text = i18n[lang].q_weak;
+            qOpts[3].text = i18n[lang].q_absent;
+
+            // Re-render lists to update text there
+            if(currentView === 'grades') renderGrades();
+            if(currentView === 'students') renderStudents();
+            if(currentView === 'history') renderHistory();
+        }
+
+        // --- NAV ---
+        function enterApp() { navigateTo('grades'); }
+
+        function navigateTo(viewName, data = null, addHistory = true) {
+            document.querySelectorAll('[id^="view-"]').forEach(el => el.style.display = 'none');
+            document.getElementById('welcomeScreen').style.display = 'none';
+
+            if(viewName === 'grades') {
+                document.getElementById('view-grades').style.display = 'block';
+                renderGrades();
+                if(addHistory) history.pushState({page: 'grades'}, "Grades", "#grades");
+            } 
+            else if(viewName === 'students') {
+                document.getElementById('view-students').style.display = 'block';
+                activeGradeId = data;
+                const g = grades.find(x => x.id === activeGradeId);
+                document.getElementById('headerGradeName').innerText = g ? g.name : i18n[currentLang].studentsCount;
+                renderStudents();
+                if(addHistory) history.pushState({page: 'students', id: data}, "Students", "#students");
+            } 
+            else if(viewName === 'history') {
+                document.getElementById('view-history').style.display = 'block';
+                activeStudentId = data;
+                renderHistory();
+                if(addHistory) history.pushState({page: 'history', id: data}, "History", "#history");
+            }
+            else if(viewName === 'info') {
+                document.getElementById('view-info').style.display = 'block';
+                if(addHistory) history.pushState({page: 'info'}, "About", "#info");
+            }
+            currentView = viewName;
+        }
+
+        window.onpopstate = function(event) {
+            if (event.state) {
+                if(event.state.page === 'grades') navigateTo('grades', null, false);
+                else if(event.state.page === 'students') navigateTo('students', event.state.id, false);
+                else if(event.state.page === 'history') navigateTo('history', event.state.id, false);
+                else if(event.state.page === 'info') navigateTo('info', null, false);
+            } else {
+                document.querySelectorAll('[id^="view-"]').forEach(el => el.style.display = 'none');
+                document.getElementById('welcomeScreen').style.display = 'flex';
+                currentView = 'welcome';
+            }
+        };
+        function handleBack() { window.history.back(); }
+
+        // --- RENDERERS ---
+        function renderGrades() {
+            const container = document.getElementById('gradesContainer');
+            container.innerHTML = '';
+            grades.forEach(g => {
+                const count = students.filter(s => s.gradeId === g.id).length;
+                container.innerHTML += `
+                    <div class="grade-card">
+                        <div style="flex-grow:1" onclick="navigateTo('students', '${g.id}')">
+                            <div class="card-title">${g.name}</div>
+                            <div class="card-subtitle">${count} ${i18n[currentLang].studentsCount}</div>
+                        </div>
+                        <div class="grade-actions">
+                            <div class="action-btn" onclick="openEditGradeModal(event, '${g.id}')"><svg class="icon icon-edit"><use href="#icon-edit"></use></svg></div>
+                            <div class="action-btn" onclick="askDelete(event, 'grade', '${g.id}')"><svg class="icon icon-trash"><use href="#icon-trash"></use></svg></div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function renderStudents() {
+            const container = document.getElementById('studentsListContainer');
+            container.innerHTML = '';
+            const list = students.filter(s => s.gradeId === activeGradeId);
+            list.forEach(s => {
+                const last = s.history && s.history.length > 0 ? s.history[0] : null;
+                const status = last ? `${last.date}: ${last.lesson}` : i18n[currentLang].newStudentStatus;
+                container.innerHTML += `
+                    <div class="student-card">
+                        <div style="flex-grow:1" onclick="navigateTo('history', '${s.id}')">
+                            <div class="card-title">${s.name}</div>
+                            <div class="card-subtitle">${status}</div>
+                        </div>
+                        <div class="grade-actions">
+                            <div class="action-btn" onclick="openEditStudentModal(event, '${s.id}')"><svg class="icon icon-edit"><use href="#icon-edit"></use></svg></div>
+                            <div class="action-btn" onclick="askDelete(event, 'student', '${s.id}')"><svg class="icon icon-trash"><use href="#icon-trash"></use></svg></div>
+                        </div>
+                    </div>`;
+            });
+        }
+
+        function renderHistory() {
+            const s = students.find(x => x.id === activeStudentId);
+            document.getElementById('profileName').innerText = s.name;
+            document.getElementById('profileAge').innerText = s.age ? s.age : '';
+            const container = document.getElementById('historyContainer');
+            container.innerHTML = '';
+            
+            s.history.forEach((h, idx) => {
+                let cls = 'b-mumtaz', txt = i18n[currentLang].q_mumtaz;
+                if(h.quality === 'Jayyid') { cls = 'b-jayyid'; txt = i18n[currentLang].q_jayyid; }
+                if(h.quality === 'Weak') { cls = 'b-weak'; txt = i18n[currentLang].q_weak; }
+                if(h.quality === 'Absent') { cls = 'b-absent'; txt = i18n[currentLang].q_absent; }
+                let syncIcon = h.synced ? '✅' : '☁️';
+                
+                container.innerHTML += `
+                    <div class="history-item ${cls}">
+                        <div class="history-date">${h.date}</div>
+                        <div style="color:#00796b; font-size:1.1rem;">${h.subject || ''}</div>
+                        <div style="font-size:1.4rem; margin:2px 0;">${h.lesson}</div>
+                        <div class="history-quality">${txt}</div>
+                        <div class="sync-status">${syncIcon}</div>
+                        <div class="del-entry" onclick="askDelete(event, 'history', ${idx})"><svg class="icon icon-trash"><use href="#icon-trash"></use></svg></div>
+                    </div>`;
+            });
+        }
+
+        // --- DELETE & MODALS ---
+        function askDelete(e, type, id) {
+            if(e) e.stopPropagation();
+            deleteType = type; deleteTargetId = id;
+            if(type === 'grade') document.getElementById('deleteMsg').innerText = i18n[currentLang].delGradeMsg;
+            else if (type === 'student') document.getElementById('deleteMsg').innerText = i18n[currentLang].delStMsg;
+            else document.getElementById('deleteMsg').innerText = i18n[currentLang].delRecMsg;
+            openModal('deleteConfirmModal');
+        }
+
+        document.getElementById('confirmDeleteBtn').onclick = function() {
+            if(deleteType === 'grade') {
+                grades = grades.filter(x => x.id !== deleteTargetId);
+                students = students.filter(s => s.gradeId !== deleteTargetId);
+                localStorage.setItem('m_grades', JSON.stringify(grades));
+                localStorage.setItem('m_students', JSON.stringify(students));
+                renderGrades();
+            } else if (deleteType === 'student') {
+                students = students.filter(s => s.id !== deleteTargetId);
+                localStorage.setItem('m_students', JSON.stringify(students));
+                renderStudents();
+            } else if (deleteType === 'history') {
+                const s = students.find(x => x.id === activeStudentId);
+                s.history.splice(deleteTargetId, 1);
+                localStorage.setItem('m_students', JSON.stringify(students));
+                renderHistory();
+            }
+            closeModal('deleteConfirmModal');
+        };
+
+        function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+        function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+        
+        function openEditGradeModal(e, id = null) {
+            if(e) e.stopPropagation();
+            if(id) {
+                const g = grades.find(x => x.id === id);
+                document.getElementById('gradeIdInput').value = id;
+                document.getElementById('gradeNameInput').value = g.name;
+                document.getElementById('gradeModalTitle').innerText = i18n[currentLang].editGrade;
+            } else {
+                document.getElementById('gradeIdInput').value = "";
+                document.getElementById('gradeNameInput').value = "";
+                document.getElementById('gradeModalTitle').innerText = i18n[currentLang].newGrade;
+            }
+            openModal('gradeModal');
+        }
+
+        function openEditStudentModal(e, id = null) {
+            if(e) e.stopPropagation();
+            if(id) {
+                const s = students.find(x => x.id === id);
+                document.getElementById('stIdInput').value = id;
+                document.getElementById('stNameInput').value = s.name;
+                document.getElementById('stAgeInput').value = s.age;
+                document.getElementById('stModalTitle').innerText = i18n[currentLang].editStudent;
+            } else {
+                document.getElementById('stIdInput').value = "";
+                document.getElementById('stNameInput').value = "";
+                document.getElementById('stAgeInput').value = "";
+                document.getElementById('stModalTitle').innerText = i18n[currentLang].newStudent;
+            }
+            openModal('studentModal');
+        }
+
+        function saveGrade() {
+            const name = document.getElementById('gradeNameInput').value;
+            const id = document.getElementById('gradeIdInput').value;
+            if(!name) return;
+            if(id) { const idx = grades.findIndex(x => x.id === id); grades[idx].name = name; } 
+            else { grades.push({id: Date.now().toString(), name: name}); }
+            localStorage.setItem('m_grades', JSON.stringify(grades));
+            closeModal('gradeModal'); renderGrades();
+        }
+
+        function saveStudent() {
+            const name = document.getElementById('stNameInput').value;
+            const age = document.getElementById('stAgeInput').value;
+            const id = document.getElementById('stIdInput').value;
+            if(!name) return;
+            if(id) { const idx = students.findIndex(x => x.id === id); students[idx].name = name; students[idx].age = age; } 
+            else { students.push({ id: Date.now().toString(), name: name, age: age, gradeId: activeGradeId, history: [] }); }
+            localStorage.setItem('m_students', JSON.stringify(students));
+            document.getElementById('stNameInput').value = ''; document.getElementById('stAgeInput').value = '';
+            closeModal('studentModal'); renderStudents();
+        }
+
+        function openReportModal() { 
+            document.getElementById('repDate').valueAsDate = new Date();
+            openModal('reportModal');
+        }
+
+        function saveReport() {
+            const teacher = document.getElementById('teacherName').value;
+            if(!teacher) return;
+            localStorage.setItem('m_teacher_name', teacher);
+            const s = students.find(x => x.id === activeStudentId);
+            const gradeObj = grades.find(g => g.id === s.gradeId);
+            const newRecord = {
+                date: document.getElementById('repDate').value,
+                teacher: teacher,
+                student: s.name,
+                grade: gradeObj.name,
+                subject: document.getElementById('repSubject').value,
+                lesson: document.getElementById('repLesson').value,
+                quality: document.getElementById('repQuality').value,
+                synced: false
+            };
+            s.history.unshift(newRecord);
+            localStorage.setItem('m_students', JSON.stringify(students));
+            closeModal('reportModal'); renderHistory();
+            if(GOOGLE_SCRIPT_URL) {
+                fetch(GOOGLE_SCRIPT_URL, { method: "POST", mode: "no-cors", headers: { "Content-Type": "application/json" }, body: JSON.stringify(newRecord) })
+                .then(() => { s.history[0].synced = true; localStorage.setItem('m_students', JSON.stringify(students)); renderHistory(); })
+                .catch(err => console.log("Offline"));
+            }
+        }
+
+        function openDonationLink() { window.open(RAZORPAY_LINK, '_system'); }
+        function shareApp() {
+            const shareData = { title: 'Mutoon Tracker', text: 'Mutoon Tracker App:', url: 'https://play.google.com/store/apps/details?id=com.umair.mutoontracker' };
+            if (navigator.share) navigator.share(shareData).catch(console.error);
+            else window.open(`https://wa.me/?text=${encodeURIComponent(shareData.text + " " + shareData.url)}`);
+        }
+    </script>
+</body>
+</html>
