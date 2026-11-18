@@ -1,0 +1,321 @@
+:root {
+    /* Dark Theme Variables (Default) */
+    --bg-color: #121212;
+    --card-bg: #1e1e1e;
+    --primary-gold: #d4af37;
+    --text-light: #f5f5f5;
+    --text-muted: #aaaaaa;
+    --success-green: #2ecc71;
+    --border-color: #333333;
+    /* Islamic Pattern for Dark Mode */
+    --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4af37' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* Light Theme Variables */
+[data-theme="light"] {
+    --bg-color: #f7f3e8;
+    --card-bg: #ffffff;
+    --primary-gold: #b8860b; /* Thoda dark gold for white bg */
+    --text-light: #222222;
+    --text-muted: #666666;
+    --success-green: #27ae60;
+    --border-color: #dddddd;
+    /* Islamic Pattern for Light Mode */
+    --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23b8860b' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+}
+
+body {
+    font-family: 'Amiri', serif;
+    background-color: var(--bg-color);
+    background-image: var(--bg-pattern); /* Islamic Jalidar Pattern */
+    color: var(--text-light);
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+    background-color: var(--card-bg);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    border-bottom: 2px solid var(--primary-gold);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.header-titles {
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    color: var(--primary-gold);
+    font-size: 1.8rem;
+}
+
+header .subtitle {
+    margin: 5px 0 0 0; 
+    color: var(--text-muted); 
+    font-size: 0.9rem;
+}
+
+/* Theme Button */
+.theme-btn {
+    position: absolute;
+    left: 20px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    color: var(--text-light);
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--bg-color);
+    transition: all 0.3s;
+}
+
+.theme-btn:hover {
+    border-color: var(--primary-gold);
+}
+
+.container {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Views */
+#fehrist-view, #matn-view {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+#fehrist-view.active, #matn-view.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Fehrist (Book List) */
+.book-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.book-card:active {
+    transform: scale(0.98);
+}
+
+.book-title {
+    font-size: 1.5rem;
+    color: var(--primary-gold);
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.book-author {
+    color: var(--text-muted);
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+/* Progress Bar */
+.progress-bg {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    height: 10px;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress-fill {
+    background: var(--primary-gold);
+    height: 100%;
+    width: 0%;
+    transition: width 0.3s, background-color 0.3s;
+}
+
+.progress-text {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+    text-align: left;
+    direction: ltr;
+}
+
+/* Matn View Styling */
+.back-btn {
+    background: var(--card-bg);
+    color: var(--primary-gold);
+    border: 1px solid var(--primary-gold);
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    margin-bottom: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.progress-section {
+    margin-bottom: 20px;
+}
+
+.matn-header-title {
+    font-size: 1.8rem;
+    color: var(--primary-gold);
+    margin-bottom: 20px;
+    text-align: center;
+    border-bottom: 1px dashed var(--primary-gold);
+    padding-bottom: 10px;
+}
+
+.matn-progress-card {
+    background: var(--card-bg); 
+    padding: 15px; 
+    border-radius: 10px; 
+    border: 1px solid var(--border-color);
+}
+
+.progress-row {
+    display:flex; 
+    justify-content:space-between; 
+    margin-bottom:10px;
+}
+
+.day-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+
+.day-card.completed {
+    border-color: var(--success-green);
+    background-color: var(--bg-color); /* Halka background completed k liye */
+}
+
+.day-title {
+    font-size: 1.3rem;
+    color: var(--primary-gold);
+    font-weight: bold;
+    margin-bottom: 15px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 8px;
+    border-radius: 5px;
+}
+
+.matn-text {
+    font-size: 1.5rem;
+    line-height: 2.2;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.action-area {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 8px;
+    border-right: 4px solid var(--primary-gold);
+}
+
+.day-card.completed .action-area {
+    border-right-color: var(--success-green);
+}
+
+input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: var(--success-green);
+}
+
+label {
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+/* ==================================
+   إعدادات أبيات الشعر (Poetry Alignment) 
+   ================================== */
+.poem {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin: 15px 0;
+    background: var(--bg-color);
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+}
+
+.bayt {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px dashed var(--border-color);
+    padding-bottom: 12px;
+}
+
+.bayt:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.shatr {
+    flex: 1;
+    text-align: center;
+    font-size: 1.35rem;
+    color: var(--primary-gold);
+    line-height: 1.8;
+}
+
+[data-theme="light"] .shatr {
+    color: var(--primary-gold);
+}
+
+/* موبائل سکرین کی سیٹنگ (Poetry) */
+@media (max-width: 600px) {
+    .bayt {
+        flex-direction: column;
+        gap: 5px;
+    }
+    .shatr {
+        width: 100%;
+    }
+    .shatr:first-child {
+        color: var(--text-light); /* موبائل پر پہلا مصرعہ عام رنگ کا اور دوسرا سنہرا */
+    }
+    [data-theme="light"] .shatr:first-child {
+        color: #222222; 
+    }
+}
