@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حفظ المتون العلمية | Abu Umair Abu Aamir Al Hindi</title>
+    <!-- Arabic Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Link to CSS File -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <!-- Theme Toggle Button -->
+        <button id="theme-toggle" class="theme-btn" onclick="toggleTheme()" title="تبديل المظهر (Theme)">☀️</button>
+        
+        <div class="header-titles">
+            <h1>المتون العلمية</h1>
+            <p class="subtitle">أبو عمير أبو عامر الهندي</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <!-- View 1: Fehrist (Index) -->
+        <div id="fehrist-view" class="active">
+            <h2>فهرس المتون</h2>
+            <div id="books-container"></div>
+        </div>
+
+        <!-- View 2: Matn Details & Tracker -->
+        <div id="matn-view">
+            <!-- Back Button -->
+            <button class="back-btn" onclick="goBack(false)">
+                <span>&rarr;</span> رجوع إلى الفهرس
+            </button>
+            
+            <div id="current-matn-progress" class="progress-section">
+                <!-- Progress bar for active matn will be injected here -->
+            </div>
+
+            <div id="matn-content-container"></div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="data.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
