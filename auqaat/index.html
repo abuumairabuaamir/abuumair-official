@@ -1,0 +1,1552 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-root">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أوقات الصلاة | اوقاتِ نماز | Prayer Times - Abu Umair</title>
+    <meta name="description" content="Bhatkal Permanent Prayer Times (Nadvi Chart) in Arabic, Urdu, and English - abuumair.in">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400&family=Chakra+Petch:wght@600;700&display=swap" rel="stylesheet">
+
+    <style>
+        @font-face {
+            font-family: 'Jameel Noori Nastaliq';
+            src: local('Jameel Noori Nastaliq'), local('JameelNooriNastaliq');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --bg-page: #f3efe6;
+            --card-bg: #fbf9f3;
+            --primary-green: #193628;
+            --accent-green: #194d33;
+            --gold: #c5a059;
+            --gold-dark: #8c6d2d;
+            --adhan-red: #b91c1c;
+            --iqamah-green: #166534;
+            --text-dark: #1a2228;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-page);
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M20 0 L40 20 L20 40 L0 20 Z' fill='none' stroke='%23c5a059' stroke-width='0.75' opacity='0.22'/%3E%3C/svg%3E");
+            color: var(--text-dark);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            min-height: 100vh;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        /* Language-Specific Typography */
+        .lang-ar {
+            font-family: 'Amiri', serif !important;
+            font-weight: 400 !important;
+        }
+
+        .lang-ur {
+            font-family: 'Jameel Noori Nastaliq', 'Noto Nastaliq Urdu', serif !important;
+            font-weight: normal !important;
+            line-height: 1.75;
+        }
+
+        .lang-en {
+            font-family: 'Segoe UI', Tahoma, sans-serif !important;
+            font-weight: 600;
+        }
+
+        .arabic-fixed {
+            font-family: 'Amiri', serif !important;
+            font-weight: 400 !important;
+        }
+
+        .urdu-fixed {
+            font-family: 'Jameel Noori Nastaliq', 'Noto Nastaliq Urdu', serif !important;
+            font-weight: normal !important;
+        }
+
+        .time-font {
+            font-family: 'Chakra Petch', sans-serif !important;
+            letter-spacing: 0.5px;
+        }
+
+        .portal-wrapper {
+            max-width: 800px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Top Navigation Bar */
+        .web-navbar {
+            background: var(--primary-green);
+            border: 1.5px solid var(--gold);
+            border-radius: 12px;
+            padding: 10px 14px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #fce7b2;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .web-brand a {
+            color: #fce7b2;
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .lang-switcher {
+            display: flex;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            padding: 2px;
+            gap: 2px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: #fce7b2;
+            padding: 4px 12px;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .lang-btn.active {
+            background: var(--gold);
+            color: var(--primary-green);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+
+        .nav-pill-btn {
+            background: rgba(197, 160, 89, 0.22);
+            border: 1px solid var(--gold);
+            color: #ffffff;
+            padding: 5px 11px;
+            border-radius: 20px;
+            font-size: 13px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: background 0.2s;
+        }
+
+        .nav-pill-btn:hover {
+            background: var(--gold);
+            color: var(--primary-green);
+        }
+
+        /* Main Display Card */
+        .display-card {
+            background-color: var(--card-bg);
+            border: 4px double var(--gold);
+            border-radius: 16px;
+            padding: 14px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+        }
+
+        .top-header-box {
+            border: 2px solid var(--gold);
+            border-radius: 70px 70px 12px 12px;
+            padding: 10px 14px;
+            background: linear-gradient(180deg, #ffffff 0%, #f7f3ea 100%);
+            text-align: center;
+        }
+
+        .quran-aayat {
+            font-size: 19px;
+            color: var(--accent-green);
+            background: #edf5f0;
+            border: 1px solid #b7d7c4;
+            border-radius: 20px;
+            padding: 2px 16px;
+            display: inline-block;
+            margin-bottom: 4px;
+            direction: rtl;
+            unicode-bidi: isolate;
+        }
+
+        .clock-wrap {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 6px;
+            direction: ltr;
+        }
+
+        .digital-clock {
+            font-size: 46px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.05;
+        }
+
+        .clock-ampm {
+            font-size: 17px;
+            font-weight: 700;
+            color: var(--gold-dark);
+        }
+
+        .date-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 4px;
+        }
+
+        .hijri-date {
+            font-size: 20px;
+            color: var(--gold-dark);
+        }
+
+        .greg-date {
+            font-size: 18px;
+            color: var(--accent-green);
+        }
+
+        .mosque-name-bar {
+            background: var(--primary-green);
+            border-top: 1.5px solid var(--gold);
+            border-bottom: 1.5px solid var(--gold);
+            border-radius: 8px;
+            padding: 6px 10px;
+            text-align: center;
+            margin: 10px 0;
+            direction: ltr;
+        }
+
+        .mosque-title-wrap {
+            color: #fce7b2;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .location-roman-badge {
+            color: #ffffff;
+            font-size: 12px;
+            background: rgba(197, 160, 89, 0.35);
+            border: 1px solid var(--gold);
+            padding: 2px 8px;
+            border-radius: 6px;
+            text-transform: uppercase;
+        }
+
+        /* Today's Prayer Table */
+        .table-wrapper {
+            background: #ffffff;
+            border: 1.5px solid #dcd2be;
+            border-radius: 12px;
+            padding: 8px;
+            overflow-x: auto;
+        }
+
+        .prayer-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .prayer-table th {
+            font-size: 20px;
+            padding: 8px 4px;
+            border-bottom: 2px solid var(--gold);
+            text-align: center;
+        }
+
+        .col-adhan { color: var(--adhan-red); width: 35%; }
+        .col-name  { color: var(--text-dark); width: 30%; }
+        .col-iqamah{ color: var(--iqamah-green); width: 35%; }
+
+        .prayer-table td {
+            padding: 9px 4px;
+            text-align: center;
+            border-bottom: 1px solid #f1ece1;
+        }
+
+        .prayer-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .prayer-table tr.active-prayer {
+            background: #f0fdf4;
+            outline: 2px solid var(--iqamah-green);
+        }
+
+        .prayer-table tr.juma-row {
+            background: #fbf5e6;
+        }
+
+        .prayer-table tr.shurooq-row {
+            background: #f8fafc;
+        }
+
+        .prayer-table td.name {
+            font-size: 22px;
+        }
+
+        .time-cell {
+            font-size: 24px;
+            font-weight: 700;
+            direction: ltr;
+            display: inline-block;
+        }
+
+        .val-adhan { color: var(--adhan-red); }
+        .val-iqamah { color: var(--iqamah-green); }
+        .val-gray { color: #64748b; }
+
+        /* Action Bar under Today Table */
+        .quick-tools-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tool-btn {
+            flex: 1;
+            min-width: 140px;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1.5px solid var(--gold);
+            background: #ffffff;
+            color: var(--primary-green);
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s;
+        }
+
+        .tool-btn.whatsapp {
+            background: #15803d;
+            color: #ffffff;
+            border-color: #15803d;
+        }
+
+        .tool-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* Weekly & Monthly Schedule Section */
+        .schedule-section {
+            background: #ffffff;
+            border: 2px solid var(--gold);
+            border-radius: 16px;
+            padding: 14px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.05);
+        }
+
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 12px;
+            padding-bottom: 10px;
+            border-bottom: 1.5px solid #e5dec9;
+        }
+
+        .schedule-title {
+            font-size: 21px;
+            color: var(--primary-green);
+        }
+
+        .schedule-controls {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            padding: 6px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--gold);
+            background: #fbf9f3;
+            color: var(--text-dark);
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        .tab-btn.active {
+            background: var(--primary-green);
+            color: #fce7b2;
+        }
+
+        .month-select {
+            padding: 6px 10px;
+            border-radius: 8px;
+            border: 1.5px solid var(--gold);
+            background: #ffffff;
+            font-size: 16px;
+            color: var(--primary-green);
+        }
+
+        .monthly-table-wrap {
+            overflow-x: auto;
+        }
+
+        .monthly-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 540px;
+            text-align: center;
+        }
+
+        .monthly-table th {
+            background: var(--primary-green);
+            color: #fce7b2;
+            padding: 8px 4px;
+            font-size: 18px;
+            border: 1px solid #2b5440;
+        }
+
+        .monthly-table td {
+            padding: 7px 4px;
+            border: 1px solid #e5dec9;
+            font-size: 16px;
+        }
+
+        .monthly-table tr:nth-child(even) {
+            background: #fbf9f3;
+        }
+
+        .monthly-table tr.today-highlight {
+            background: #dcfce7 !important;
+            outline: 2px solid var(--iqamah-green);
+        }
+
+        .monthly-table tr.friday-highlight {
+            background: #fef9c3;
+        }
+
+        /* Footer */
+        .portal-footer {
+            text-align: center;
+            padding: 10px;
+            color: #475569;
+            font-size: 15px;
+        }
+
+        .portal-footer a {
+            color: var(--primary-green);
+            text-decoration: none;
+        }
+
+        /* Settings Modal (RTL Prayer Grid) */
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            justify-content: center;
+            align-items: center;
+            z-index: 100;
+            padding: 12px;
+        }
+
+        .modal-content {
+            background: #fbf9f3;
+            color: #1a2228;
+            border: 2px solid var(--gold);
+            padding: 16px;
+            border-radius: 12px;
+            width: 100%;
+            max-width: 440px;
+            max-height: 90vh;
+            overflow-y: auto;
+            direction: ltr;
+        }
+
+        .input-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .input-group input, .input-group select {
+            padding: 5px;
+            border: 1px solid var(--gold);
+            border-radius: 5px;
+            width: 180px;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 600;
+        }
+
+        .rtl-prayer-grid {
+            direction: rtl;
+            background: #ffffff;
+            border: 1px solid #dcd2be;
+            border-radius: 8px;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        .rtl-prayer-row {
+            display: grid;
+            grid-template-columns: 1.1fr 1fr 1fr;
+            gap: 6px;
+            align-items: center;
+            margin-bottom: 6px;
+            text-align: center;
+        }
+
+        .rtl-prayer-row label {
+            text-align: right;
+            font-size: 18px;
+            color: #1a2228;
+        }
+
+        .rtl-prayer-row input {
+            width: 100%;
+            padding: 4px;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            text-align: center;
+            font-family: 'Chakra Petch', sans-serif;
+            font-weight: 700;
+            direction: ltr;
+        }
+
+        .btn-row { display: flex; gap: 8px; margin-top: 10px; }
+        .save-btn { flex: 2; background: var(--primary-green); color: #fce7b2; padding: 9px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .reset-btn { flex: 1; background: var(--adhan-red); color: white; padding: 9px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; }
+        .gps-btn { background: #00897b; color: white; border: none; padding: 9px; border-radius: 6px; font-weight: bold; width: 100%; cursor: pointer; margin-bottom: 8px; }
+
+        @media print {
+            body { background: #ffffff; padding: 0; }
+            .web-navbar, .quick-tools-bar, .tab-btn, .portal-footer, .modal { display: none !important; }
+            .display-card { box-shadow: none; border: 2px solid #000; margin-bottom: 12px; }
+            .schedule-section { box-shadow: none; border: 2px solid #000; }
+            .monthly-table th { background: #193628 !important; color: #ffffff !important; -webkit-print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="portal-wrapper">
+    <!-- Trilingual Website Header -->
+    <nav class="web-navbar">
+        <div class="web-brand">
+            <a href="https://abuumair.in" id="brand-link" class="lang-ar">أبو عمير | أوقات الصلاة</a>
+        </div>
+
+        <!-- Language Switcher -->
+        <div class="lang-switcher">
+            <button class="lang-btn arabic-fixed active" id="btn-lang-ar" onclick="setLanguage('ar')">العربية</button>
+            <button class="lang-btn urdu-fixed" id="btn-lang-ur" onclick="setLanguage('ur')">اردو</button>
+            <button class="lang-btn lang-en" id="btn-lang-en" onclick="setLanguage('en')">English</button>
+        </div>
+
+        <div class="nav-actions">
+            <button class="nav-pill-btn" onclick="trackLiveGPSLocation()" id="btn-gps">📍 GPS</button>
+            <button class="nav-pill-btn" onclick="openSettings()" id="btn-settings">⚙ <span id="lbl-settings">الإعدادات</span></button>
+        </div>
+    </nav>
+
+    <!-- Live Prayer Display Card -->
+    <section class="display-card">
+        <div class="top-header-box">
+            <div class="quran-aayat arabic-fixed" dir="rtl">﴿ إِنَّ الصَّلَاةَ كَانَتْ عَلَى الْمُؤْمِنِينَ كِتَابًا مَوْقُوتًا ﴾</div>
+            <div class="clock-wrap">
+                <div class="digital-clock time-font" id="clock">00:00:00</div>
+                <div class="clock-ampm time-font" id="clock-ampm"></div>
+            </div>
+            <div class="date-row">
+                <span class="hijri-date" id="view-hijri">-- جمادى الآخرة 1448</span>
+                <span>|</span>
+                <span class="greg-date" id="view-greg">-- نوفمبر 2026</span>
+            </div>
+        </div>
+
+        <div class="mosque-name-bar">
+            <div class="mosque-title-wrap">
+                <span id="view-masjid-name">MASJIDE TAUHEED</span>
+                <span>-</span>
+                <span class="location-roman-badge" id="view-location-badge">BHATKAL (NADVI CHART), INDIA</span>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="prayer-table">
+                <thead>
+                    <tr>
+                        <th class="col-adhan" id="th-adhan">الأذان</th>
+                        <th class="col-name" id="th-prayer">الصلاة</th>
+                        <th class="col-iqamah" id="th-iqamah">الإقامة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr id="row-fajr">
+                        <td><span class="time-cell val-adhan time-font" id="view-fajr-a">05:14</span></td>
+                        <td class="name" id="lbl-fajr">الفجر</td>
+                        <td><span class="time-cell val-iqamah time-font" id="view-fajr-i">05:34</span></td>
+                    </tr>
+                    <tr class="shurooq-row">
+                        <td><span class="time-cell val-gray time-font" id="view-shurooq">06:33</span></td>
+                        <td class="name" style="font-size:18px; color:#475569;" id="lbl-shurooq">الشروق / الضحى</td>
+                        <td><span class="time-cell val-gray time-font" id="view-duha">06:48</span></td>
+                    </tr>
+                    <tr id="row-dhuhr">
+                        <td><span class="time-cell val-adhan time-font" id="view-dhuhr-a">12:23</span></td>
+                        <td class="name" id="lbl-dhuhr">الظهر</td>
+                        <td><span class="time-cell val-iqamah time-font" id="view-dhuhr-i">12:38</span></td>
+                    </tr>
+                    <tr id="row-juma" class="juma-row">
+                        <td><span class="time-cell val-adhan time-font" id="view-juma-a">12:23</span></td>
+                        <td class="name" style="color: var(--gold-dark);" id="lbl-juma">الجمعة</td>
+                        <td><span class="time-cell val-iqamah time-font" id="view-juma-i">01:10</span></td>
+                    </tr>
+                    <tr id="row-asr">
+                        <td><span class="time-cell val-adhan time-font" id="view-asr-a">03:36</span></td>
+                        <td class="name" id="lbl-asr">العصر</td>
+                        <td><span class="time-cell val-iqamah time-font" id="view-asr-i">03:51</span></td>
+                    </tr>
+                    <tr id="row-maghrib">
+                        <td><span class="time-cell val-adhan time-font" id="view-maghrib-a">06:03</span></td>
+                        <td class="name" id="lbl-maghrib">المغرب</td>
+                        <td><span class="time-cell val-iqamah time-font" id="view-maghrib-i">06:10</span></td>
+                    </tr>
+                    <tr id="row-isha">
+                        <td><span class="time-cell val-adhan time-font" id="view-isha-a">07:11</span></td>
+                        <td class="name" id="lbl-isha">العشاء</td>
+                        <td><span class="time-cell val-iqamah time-font" id="view-isha-i">07:26</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Website Action Tools -->
+        <div class="quick-tools-bar">
+            <button class="tool-btn whatsapp" onclick="shareOnWhatsApp()" id="btn-whatsapp">📲 مشاركة عبر واتساب</button>
+            <button class="tool-btn" onclick="window.print()" id="btn-print">🖨️ طباعة / حفظ PDF</button>
+        </div>
+    </section>
+
+    <!-- Weekly & Monthly Chart Section -->
+    <section class="schedule-section">
+        <div class="schedule-header">
+            <h2 class="schedule-title" id="lbl-schedule-title">جدول أوقات الصلاة الدائم (الأسبوعي والشهري)</h2>
+            <div class="schedule-controls">
+                <button class="tab-btn active" id="tab-weekly" onclick="switchScheduleView('weekly')">أوقات الأسبوع</button>
+                <button class="tab-btn" id="tab-monthly" onclick="switchScheduleView('monthly')">الجدول الشهري</button>
+                <select class="month-select" id="month-selector" onchange="renderScheduleTable()">
+                    <!-- Populated dynamically -->
+                </select>
+            </div>
+        </div>
+
+        <div class="monthly-table-wrap">
+            <table class="monthly-table">
+                <thead>
+                    <tr>
+                        <th id="mth-date">التاريخ / اليوم</th>
+                        <th id="mth-fajr">الفجر</th>
+                        <th id="mth-shurooq">الشروق</th>
+                        <th id="mth-dhuhr">الظهر</th>
+                        <th id="mth-asr">العصر</th>
+                        <th id="mth-maghrib">المغرب</th>
+                        <th id="mth-isha">العشاء</th>
+                    </tr>
+                </thead>
+                <tbody id="schedule-table-body">
+                    <!-- Populated via JS -->
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer class="portal-footer" id="lbl-footer">
+        مرتب: مولانا محمد إقبال مُلا الندوي (تقويم بهتكل الدائم) | <a href="https://abuumair.in">abuumair.in</a>
+    </footer>
+</div>
+
+<!-- Settings Modal -->
+<div class="modal" id="settingsModal" onclick="closeSettingsOutside(event)">
+    <div class="modal-content" onclick="event.stopPropagation()">
+        <h3 style="text-align:center; color:var(--gold-dark); margin-bottom:10px;">Taqweem & Masjid Settings</h3>
+
+        <button class="gps-btn" onclick="trackLiveGPSLocation()">📍 Auto Detect My Current GPS Location</button>
+
+        <div class="input-group" style="background:#fefce8; border:1px solid #ca8a04; padding:6px 8px; border-radius:6px;">
+            <label style="font-size:12px; font-weight:bold;">Taqweem Mode:</label>
+            <select id="inp-taqweem-mode" onchange="handleModeChange()">
+                <option value="bhatkal_perm">Bhatkal Permanent (Nadvi Chart)</option>
+                <option value="auto_gps">Live GPS Auto Location</option>
+                <option value="manual">Manual Custom Times</option>
+            </select>
+        </div>
+
+        <div id="gps-options-box" style="display:none; background:#edf5f0; border:1px solid #b7d7c4; padding:6px 8px; border-radius:6px; margin-bottom:6px;">
+            <div class="input-group">
+                <label style="font-size:12px;">Calc Method:</label>
+                <select id="inp-calc-method" onchange="recalculateGPSPrayerTimes()">
+                    <option value="Moonsighting">Moonsighting Committee</option>
+                    <option value="Karachi">Karachi (India / Pak)</option>
+                    <option value="Makkah">Umm Al-Qura (Makkah)</option>
+                    <option value="MWL">Muslim World League</option>
+                </select>
+            </div>
+            <div class="input-group">
+                <label style="font-size:12px;">Asr Juristic:</label>
+                <select id="inp-school" onchange="recalculateGPSPrayerTimes()">
+                    <option value="0">Shafi'i / Maliki / Hanbali (1x)</option>
+                    <option value="1">Hanafi (2x)</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="input-group">
+            <label style="font-size:12px;">Clock Format:</label>
+            <select id="inp-time-format">
+                <option value="12">12-Hour (AM / PM)</option>
+                <option value="24">24-Hour (Railway)</option>
+            </select>
+        </div>
+
+        <div class="input-group">
+            <label style="font-size:12px;">Masjid Name:</label>
+            <input type="text" id="inp-masjid">
+        </div>
+
+        <div class="input-group">
+            <label style="font-size:12px;">Location Tag:</label>
+            <input type="text" id="inp-location-tag">
+        </div>
+
+        <div class="input-group">
+            <label style="font-size:12px;">Hijri Offset (Days):</label>
+            <input type="number" id="inp-hijri-offset" value="-1" style="width:70px;">
+        </div>
+
+        <!-- RTL Prayer Columns -->
+        <div class="rtl-prayer-grid">
+            <div class="rtl-prayer-row" style="border-bottom:1.5px solid var(--gold); padding-bottom:4px;">
+                <span class="arabic-fixed" style="text-align:right;">الصلاة</span>
+                <span class="arabic-fixed" style="color:var(--adhan-red);">الأذان (24h)</span>
+                <span class="arabic-fixed" style="color:var(--iqamah-green);">الإقامة (24h)</span>
+            </div>
+            <div class="rtl-prayer-row"><label class="arabic-fixed">الفجر</label><input type="text" id="inp-fajr-a"><input type="text" id="inp-fajr-i"></div>
+            <div class="rtl-prayer-row"><label class="arabic-fixed">الشروق / الضحى</label><input type="text" id="inp-shurooq"><input type="text" id="inp-duha"></div>
+            <div class="rtl-prayer-row"><label class="arabic-fixed">الظهر</label><input type="text" id="inp-dhuhr-a"><input type="text" id="inp-dhuhr-i"></div>
+            <div class="rtl-prayer-row"><label class="arabic-fixed">الجمعة</label><input type="text" id="inp-juma-a"><input type="text" id="inp-juma-i"></div>
+            <div class="rtl-prayer-row"><label class="arabic-fixed">العصر</label><input type="text" id="inp-asr-a"><input type="text" id="inp-asr-i"></div>
+            <div class="rtl-prayer-row"><label class="arabic-fixed">المغرب</label><input type="text" id="inp-maghrib-a"><input type="text" id="inp-maghrib-i"></div>
+            <div class="rtl-prayer-row"><label class="arabic-fixed">العشاء</label><input type="text" id="inp-isha-a"><input type="text" id="inp-isha-i"></div>
+        </div>
+
+        <div class="btn-row">
+            <button class="save-btn" onclick="saveSettings()">Save Settings</button>
+            <button class="reset-btn" onclick="resetToDefaults()">Restore Defaults</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    const BHATKAL_LAT = 13.9780;
+    const BHATKAL_LNG = 74.5770;
+    const BHATKAL_TZ  = 5.5;
+    const STORAGE_KEY = 'abuumair_trilingual_prayer_v3';
+
+    let currentLang = localStorage.getItem('abuumair_prayer_lang') || 'ar';
+
+    // Trilingual Translations Dictionary with Conditional Footers
+    const i18n = {
+        ar: {
+            dir: 'rtl',
+            fontClass: 'lang-ar',
+            brand: 'أبو عمير | أوقات الصلاة',
+            settings: 'الإعدادات',
+            adhan: 'الأذان',
+            prayer: 'الصلاة',
+            iqamah: 'الإقامة',
+            fajr: 'الفجر',
+            shurooqFull: 'الشروق / الضحى',
+            shurooq: 'الشروق',
+            dhuhr: 'الظهر',
+            juma: 'الجمعة',
+            asr: 'العصر',
+            maghrib: 'المغرب',
+            isha: 'العشاء',
+            whatsapp: '📲 مشاركة عبر واتساب',
+            print: '🖨️ طباعة / حفظ PDF',
+            scheduleTitle: 'جدول أوقات الصلاة الدائم (الأسبوعي والشهري)',
+            weeklyTab: 'أوقات الأسبوع',
+            monthlyTab: 'الجدول الشهري',
+            dateCol: 'التاريخ / اليوم',
+            footerBhatkal: 'مرتب: مولانا محمد إقبال مُلا الندوي (تقويم بهتكل الدائم) | <a href="https://abuumair.in">abuumair.in</a>',
+            footerGlobal: 'مواقيت الصلاة حسب الموقع الجغرافي (المعادلات الفلكية) | <a href="https://abuumair.in">abuumair.in</a>',
+            days: ["الأحد", "الإثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
+            months: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+            hijriLocale: 'ar-SA-u-ca-islamic-umalqura'
+        },
+        ur: {
+            dir: 'rtl',
+            fontClass: 'lang-ur',
+            brand: 'ابو عمیر | اوقاتِ نماز',
+            settings: 'ترتیبات',
+            adhan: 'اذان',
+            prayer: 'نماز',
+            iqamah: 'اقامت',
+            fajr: 'فجر',
+            shurooqFull: 'طلوع آفتاب / چاشت',
+            shurooq: 'طلوع',
+            dhuhr: 'ظہر',
+            juma: 'جمعہ',
+            asr: 'عصر',
+            maghrib: 'مغرب',
+            isha: 'عشاء',
+            whatsapp: '📲 واٹس ایپ پر شیئر کریں',
+            print: '🖨️ پرنٹ / PDF محفوظ کریں',
+            scheduleTitle: 'دائمی اوقاتِ نماز کا نقشہ (ہفتہ وار و ماہانہ)',
+            weeklyTab: 'اس ہفتے کے اوقات',
+            monthlyTab: 'مکمل مہینے کا چارٹ',
+            dateCol: 'تاریخ / دن',
+            footerBhatkal: 'مرتب: مولانا محمد اقبال مُلا صاحب ندوی (بھٹکل چارٹ) | <a href="https://abuumair.in">abuumair.in</a>',
+            footerGlobal: 'مقام کے لحاظ سے فلکیاتی اوقاتِ نماز | <a href="https://abuumair.in">abuumair.in</a>',
+            days: ["اتوار", "پیر", "منگل", "بدھ", "جمعرات", "جمعہ", "ہفتہ"],
+            months: ["جنوری", "فروری", "مارچ", "اپریل", "مئی", "جون", "جولائی", "اگست", "ستمبر", "اکتوبر", "نومبر", "دسمبر"],
+            hijriLocale: 'ur-PK-u-ca-islamic-umalqura'
+        },
+        en: {
+            dir: 'ltr',
+            fontClass: 'lang-en',
+            brand: 'Abu Umair | Prayer Times',
+            settings: 'Settings',
+            adhan: 'Adhan',
+            prayer: 'Prayer',
+            iqamah: 'Iqamah',
+            fajr: 'Fajr',
+            shurooqFull: 'Sunrise / Duha',
+            shurooq: 'Sunrise',
+            dhuhr: 'Dhuhr',
+            juma: 'Jumu\'ah',
+            asr: 'Asr',
+            maghrib: 'Maghrib',
+            isha: 'Isha',
+            whatsapp: '📲 Share on WhatsApp',
+            print: '🖨️ Print / Save PDF',
+            scheduleTitle: 'Permanent Prayer Timetable (Weekly & Monthly)',
+            weeklyTab: 'This Week',
+            monthlyTab: 'Full Month Chart',
+            dateCol: 'Date / Day',
+            footerBhatkal: 'Compiled by Maulana M. Iqbal Mulla Nadvi (Bhatkal Chart) | <a href="https://abuumair.in">abuumair.in</a>',
+            footerGlobal: 'Calculated via Astronomical / Moonsighting Standards | <a href="https://abuumair.in">abuumair.in</a>',
+            days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            months: ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            hijriLocale: 'en-US-u-ca-islamic-umalqura'
+        }
+    };
+
+    const nadviChartData = {
+	1: [ // JANUARY[cite: 15]
+            ["05:35","06:55","12:41","15:51","18:17","19:27"],["05:35","06:56","12:41","15:52","18:18","19:27"],["05:35","06:56","12:42","15:52","18:18","19:28"],
+            ["05:36","06:56","12:42","15:53","18:19","19:28"],["05:36","06:57","12:42","15:53","18:19","19:29"],["05:37","06:57","12:43","15:54","18:20","19:29"],
+            ["05:37","06:57","12:43","15:54","18:20","19:30"],["05:37","06:58","12:44","15:55","18:21","19:30"],["05:38","06:58","12:44","15:56","18:22","19:31"],
+            ["05:38","06:58","12:45","15:56","18:22","19:31"],["05:38","06:58","12:45","15:57","18:23","19:32"],["05:39","06:59","12:45","15:57","18:23","19:32"],
+            ["05:39","06:59","12:46","15:58","18:24","19:33"],["05:39","06:59","12:46","15:58","18:24","19:33"],["05:40","06:59","12:47","15:59","18:25","19:34"],
+            ["05:40","06:59","12:47","15:59","18:26","19:34"],["05:40","06:59","12:47","16:00","18:26","19:35"],["05:40","06:59","12:48","16:00","18:27","19:35"],
+            ["05:40","07:00","12:48","16:00","18:27","19:36"],["05:41","07:00","12:48","16:01","18:28","19:36"],["05:41","07:00","12:49","16:01","18:28","19:37"],
+            ["05:41","07:00","12:49","16:02","18:29","19:37"],["05:41","07:00","12:49","16:02","18:29","19:38"],["05:41","07:00","12:49","16:03","18:30","19:38"],
+            ["05:41","07:00","12:50","16:03","18:30","19:38"],["05:41","07:00","12:50","16:03","18:31","19:39"],["05:41","07:00","12:50","16:04","18:31","19:39"],
+            ["05:41","07:00","12:50","16:04","18:32","19:40"],["05:41","06:59","12:50","16:04","18:32","19:40"],["05:41","06:59","12:51","16:05","18:33","19:40"],
+            ["05:41","06:59","12:51","16:05","18:33","19:41"]
+        ],
+        2: [ // FEBRUARY (Includes Feb 29)[cite: 15]
+            ["05:41","06:59","12:51","16:05","18:34","19:41"],["05:41","06:59","12:51","16:06","18:34","19:41"],["05:41","06:59","12:51","16:06","18:35","19:42"],
+            ["05:41","06:59","12:51","16:06","18:35","19:42"],["05:41","06:58","12:51","16:06","18:35","19:42"],["05:41","06:58","12:51","16:07","18:36","19:43"],
+            ["05:41","06:58","12:52","16:07","18:36","19:43"],["05:41","06:58","12:52","16:07","18:37","19:43"],["05:40","06:57","12:52","16:07","18:37","19:43"],
+            ["05:40","06:57","12:52","16:07","18:37","19:44"],["05:40","06:57","12:52","16:08","18:38","19:44"],["05:40","06:56","12:52","16:08","18:38","19:44"],
+            ["05:40","06:56","12:52","16:08","18:38","19:44"],["05:39","06:56","12:52","16:08","18:39","19:45"],["05:39","06:55","12:52","16:08","18:39","19:45"],
+            ["05:39","06:55","12:52","16:08","18:39","19:45"],["05:38","06:54","12:51","16:08","18:40","19:45"],["05:38","06:54","12:51","16:08","18:40","19:46"],
+            ["05:37","06:53","12:51","16:08","18:40","19:46"],["05:37","06:53","12:51","16:08","18:40","19:46"],["05:37","06:53","12:51","16:08","18:41","19:46"],
+            ["05:36","06:52","12:51","16:08","18:41","19:46"],["05:36","06:52","12:51","16:08","18:41","19:47"],["05:35","06:51","12:51","16:08","18:41","19:47"],
+            ["05:35","06:50","12:51","16:08","18:42","19:47"],["05:34","06:50","12:50","16:08","18:42","19:47"],["05:34","06:49","12:50","16:07","18:42","19:47"],
+            ["05:34","06:49","12:50","16:07","18:42","19:47"],["05:33","06:49","12:50","16:07","18:42","19:47"]
+        ],
+        3: [ // MARCH[cite: 15]
+            ["05:33","06:48","12:50","16:07","18:43","19:48"],["05:32","06:48","12:50","16:07","18:43","19:48"],["05:32","06:47","12:50","16:07","18:43","19:48"],
+            ["05:31","06:46","12:49","16:06","18:43","19:48"],["05:31","06:46","12:49","16:06","18:43","19:48"],["05:30","06:45","12:49","16:06","18:44","19:48"],
+            ["05:30","06:45","12:49","16:06","18:44","19:48"],["05:29","06:44","12:48","16:05","18:44","19:49"],["05:28","06:43","12:48","16:05","18:44","19:49"],
+            ["05:28","06:43","12:48","16:05","18:44","19:49"],["05:27","06:42","12:48","16:05","18:44","19:49"],["05:26","06:41","12:47","16:04","18:44","19:49"],
+            ["05:26","06:41","12:47","16:04","18:44","19:49"],["05:25","06:40","12:47","16:03","18:45","19:49"],["05:25","06:39","12:47","16:03","18:45","19:49"],
+            ["05:24","06:39","12:46","16:03","18:45","19:49"],["05:23","06:38","12:46","16:02","18:45","19:50"],["05:22","06:37","12:46","16:02","18:45","19:50"],
+            ["05:22","06:37","12:45","16:01","18:45","19:50"],["05:21","06:36","12:45","16:01","18:45","19:50"],["05:20","06:35","12:45","16:01","18:45","19:50"],
+            ["05:20","06:35","12:45","16:00","18:45","19:50"],["05:19","06:34","12:44","16:00","18:46","19:50"],["05:18","06:33","12:44","15:59","18:46","19:50"],
+            ["05:17","06:33","12:44","15:59","18:46","19:51"],["05:17","06:32","12:43","15:58","18:46","19:51"],["05:16","06:31","12:43","15:57","18:46","19:51"],
+            ["05:15","06:30","12:43","15:57","18:46","19:51"],["05:14","06:30","12:42","15:56","18:46","19:51"],["05:14","06:29","12:42","15:56","18:46","19:51"],
+            ["05:13","06:28","12:42","15:55","18:46","19:51"]
+        ],
+        4: [ // APRIL[cite: 16]
+            ["05:12","06:28","12:41","15:55","18:46","19:51"],["05:11","06:27","12:41","15:54","18:46","19:52"],["05:11","06:26","12:41","15:54","18:46","19:52"],
+            ["05:10","06:26","12:41","15:53","18:47","19:52"],["05:09","06:25","12:40","15:52","18:47","19:52"],["05:08","06:24","12:40","15:52","18:47","19:52"],
+            ["05:08","06:24","12:40","15:51","18:47","19:52"],["05:07","06:23","12:39","15:50","18:47","19:53"],["05:06","06:22","12:39","15:50","18:47","19:53"],
+            ["05:05","06:22","12:39","15:49","18:47","19:53"],["05:05","06:21","12:39","15:48","18:47","19:53"],["05:04","06:20","12:38","15:48","18:47","19:53"],
+            ["05:03","06:20","12:38","15:47","18:47","19:54"],["05:02","06:19","12:38","15:47","18:48","19:54"],["05:02","06:18","12:38","15:46","18:48","19:54"],
+            ["05:01","06:18","12:37","15:45","18:48","19:54"],["05:00","06:17","12:37","15:44","18:48","19:54"],["04:59","06:17","12:37","15:44","18:48","19:55"],
+            ["04:59","06:16","12:37","15:43","18:48","19:55"],["04:58","06:15","12:36","15:42","18:48","19:55"],["04:57","06:15","12:36","15:42","18:49","19:55"],
+            ["04:57","06:14","12:36","15:41","18:49","19:56"],["04:56","06:14","12:36","15:40","18:49","19:56"],["04:55","06:13","12:36","15:40","18:49","19:56"],
+            ["04:55","06:13","12:35","15:39","18:49","19:57"],["04:54","06:12","12:35","15:38","18:49","19:57"],["04:53","06:12","12:35","15:38","18:49","19:57"],
+            ["04:53","06:11","12:35","15:37","18:50","19:57"],["04:52","06:11","12:35","15:37","18:50","19:58"],["04:51","06:10","12:35","15:38","18:50","19:58"]
+        ],
+        5: [ // MAY[cite: 16]
+            ["04:51","06:10","12:34","15:39","18:50","19:58"],["04:50","06:09","12:34","15:39","18:50","19:59"],["04:49","06:09","12:34","15:40","18:51","19:59"],
+            ["04:49","06:08","12:34","15:40","18:51","19:59"],["04:48","06:08","12:34","15:41","18:51","20:00"],["04:48","06:07","12:34","15:42","18:51","20:00"],
+            ["04:47","06:07","12:34","15:42","18:52","20:00"],["04:47","06:07","12:34","15:43","18:52","20:01"],["04:46","06:06","12:34","15:43","18:52","20:01"],
+            ["04:46","06:06","12:34","15:44","18:52","20:02"],["04:45","06:06","12:34","15:44","18:53","20:02"],["04:45","06:05","12:34","15:45","18:53","20:02"],
+            ["04:44","06:05","12:34","15:45","18:53","20:03"],["04:44","06:05","12:34","15:46","18:53","20:03"],["04:43","06:04","12:34","15:46","18:54","20:04"],
+            ["04:43","06:04","12:34","15:47","18:54","20:04"],["04:43","06:04","12:34","15:47","18:54","20:04"],["04:42","06:04","12:34","15:48","18:54","20:05"],
+            ["04:42","06:03","12:34","15:48","18:55","20:05"],["04:41","06:03","12:34","15:49","18:55","20:06"],["04:41","06:03","12:34","15:49","18:55","20:06"],
+            ["04:41","06:03","12:34","15:50","18:56","20:06"],["04:40","06:03","12:34","15:50","18:56","20:07"],["04:40","06:03","12:34","15:51","18:56","20:07"],
+            ["04:40","06:02","12:34","15:51","18:56","20:08"],["04:40","06:02","12:34","15:51","18:57","20:08"],["04:39","06:02","12:34","15:52","18:57","20:09"],
+            ["04:39","06:02","12:34","15:52","18:57","20:09"],["04:39","06:02","12:34","15:53","18:58","20:09"],["04:39","06:02","12:35","15:53","18:58","20:10"],
+            ["04:39","06:02","12:35","15:54","18:58","20:10"]
+        ],
+        6: [ // JUNE[cite: 16]
+            ["04:39","06:02","12:35","15:54","18:59","20:11"],["04:39","06:02","12:35","15:54","18:59","20:11"],["04:38","06:02","12:35","15:55","18:59","20:11"],
+            ["04:38","06:02","12:35","15:55","19:00","20:12"],["04:38","06:02","12:35","15:56","19:00","20:12"],["04:38","06:02","12:36","15:56","19:00","20:13"],
+            ["04:38","06:02","12:36","15:56","19:00","20:13"],["04:38","06:02","12:36","15:57","19:01","20:13"],["04:38","06:02","12:36","15:57","19:01","20:14"],
+            ["04:38","06:02","12:36","15:57","19:01","20:14"],["04:38","06:02","12:37","15:58","19:02","20:14"],["04:38","06:03","12:37","15:58","19:02","20:15"],
+            ["04:38","06:03","12:37","15:58","19:02","20:15"],["04:38","06:03","12:37","15:59","19:03","20:15"],["04:39","06:03","12:37","15:59","19:03","20:16"],
+            ["04:39","06:03","12:38","15:59","19:03","20:16"],["04:39","06:03","12:38","16:00","19:03","20:16"],["04:39","06:03","12:38","16:00","19:04","20:16"],
+            ["04:39","06:04","12:38","16:00","19:04","20:17"],["04:39","06:04","12:38","16:00","19:04","20:17"],["04:40","06:04","12:39","16:01","19:04","20:17"],
+            ["04:40","06:04","12:39","16:01","19:04","20:17"],["04:40","06:05","12:39","16:01","19:05","20:18"],["04:40","06:05","12:39","16:01","19:05","20:18"],
+            ["04:40","06:05","12:40","16:01","19:05","20:18"],["04:41","06:05","12:40","16:02","19:05","20:18"],["04:41","06:05","12:40","16:02","19:05","20:18"],
+            ["04:41","06:06","12:40","16:02","19:06","20:18"],["04:42","06:06","12:40","16:02","19:06","20:19"],["04:42","06:06","12:41","16:02","19:06","20:19"]
+        ],
+        7: [
+            ["04:42","06:07","12:41","16:02","19:06","20:19"],["04:43","06:07","12:41","16:02","19:06","20:19"],["04:43","06:07","12:41","16:02","19:06","20:19"],
+            ["04:43","06:07","12:41","16:02","19:06","20:19"],["04:44","06:08","12:42","16:02","19:06","20:19"],["04:44","06:08","12:42","16:02","19:07","20:19"],
+            ["04:44","06:08","12:42","16:02","19:07","20:19"],["04:45","06:08","12:42","16:02","19:07","20:19"],["04:45","06:09","12:42","16:02","19:07","20:19"],
+            ["04:45","06:09","12:42","16:02","19:07","20:19"],["04:46","06:09","12:42","16:02","19:07","20:19"],["04:46","06:10","12:43","16:02","19:07","20:19"],
+            ["04:46","06:10","12:43","16:02","19:07","20:18"],["04:47","06:10","12:43","16:02","19:07","20:18"],["04:47","06:10","12:43","16:02","19:06","20:18"],
+            ["04:48","06:11","12:43","16:01","19:06","20:18"],["04:48","06:11","12:43","16:01","19:06","20:18"],["04:49","06:11","12:43","16:01","19:06","20:18"],
+            ["04:49","06:12","12:43","16:01","19:06","20:17"],["04:49","06:12","12:43","16:00","19:06","20:17"],["04:50","06:12","12:44","16:00","19:06","20:17"],
+            ["04:50","06:12","12:44","16:00","19:06","20:17"],["04:51","06:13","12:44","16:00","19:05","20:16"],["04:51","06:13","12:44","15:59","19:05","20:16"],
+            ["04:51","06:13","12:44","15:59","19:05","20:16"],["04:52","06:14","12:44","15:58","19:05","20:15"],["04:52","06:14","12:44","15:58","19:05","20:15"],
+            ["04:53","06:14","12:44","15:57","19:04","20:15"],["04:53","06:14","12:44","15:57","19:04","20:14"],["04:53","06:14","12:44","15:56","19:04","20:14"],
+            ["04:54","06:15","12:44","15:56","19:03","20:13"]
+        ],
+        8: [
+            ["04:54","06:15","12:44","15:55","19:03","20:13"],["04:55","06:15","12:43","15:55","19:03","20:12"],["04:55","06:15","12:43","15:54","19:02","20:12"],
+            ["04:55","06:16","12:43","15:54","19:02","20:11"],["04:56","06:16","12:43","15:53","19:02","20:11"],["04:56","06:16","12:43","15:52","19:01","20:10"],
+            ["04:56","06:16","12:43","15:51","19:01","20:10"],["04:57","06:16","12:43","15:51","19:00","20:09"],["04:57","06:17","12:43","15:50","19:00","20:09"],
+            ["04:57","06:17","12:43","15:49","19:00","20:08"],["04:58","06:17","12:43","15:48","18:59","20:07"],["04:58","06:17","12:42","15:48","18:59","20:07"],
+            ["04:58","06:17","12:42","15:47","18:58","20:06"],["04:59","06:18","12:42","15:46","18:58","20:06"],["04:59","06:18","12:42","15:45","18:57","20:05"],
+            ["04:59","06:18","12:42","15:44","18:57","20:04"],["05:00","06:18","12:41","15:44","18:56","20:04"],["05:00","06:18","12:41","15:44","18:56","20:03"],
+            ["05:00","06:18","12:41","15:44","18:55","20:02"],["05:00","06:18","12:41","15:45","18:54","20:02"],["05:01","06:18","12:41","15:45","18:54","20:01"],
+            ["05:01","06:19","12:40","15:45","18:53","20:00"],["05:01","06:19","12:40","15:45","18:53","19:59"],["05:01","06:19","12:40","15:45","18:52","19:59"],
+            ["05:02","06:19","12:40","15:46","18:51","19:58"],["05:02","06:19","12:39","15:46","18:51","19:57"],["05:02","06:19","12:39","15:46","18:50","19:56"],
+            ["05:02","06:19","12:39","15:46","18:49","19:56"],["05:02","06:19","12:38","15:46","18:49","19:55"],["05:02","06:19","12:38","15:47","18:48","19:54"],
+            ["05:03","06:19","12:38","15:47","18:47","19:54"]
+        ],
+        9: [
+            ["05:03","06:19","12:38","15:47","18:47","19:53"],["05:03","06:19","12:37","15:47","18:46","19:52"],["05:03","06:19","12:37","15:47","18:45","19:51"],
+            ["05:03","06:19","12:37","15:47","18:45","19:50"],["05:03","06:20","12:36","15:47","18:44","19:50"],["05:04","06:20","12:36","15:47","18:43","19:49"],
+            ["05:04","06:20","12:36","15:47","18:43","19:48"],["05:04","06:20","12:35","15:47","18:42","19:47"],["05:04","06:20","12:35","15:47","18:41","19:46"],
+            ["05:04","06:20","12:35","15:47","18:40","19:45"],["05:04","06:20","12:34","15:47","18:40","19:45"],["05:04","06:20","12:34","15:47","18:39","19:44"],
+            ["05:04","06:20","12:33","15:47","18:38","19:43"],["05:04","06:20","12:33","15:47","18:37","19:42"],["05:05","06:20","12:33","15:47","18:37","19:42"],
+            ["05:05","06:20","12:32","15:46","18:36","19:41"],["05:05","06:20","12:32","15:46","18:35","19:40"],["05:05","06:20","12:32","15:46","18:34","19:39"],
+            ["05:05","06:20","12:31","15:46","18:34","19:39"],["05:05","06:20","12:31","15:46","18:33","19:38"],["05:05","06:20","12:31","15:46","18:32","19:37"],
+            ["05:05","06:20","12:30","15:46","18:32","19:36"],["05:05","06:20","12:30","15:46","18:31","19:36"],["05:05","06:20","12:30","15:45","18:30","19:35"],
+            ["05:05","06:20","12:29","15:45","18:29","19:34"],["05:05","06:20","12:29","15:45","18:29","19:33"],["05:05","06:20","12:28","15:45","18:28","19:33"],
+            ["05:05","06:20","12:28","15:45","18:27","19:32"],["05:06","06:20","12:28","15:44","18:26","19:31"],["05:06","06:20","12:28","15:44","18:26","19:30"]
+        ],
+        10: [
+            ["05:06","06:20","12:27","15:44","18:25","19:30"],["05:06","06:20","12:27","15:44","18:24","19:29"],["05:06","06:21","12:27","15:43","18:24","19:29"],
+            ["05:06","06:21","12:26","15:43","18:23","19:28"],["05:06","06:21","12:26","15:43","18:22","19:27"],["05:06","06:21","12:26","15:43","18:21","19:26"],
+            ["05:06","06:21","12:25","15:42","18:21","19:26"],["05:06","06:21","12:25","15:42","18:20","19:25"],["05:06","06:21","12:25","15:42","18:19","19:24"],
+            ["05:06","06:21","12:25","15:42","18:19","19:24"],["05:06","06:21","12:24","15:41","18:18","19:23"],["05:06","06:22","12:24","15:41","18:18","19:22"],
+            ["05:06","06:22","12:24","15:41","18:17","19:22"],["05:07","06:22","12:24","15:41","18:16","19:21"],["05:07","06:22","12:23","15:40","18:16","19:21"],
+            ["05:07","06:22","12:23","15:40","18:15","19:20"],["05:07","06:22","12:23","15:40","18:15","19:20"],["05:07","06:22","12:23","15:40","18:14","19:19"],
+            ["05:07","06:23","12:22","15:39","18:13","19:19"],["05:07","06:23","12:22","15:39","18:13","19:18"],["05:07","06:23","12:22","15:39","18:12","19:18"],
+            ["05:07","06:23","12:22","15:39","18:12","19:17"],["05:08","06:23","12:22","15:38","18:11","19:17"],["05:08","06:24","12:22","15:38","18:11","19:17"],
+            ["05:08","06:24","12:22","15:38","18:10","19:16"],["05:08","06:24","12:21","15:38","18:10","19:15"],["05:08","06:24","12:21","15:38","18:09","19:15"],
+            ["05:08","06:25","12:21","15:38","18:09","19:15"],["05:09","06:25","12:21","15:37","18:08","19:14"],["05:09","06:25","12:21","15:37","18:08","19:14"],
+            ["05:09","06:25","12:21","15:37","18:08","19:14"]
+        ],
+        11: [
+            ["05:09","06:26","12:21","15:37","18:07","19:13"],["05:09","06:26","12:21","15:37","18:07","19:13"],["05:10","06:26","12:21","15:37","18:07","19:13"],
+            ["05:10","06:27","12:21","15:37","18:06","19:12"],["05:10","06:27","12:21","15:36","18:06","19:12"],["05:10","06:27","12:21","15:36","18:06","19:12"],
+            ["05:11","06:28","12:21","15:36","18:05","19:12"],["05:11","06:28","12:21","15:36","18:05","19:12"],["05:11","06:28","12:21","15:36","18:05","19:12"],
+            ["05:11","06:29","12:21","15:36","18:05","19:12"],["05:12","06:29","12:21","15:36","18:04","19:11"],["05:12","06:29","12:21","15:36","18:04","19:11"],
+            ["05:12","06:30","12:21","15:36","18:04","19:11"],["05:13","06:30","12:22","15:36","18:04","19:11"],["05:13","06:31","12:22","15:36","18:04","19:11"],
+            ["05:13","06:31","12:22","15:36","18:03","19:11"],["05:14","06:32","12:22","15:36","18:03","19:11"],["05:14","06:32","12:22","15:36","18:03","19:11"],
+            ["05:14","06:33","12:23","15:36","18:03","19:11"],["05:15","06:33","12:23","15:36","18:03","19:11"],["05:15","06:34","12:23","15:36","18:03","19:11"],
+            ["05:15","06:34","12:23","15:36","18:03","19:11"],["05:16","06:35","12:24","15:36","18:03","19:11"],["05:16","06:35","12:24","15:37","18:03","19:12"],
+            ["05:17","06:36","12:24","15:37","18:03","19:12"],["05:17","06:36","12:25","15:37","18:04","19:12"],["05:17","06:37","12:25","15:37","18:04","19:12"],
+            ["05:18","06:37","12:25","15:37","18:04","19:12"],["05:18","06:38","12:26","15:38","18:04","19:13"],["05:19","06:39","12:26","15:38","18:04","19:13"]
+        ],
+        12: [
+            ["05:19","06:39","12:26","15:38","18:04","19:13"],["05:20","06:40","12:27","15:38","18:05","19:14"],["05:20","06:40","12:27","15:39","18:05","19:14"],
+            ["05:21","06:41","12:28","15:39","18:05","19:14"],["05:21","06:41","12:28","15:39","18:05","19:15"],["05:22","06:42","12:28","15:40","18:06","19:15"],
+            ["05:22","06:43","12:29","15:40","18:06","19:16"],["05:23","06:43","12:29","15:40","18:06","19:16"],["05:23","06:44","12:30","15:41","18:06","19:16"],
+            ["05:24","06:44","12:30","15:41","18:07","19:17"],["05:24","06:45","12:31","15:41","18:07","19:17"],["05:25","06:45","12:31","15:42","18:07","19:18"],
+            ["05:25","06:46","12:31","15:42","18:08","19:18"],["05:26","06:46","12:32","15:42","18:08","19:19"],["05:26","06:47","12:32","15:43","18:09","19:19"],
+            ["05:27","06:47","12:33","15:43","18:09","19:20"],["05:27","06:48","12:33","15:44","18:09","19:20"],["05:28","06:48","12:34","15:44","18:10","19:21"],
+            ["05:28","06:49","12:34","15:44","18:10","19:21"],["05:29","06:50","12:35","15:45","18:11","19:22"],["05:29","06:50","12:35","15:45","18:11","19:22"],
+            ["05:30","06:51","12:36","15:46","18:12","19:23"],["05:30","06:51","12:36","15:46","18:12","19:23"],["05:31","06:52","12:37","15:47","18:13","19:24"],
+            ["05:31","06:52","12:37","15:47","18:13","19:24"],["05:32","06:53","12:38","15:48","18:14","19:25"],["05:32","06:53","12:38","15:48","18:14","19:25"],
+            ["05:33","06:53","12:39","15:49","18:15","19:26"],["05:33","06:54","12:39","15:49","18:15","19:26"],["05:34","06:54","12:40","15:50","18:16","19:27"],
+            ["05:34","06:55","12:40","15:51","18:16","19:28"]
+        ]
+    };
+
+    function addMins(timeStr, mins) {
+        let [h, m] = timeStr.split(':').map(Number);
+        m += mins;
+        while (m < 0) { m += 60; h -= 1; }
+        h += Math.floor(m / 60);
+        m = m % 60;
+        h = (h + 24) % 24;
+        return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    }
+
+    function calculateAccurateTimes(date, lat, lng, tz, fajrAngle, ishaAngle, ishaInterval, asrFactor) {
+        const rad = Math.PI / 180;
+        const deg = 180 / Math.PI;
+        const year = date.getFullYear(), month = date.getMonth() + 1, day = date.getDate();
+        const JD = (1461 * (year + 4800 + Math.floor((month - 14) / 12))) / 4 +
+                   (367 * (month - 2 - 12 * Math.floor((month - 14) / 12))) / 12 -
+                   (3 * Math.floor((year + 4900 + Math.floor((month - 14) / 12)) / 100)) / 4 + day - 32075;
+
+        const D = JD - 2451545.0;
+        const g = (357.529 + 0.98560028 * D) % 360;
+        const q = (280.459 + 0.98564736 * D) % 360;
+        const L = (q + 1.915 * Math.sin(g * rad) + 0.020 * Math.sin(2 * g * rad)) % 360;
+        const e = 23.439 - 0.00000036 * D;
+        const RA = Math.atan2(Math.cos(e * rad) * Math.sin(L * rad), Math.cos(L * rad)) * deg / 15;
+        const decl = Math.asin(Math.sin(e * rad) * Math.sin(L * rad));
+        const EqT = (q / 15 - (RA < 0 ? RA + 24 : RA));
+
+        const noon = 12 + tz - (lng / 15) - EqT;
+        const getHourAngle = (alpha) => {
+            const cosHA = (-Math.sin(alpha * rad) - Math.sin(lat * rad) * Math.sin(decl)) / (Math.cos(lat * rad) * Math.cos(decl));
+            if (cosHA > 1 || cosHA < -1) return 0;
+            return Math.acos(cosHA) * deg / 15;
+        };
+
+        const sunriseHA = getHourAngle(0.833);
+        const sunrise = noon - sunriseHA;
+        const sunset = noon + sunriseHA;
+        const fajr = noon - getHourAngle(fajrAngle);
+
+        const delta = Math.abs((lat * rad) - decl);
+        const noonShadow = Math.tan(delta);
+        const asrAltitude = Math.atan(1 / (asrFactor + noonShadow));
+        const cosAsrHA = (Math.sin(asrAltitude) - Math.sin(lat * rad) * Math.sin(decl)) / (Math.cos(lat * rad) * Math.cos(decl));
+        let asrHA = (cosAsrHA >= -1 && cosAsrHA <= 1) ? Math.acos(cosAsrHA) * deg / 15 : 3.5;
+        const asr = noon + asrHA;
+
+        let isha = (ishaInterval > 0) ? (sunset + (ishaInterval / 60)) : (noon + getHourAngle(ishaAngle));
+
+        const toStr = (num) => {
+            let totalMins = Math.round(num * 60);
+            let h = Math.floor(totalMins / 60) % 24;
+            let m = totalMins % 60;
+            return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+        };
+
+        return { fajr: toStr(fajr), sunrise: toStr(sunrise), dhuhr: toStr(noon), asr: toStr(asr), maghrib: toStr(sunset), isha: toStr(isha) };
+    }
+
+    function getTimesForSpecificDate(date) {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        const mode = saved ? saved.taqweemMode : "bhatkal_perm";
+
+        if (mode === "bhatkal_perm" || !saved) {
+            const m = date.getMonth() + 1;
+            const d = date.getDate();
+            if (nadviChartData[m] && nadviChartData[m][d - 1]) {
+                const row = nadviChartData[m][d - 1];
+                return {
+                    fajr_a: row[0], fajr_i: addMins(row[0], 20),
+                    shurooq: row[1], duha: addMins(row[1], 15),
+                    dhuhr_a: row[2], dhuhr_i: addMins(row[2], 15),
+                    juma_a: row[2], juma_i: "13:10",
+                    asr_a: row[3], asr_i: addMins(row[3], 15),
+                    maghrib_a: row[4], maghrib_i: addMins(row[4], 7),
+                    isha_a: row[5], isha_i: addMins(row[5], 15)
+                };
+            }
+            const calc = calculateAccurateTimes(date, BHATKAL_LAT, BHATKAL_LNG, BHATKAL_TZ, 18.5, 18.5, 0, 1);
+            const dhuhrTime = addMins(calc.dhuhr, 4);
+            return {
+                fajr_a: calc.fajr, fajr_i: addMins(calc.fajr, 20),
+                shurooq: calc.sunrise, duha: addMins(calc.sunrise, 15),
+                dhuhr_a: dhuhrTime, dhuhr_i: addMins(dhuhrTime, 15),
+                juma_a: dhuhrTime, juma_i: "13:10",
+                asr_a: calc.asr, asr_i: addMins(calc.asr, 15),
+                maghrib_a: calc.maghrib, maghrib_i: addMins(calc.maghrib, 7),
+                isha_a: calc.isha, isha_i: addMins(calc.isha, 15)
+            };
+        }
+
+        if (mode === "auto_gps") {
+            const lat = saved.lat || BHATKAL_LAT;
+            const lng = saved.lng || BHATKAL_LNG;
+            const school = parseInt(saved.school || "0");
+            const calc = calculateAccurateTimes(date, lat, lng, 5.5, 18, 18, 0, school === 1 ? 2 : 1);
+            const dhuhrSafe = addMins(calc.dhuhr, 4);
+            return {
+                fajr_a: calc.fajr, fajr_i: addMins(calc.fajr, 20),
+                shurooq: calc.sunrise, duha: addMins(calc.sunrise, 15),
+                dhuhr_a: dhuhrSafe, dhuhr_i: addMins(dhuhrSafe, 15),
+                juma_a: dhuhrSafe, juma_i: "13:10",
+                asr_a: calc.asr, asr_i: addMins(calc.asr, 15),
+                maghrib_a: calc.maghrib, maghrib_i: addMins(calc.maghrib, 7),
+                isha_a: calc.isha, isha_i: addMins(calc.isha, 15)
+            };
+        }
+
+        return saved;
+    }
+
+    function updateFooterReference() {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        const mode = saved ? saved.taqweemMode : "bhatkal_perm";
+        const t = i18n[currentLang];
+        const footerEl = document.getElementById('lbl-footer');
+
+        if (mode === "bhatkal_perm" || !saved) {
+            footerEl.innerHTML = t.footerBhatkal;
+        } else {
+            footerEl.innerHTML = t.footerGlobal;
+        }
+    }
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        localStorage.setItem('abuumair_prayer_lang', lang);
+        const t = i18n[lang];
+
+        const root = document.getElementById('html-root');
+        root.setAttribute('lang', lang);
+        root.setAttribute('dir', t.dir);
+
+        document.getElementById('btn-lang-ar').classList.toggle('active', lang === 'ar');
+        document.getElementById('btn-lang-ur').classList.toggle('active', lang === 'ur');
+        document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+
+        const textElements = [
+            'brand-link', 'lbl-settings', 'th-adhan', 'th-prayer', 'th-iqamah',
+            'lbl-fajr', 'lbl-shurooq', 'lbl-dhuhr', 'lbl-juma', 'lbl-asr', 'lbl-maghrib', 'lbl-isha',
+            'btn-whatsapp', 'btn-print', 'lbl-schedule-title', 'tab-weekly', 'tab-monthly',
+            'month-selector', 'mth-date', 'mth-fajr', 'mth-shurooq', 'mth-dhuhr', 'mth-asr', 'mth-maghrib', 'mth-isha',
+            'lbl-footer', 'view-hijri', 'view-greg'
+        ];
+
+        textElements.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.remove('lang-ar', 'lang-ur', 'lang-en');
+                el.classList.add(t.fontClass);
+            }
+        });
+
+        document.getElementById('brand-link').innerText = t.brand;
+        document.getElementById('lbl-settings').innerText = t.settings;
+        document.getElementById('th-adhan').innerText = t.adhan;
+        document.getElementById('th-prayer').innerText = t.prayer;
+        document.getElementById('th-iqamah').innerText = t.iqamah;
+
+        document.getElementById('lbl-fajr').innerText = t.fajr;
+        document.getElementById('lbl-shurooq').innerText = t.shurooqFull;
+        document.getElementById('lbl-dhuhr').innerText = t.dhuhr;
+        document.getElementById('lbl-juma').innerText = t.juma;
+        document.getElementById('lbl-asr').innerText = t.asr;
+        document.getElementById('lbl-maghrib').innerText = t.maghrib;
+        document.getElementById('lbl-isha').innerText = t.isha;
+
+        document.getElementById('btn-whatsapp').innerText = t.whatsapp;
+        document.getElementById('btn-print').innerText = t.print;
+        document.getElementById('lbl-schedule-title').innerText = t.scheduleTitle;
+        document.getElementById('tab-weekly').innerText = t.weeklyTab;
+        document.getElementById('tab-monthly').innerText = t.monthlyTab;
+
+        document.getElementById('mth-date').innerText = t.dateCol;
+        document.getElementById('mth-fajr').innerText = t.fajr;
+        document.getElementById('mth-shurooq').innerText = t.shurooq;
+        document.getElementById('mth-dhuhr').innerText = t.dhuhr;
+        document.getElementById('mth-asr').innerText = t.asr;
+        document.getElementById('mth-maghrib').innerText = t.maghrib;
+        document.getElementById('mth-isha').innerText = t.isha;
+
+        updateFooterReference();
+
+        const mSel = document.getElementById('month-selector');
+        const currentSelectedMonth = mSel.value || (new Date().getMonth() + 1);
+        mSel.innerHTML = "";
+        t.months.forEach((mName, idx) => {
+            const opt = document.createElement('option');
+            opt.value = idx + 1;
+            opt.innerText = mName;
+            mSel.appendChild(opt);
+        });
+        mSel.value = currentSelectedMonth;
+
+        loadPortalData();
+    }
+
+    function formatTime(timeStr, format) {
+        if (!timeStr) return "--:--";
+        let [h, m] = timeStr.split(':').map(Number);
+        if (format === "12") {
+            let displayH = h % 12;
+            if (displayH === 0) displayH = 12;
+            return `${String(displayH).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+        }
+        return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+    }
+
+    function timeToSeconds(timeStr) {
+        if (!timeStr) return 0;
+        let [h, m] = timeStr.split(':').map(Number);
+        return (h * 3600) + (m * 60);
+    }
+
+    function getAccurateHijriDate(offsetDays = -1) {
+        const t = i18n[currentLang];
+        try {
+            const date = new Date();
+            date.setDate(date.getDate() + parseInt(offsetDays));
+            return new Intl.DateTimeFormat(t.hijriLocale, { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
+        } catch(e) { return "8 Jumada al-Akhirah 1448"; }
+    }
+
+    function getFormattedGregorianDate() {
+        const now = new Date();
+        const t = i18n[currentLang];
+        if (currentLang === 'en') {
+            return `${t.days[now.getDay()]}, ${now.getDate()} ${t.months[now.getMonth()]} ${now.getFullYear()}`;
+        }
+        return `${t.days[now.getDay()]}، ${now.getDate()} ${t.months[now.getMonth()]} ${now.getFullYear()} م`;
+    }
+
+    let currentScheduleView = 'weekly';
+
+    function switchScheduleView(mode) {
+        currentScheduleView = mode;
+        document.getElementById('tab-weekly').classList.toggle('active', mode === 'weekly');
+        document.getElementById('tab-monthly').classList.toggle('active', mode === 'monthly');
+        renderScheduleTable();
+    }
+
+    function renderScheduleTable() {
+        const tbody = document.getElementById('schedule-table-body');
+        tbody.innerHTML = "";
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        const fmt = saved.timeFormat || "12";
+        const today = new Date();
+        const year = today.getFullYear();
+        const t = i18n[currentLang];
+
+        let datesToRender = [];
+
+        if (currentScheduleView === 'weekly') {
+            for (let i = 0; i < 7; i++) {
+                const d = new Date(today);
+                d.setDate(today.getDate() + i);
+                datesToRender.push(d);
+            }
+        } else {
+            const selectedMonth = parseInt(document.getElementById('month-selector').value);
+            const daysInMonth = new Date(year, selectedMonth, 0).getDate();
+            for (let day = 1; day <= daysInMonth; day++) {
+                datesToRender.push(new Date(year, selectedMonth - 1, day));
+            }
+        }
+
+        datesToRender.forEach(d => {
+            const times = getTimesForSpecificDate(d);
+            const isToday = d.toDateString() === today.toDateString();
+            const isFriday = d.getDay() === 5;
+
+            const tr = document.createElement('tr');
+            if (isToday) tr.classList.add('today-highlight');
+            else if (isFriday) tr.classList.add('friday-highlight');
+
+            tr.innerHTML = `
+                <td class="${t.fontClass}">${d.getDate()}/${d.getMonth() + 1} (${t.days[d.getDay()]})</td>
+                <td class="time-font">${formatTime(times.fajr_a, fmt)}</td>
+                <td class="time-font">${formatTime(times.shurooq, fmt)}</td>
+                <td class="time-font">${formatTime(times.dhuhr_a, fmt)}</td>
+                <td class="time-font">${formatTime(times.asr_a, fmt)}</td>
+                <td class="time-font">${formatTime(times.maghrib_a, fmt)}</td>
+                <td class="time-font">${formatTime(times.isha_a, fmt)}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    function shareOnWhatsApp() {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        const fmt = saved.timeFormat || "12";
+        const todayTimes = getTimesForSpecificDate(new Date());
+        const loc = saved.displayLocation || "BHATKAL (NADVI CHART)";
+        const hijri = document.getElementById('view-hijri').innerText;
+        const greg = document.getElementById('view-greg').innerText;
+        const t = i18n[currentLang];
+
+        const msg = `*${t.brand} - ${loc}*\n` +
+                    `📅 ${hijri}\n` +
+                    `🗓️ ${greg}\n\n` +
+                    `🌅 *${t.fajr}:* ${formatTime(todayTimes.fajr_a, fmt)} (${t.iqamah}: ${formatTime(todayTimes.fajr_i, fmt)})\n` +
+                    `☀️ *${t.shurooq}:* ${formatTime(todayTimes.shurooq, fmt)}\n` +
+                    `🕛 *${t.dhuhr}:* ${formatTime(todayTimes.dhuhr_a, fmt)} (${t.iqamah}: ${formatTime(todayTimes.dhuhr_i, fmt)})\n` +
+                    `🕒 *${t.asr}:* ${formatTime(todayTimes.asr_a, fmt)} (${t.iqamah}: ${formatTime(todayTimes.asr_i, fmt)})\n` +
+                    `🌇 *${t.maghrib}:* ${formatTime(todayTimes.maghrib_a, fmt)} (${t.iqamah}: ${formatTime(todayTimes.maghrib_i, fmt)})\n` +
+                    `🌙 *${t.isha}:* ${formatTime(todayTimes.isha_a, fmt)} (${t.iqamah}: ${formatTime(todayTimes.isha_i, fmt)})\n\n` +
+                    `🌐 https://abuumair.in`;
+
+        window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+    }
+
+    let gpsLat = BHATKAL_LAT, gpsLng = BHATKAL_LNG;
+
+    function trackLiveGPSLocation() {
+        if (!navigator.geolocation) return alert("GPS is not supported on this browser.");
+        navigator.geolocation.getCurrentPosition(async (pos) => {
+            gpsLat = pos.coords.latitude;
+            gpsLng = pos.coords.longitude;
+            const isBhatkal = (gpsLat >= 13.5 && gpsLat <= 14.5 && gpsLng >= 74.0 && gpsLng <= 75.0);
+
+            if (isBhatkal) {
+                document.getElementById('inp-taqweem-mode').value = "bhatkal_perm";
+                document.getElementById('inp-location-tag').value = "BHATKAL (NADVI CHART), INDIA";
+                saveSettings();
+                alert("Bhatkal Region detected! Nadvi Permanent Chart applied.");
+            } else {
+                let locLabel = `GPS (${gpsLat.toFixed(2)}, ${gpsLng.toFixed(2)})`;
+                try {
+                    const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${gpsLat}&lon=${gpsLng}`);
+                    const data = await res.json();
+                    if (data && data.address) {
+                        const city = data.address.city || data.address.town || "LOCAL CITY";
+                        const country = data.address.country || "INDIA";
+                        locLabel = `${city.toUpperCase()}, ${country.toUpperCase()}`;
+                    }
+                } catch(e) {}
+                document.getElementById('inp-taqweem-mode').value = "auto_gps";
+                document.getElementById('inp-location-tag').value = locLabel;
+                handleModeChange();
+                saveSettings();
+                alert(`Location updated to: ${locLabel}`);
+            }
+        }, () => {
+            alert("Please allow Location access in your browser settings.");
+        });
+    }
+
+    function updateClock() {
+        const now = new Date();
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        const is12Hour = (saved.timeFormat || "12") === "12";
+
+        let hours = now.getHours();
+        let minutes = String(now.getMinutes()).padStart(2, '0');
+        let seconds = String(now.getSeconds()).padStart(2, '0');
+        let ampm = "";
+
+        if (is12Hour) {
+            ampm = hours >= 12 ? "PM" : "AM";
+            hours = hours % 12;
+            if (hours === 0) hours = 12;
+        }
+
+        document.getElementById('clock').innerText = `${String(hours).padStart(2, '0')}:${minutes}:${seconds}`;
+        document.getElementById('clock-ampm').innerText = ampm;
+
+        const data = getTimesForSpecificDate(now);
+        const prayers = [
+            { id: "row-fajr", adhan: data.fajr_a, iqamah: data.fajr_i },
+            { id: (now.getDay() === 5 ? "row-juma" : "row-dhuhr"), adhan: data.dhuhr_a, iqamah: (now.getDay() === 5 ? data.juma_i : data.dhuhr_i) },
+            { id: "row-asr", adhan: data.asr_a, iqamah: data.asr_i },
+            { id: "row-maghrib", adhan: data.maghrib_a, iqamah: data.maghrib_i },
+            { id: "row-isha", adhan: data.isha_a, iqamah: data.isha_i }
+        ];
+
+        const currentSeconds = (now.getHours() * 3600) + (now.getMinutes() * 60) + now.getSeconds();
+        document.querySelectorAll('.prayer-table tr').forEach(row => row.classList.remove('active-prayer'));
+
+        for (let p of prayers) {
+            const aSec = timeToSeconds(p.adhan);
+            const iSec = timeToSeconds(p.iqamah);
+            if (currentSeconds >= aSec && currentSeconds <= (iSec + 1200)) {
+                const activeRow = document.getElementById(p.id);
+                if (activeRow) activeRow.classList.add('active-prayer');
+                break;
+            }
+        }
+    }
+    setInterval(updateClock, 1000);
+
+    function loadPortalData() {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        const todayData = getTimesForSpecificDate(new Date());
+        const fmt = saved.timeFormat || "12";
+
+        document.getElementById('view-masjid-name').innerText = saved.masjid || "MASJIDE TAUHEED";
+        document.getElementById('view-location-badge').innerText = saved.displayLocation || "BHATKAL (NADVI CHART), INDIA";
+        document.getElementById('view-hijri').innerText = getAccurateHijriDate(saved.hijriOffset ?? -1);
+        document.getElementById('view-greg').innerText = getFormattedGregorianDate();
+
+        document.getElementById('view-fajr-a').innerText = formatTime(todayData.fajr_a, fmt);
+        document.getElementById('view-fajr-i').innerText = formatTime(todayData.fajr_i, fmt);
+        document.getElementById('view-shurooq').innerText = formatTime(todayData.shurooq, fmt);
+        document.getElementById('view-duha').innerText = formatTime(todayData.duha, fmt);
+        document.getElementById('view-dhuhr-a').innerText = formatTime(todayData.dhuhr_a, fmt);
+        document.getElementById('view-dhuhr-i').innerText = formatTime(todayData.dhuhr_i, fmt);
+        document.getElementById('view-juma-a').innerText = formatTime(todayData.juma_a || todayData.dhuhr_a, fmt);
+        document.getElementById('view-juma-i').innerText = formatTime(todayData.juma_i || "13:10", fmt);
+        document.getElementById('view-asr-a').innerText = formatTime(todayData.asr_a, fmt);
+        document.getElementById('view-asr-i').innerText = formatTime(todayData.asr_i, fmt);
+        document.getElementById('view-maghrib-a').innerText = formatTime(todayData.maghrib_a, fmt);
+        document.getElementById('view-maghrib-i').innerText = formatTime(todayData.maghrib_i, fmt);
+        document.getElementById('view-isha-a').innerText = formatTime(todayData.isha_a, fmt);
+        document.getElementById('view-isha-i').innerText = formatTime(todayData.isha_i, fmt);
+
+        updateFooterReference();
+        renderScheduleTable();
+        updateClock();
+    }
+
+    function openSettings() {
+        const saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+        const todayData = getTimesForSpecificDate(new Date());
+
+        document.getElementById('inp-taqweem-mode').value = saved.taqweemMode || "bhatkal_perm";
+        document.getElementById('inp-calc-method').value = saved.calcMethod || "Moonsighting";
+        document.getElementById('inp-school').value = saved.school || "0";
+        document.getElementById('inp-time-format').value = saved.timeFormat || "12";
+        document.getElementById('inp-masjid').value = saved.masjid || "MASJIDE TAUHEED";
+        document.getElementById('inp-location-tag').value = saved.displayLocation || "BHATKAL (NADVI CHART), INDIA";
+        document.getElementById('inp-hijri-offset').value = saved.hijriOffset ?? -1;
+
+        document.getElementById('inp-fajr-a').value = todayData.fajr_a;
+        document.getElementById('inp-fajr-i').value = todayData.fajr_i;
+        document.getElementById('inp-shurooq').value = todayData.shurooq;
+        document.getElementById('inp-duha').value = todayData.duha;
+        document.getElementById('inp-dhuhr-a').value = todayData.dhuhr_a;
+        document.getElementById('inp-dhuhr-i').value = todayData.dhuhr_i;
+        document.getElementById('inp-juma-a').value = todayData.juma_a;
+        document.getElementById('inp-juma-i').value = todayData.juma_i;
+        document.getElementById('inp-asr-a').value = todayData.asr_a;
+        document.getElementById('inp-asr-i').value = todayData.asr_i;
+        document.getElementById('inp-maghrib-a').value = todayData.maghrib_a;
+        document.getElementById('inp-maghrib-i').value = todayData.maghrib_i;
+        document.getElementById('inp-isha-a').value = todayData.isha_a;
+        document.getElementById('inp-isha-i').value = todayData.isha_i;
+
+        handleModeChange();
+        document.getElementById('settingsModal').style.display = 'flex';
+    }
+
+    function closeSettingsOutside(e) {
+        if (e.target.id === 'settingsModal') {
+            document.getElementById('settingsModal').style.display = 'none';
+        }
+    }
+
+    function handleModeChange() {
+        const mode = document.getElementById('inp-taqweem-mode').value;
+        document.getElementById('gps-options-box').style.display = (mode === 'auto_gps') ? 'block' : 'none';
+    }
+
+    function recalculateGPSPrayerTimes() {
+        const school = parseInt(document.getElementById('inp-school').value || "0");
+        const calc = calculateAccurateTimes(new Date(), gpsLat, gpsLng, 5.5, 18, 18, 0, school === 1 ? 2 : 1);
+        const dhuhrSafe = addMins(calc.dhuhr, 4);
+
+        document.getElementById('inp-fajr-a').value = calc.fajr;
+        document.getElementById('inp-fajr-i').value = addMins(calc.fajr, 20);
+        document.getElementById('inp-shurooq').value = calc.sunrise;
+        document.getElementById('inp-duha').value = addMins(calc.sunrise, 15);
+        document.getElementById('inp-dhuhr-a').value = dhuhrSafe;
+        document.getElementById('inp-dhuhr-i').value = addMins(dhuhrSafe, 15);
+        document.getElementById('inp-juma-a').value = dhuhrSafe;
+        document.getElementById('inp-asr-a').value = calc.asr;
+        document.getElementById('inp-asr-i').value = addMins(calc.asr, 15);
+        document.getElementById('inp-maghrib-a').value = calc.maghrib;
+        document.getElementById('inp-maghrib-i').value = addMins(calc.maghrib, 7);
+        document.getElementById('inp-isha-a').value = calc.isha;
+        document.getElementById('inp-isha-i').value = addMins(calc.isha, 15);
+    }
+
+    function saveSettings() {
+        const newData = {
+            taqweemMode: document.getElementById('inp-taqweem-mode').value,
+            calcMethod: document.getElementById('inp-calc-method').value,
+            school: document.getElementById('inp-school').value,
+            lat: gpsLat,
+            lng: gpsLng,
+            timeFormat: document.getElementById('inp-time-format').value,
+            displayLocation: (document.getElementById('inp-location-tag').value || "BHATKAL (NADVI CHART)").toUpperCase(),
+            masjid: (document.getElementById('inp-masjid').value || "MASJIDE TAUHEED").toUpperCase(),
+            hijriOffset: parseInt(document.getElementById('inp-hijri-offset').value),
+            fajr_a: document.getElementById('inp-fajr-a').value,
+            fajr_i: document.getElementById('inp-fajr-i').value,
+            shurooq: document.getElementById('inp-shurooq').value,
+            duha: document.getElementById('inp-duha').value,
+            dhuhr_a: document.getElementById('inp-dhuhr-a').value,
+            dhuhr_i: document.getElementById('inp-dhuhr-i').value,
+            juma_a: document.getElementById('inp-juma-a').value,
+            juma_i: document.getElementById('inp-juma-i').value,
+            asr_a: document.getElementById('inp-asr-a').value,
+            asr_i: document.getElementById('inp-asr-i').value,
+            maghrib_a: document.getElementById('inp-maghrib-a').value,
+            maghrib_i: document.getElementById('inp-maghrib-i').value,
+            isha_a: document.getElementById('inp-isha-a').value,
+            isha_i: document.getElementById('inp-isha-i').value
+        };
+
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(newData));
+        loadPortalData();
+        document.getElementById('settingsModal').style.display = 'none';
+    }
+
+    function resetToDefaults() {
+        localStorage.removeItem(STORAGE_KEY);
+        loadPortalData();
+        document.getElementById('settingsModal').style.display = 'none';
+    }
+
+    setLanguage(currentLang);
+    document.getElementById('month-selector').value = new Date().getMonth() + 1;
+    renderScheduleTable();
+</script>
+</body>
+</html>
