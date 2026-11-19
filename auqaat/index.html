@@ -88,24 +88,24 @@
             gap: 16px;
         }
 
-        /* Top Navigation Bar */
+     /* Top Navigation Bar */
         .web-navbar {
             background: var(--primary-green);
             border: 1.5px solid var(--gold);
             border-radius: 12px;
-            padding: 10px 14px;
+            padding: 8px 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             color: #fce7b2;
-            flex-wrap: wrap;
-            gap: 10px;
+            gap: 6px;
         }
 
         .web-brand a {
             color: #fce7b2;
             text-decoration: none;
-            font-size: 20px;
+            font-size: 16px;
+            white-space: nowrap;
         }
 
         .lang-switcher {
@@ -121,10 +121,11 @@
             background: transparent;
             border: none;
             color: #fce7b2;
-            padding: 4px 12px;
+            padding: 3px 8px;
             border-radius: 18px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 12.5px;
+            line-height: 1.3;
             transition: all 0.2s;
         }
 
@@ -135,21 +136,21 @@
 
         .nav-actions {
             display: flex;
-            gap: 6px;
-            flex-wrap: wrap;
+            gap: 4px;
         }
 
         .nav-pill-btn {
             background: rgba(197, 160, 89, 0.22);
             border: 1px solid var(--gold);
             color: #ffffff;
-            padding: 5px 11px;
-            border-radius: 20px;
-            font-size: 13px;
+            padding: 4px 8px;
+            border-radius: 16px;
+            font-size: 12px;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 3px;
+            white-space: nowrap;
             transition: background 0.2s;
         }
 
@@ -158,7 +159,29 @@
             color: var(--primary-green);
         }
 
-        /* Main Display Card */
+        @media (max-width: 480px) {
+            .web-navbar {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            .web-brand {
+                width: 100%;
+                text-align: center;
+                border-bottom: 1px solid rgba(197, 160, 89, 0.3);
+                padding-bottom: 4px;
+            }
+            .quran-aayat {
+                font-size: 14.5px !important;
+                padding: 3px 12px !important;
+                white-space: nowrap;
+            }
+            .digital-clock {
+                font-size: 40px !important;
+            }
+            .hijri-date, .greg-date {
+                font-size: 15.5px !important;
+            }
+        }        /* Main Display Card */
         .display-card {
             background-color: var(--card-bg);
             border: 4px double var(--gold);
@@ -1241,12 +1264,61 @@
     }
 
     function getAccurateHijriDate(offsetDays = -1) {
-        const t = i18n[currentLang];
-        try {
-            const date = new Date();
-            date.setDate(date.getDate() + parseInt(offsetDays));
-            return new Intl.DateTimeFormat(t.hijriLocale, { day: 'numeric', month: 'long', year: 'numeric' }).format(date);
-        } catch(e) { return "8 Jumada al-Akhirah 1448"; }
+        const date = new Date();
+        date.setDate(date.getDate() + parseInt(offsetDays));
+
+        let day = date.getDate();
+        let month = date.getMonth();
+        let year = date.getFullYear();
+
+        let m = month + 1;
+        let y = year;
+        if (m < 3) {
+            y -= 1;
+            m += 12;
+        }
+
+        let a = Math.floor(y / 100);
+        let b = 2 - a + Math.floor(a / 4);
+        if (y < 1583) b = 0;
+        if (y === 1582) {
+            if (m > 10) b = -10;
+            if (m === 10) {
+                b = 0;
+                if (day > 4) b = -10;
+            }
+        }
+
+        let jd = Math.floor(365.25 * (y + 4716)) + Math.floor(30.6001 * (m + 1)) + day + b - 1524;
+        let iyear = 10631 / 30;
+        let epochastro = 1948084;
+        let shift1 = 8.01 / 60;
+
+        let z = jd - epochastro;
+        let cyc = Math.floor(z / 10631);
+        z = z - 10631 * cyc;
+        let j = Math.floor((z - shift1) / iyear);
+        let iy = 30 * cyc + j;
+        z = z - Math.floor(j * iyear + shift1);
+        let im = Math.floor((z + 28.5001) / 29.5);
+        if (im === 13) im = 12;
+        let id = z - Math.floor(29.5001 * im - 29);
+
+        const hijriMonths = {
+            ar: ["محرم", "صفر", "ربيع الأول", "ربيع الآخر", "جمادى الأولى", "جمادى الآخرة", "رجب", "شعبان", "رمضان", "شوال", "ذو القعدة", "ذو الحجة"],
+            ur: ["محرم الحرام", "صفر المظفر", "ربیع الاول", "ربیع الثانی", "جمادی الاولیٰ", "جمادی الاخریٰ", "رجب المرجب", "شعبان المعظم", "رمضان المبارک", "شوال المکرم", "ذوالقعدہ", "ذوالحجہ"],
+            en: ["Muharram", "Safar", "Rabi al-Awwal", "Rabi al-Thani", "Jumada al-Ula", "Jumada al-Akhirah", "Rajab", "Sha'ban", "Ramadan", "Shawwal", "Dhu al-Qi'dah", "Dhu al-Hijjah"]
+        };
+
+        const mName = hijriMonths[currentLang][im - 1];
+
+        if (currentLang === 'en') {
+            return `${id} ${mName} ${iy} AH`;
+        } else if (currentLang === 'ur') {
+            return `${id} ${mName} ${iy} ھ`;
+        } else {
+            return `${id} ${mName} ${iy} هـ`;
+        }
     }
 
     function getFormattedGregorianDate() {
