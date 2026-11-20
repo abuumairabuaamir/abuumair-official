@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ایڈمن پینل - جامعہ اسلامیہ</title>
+    <style>
+        /* CSS Reset & Scroll Fix */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        html, body {
+            overflow-x: hidden; /* سکرین کو دائیں بائیں ہلنے سے روکے گا */
+            width: 100%;
+        }
+
+        @font-face {
+            font-family: 'Jameel';
+            src: url('jameel.ttf') format('truetype');
+            font-weight: normal;
+        }
+
+        /* Color Palette */
+        :root {
+            --primary-dark: #0f4c3a; 
+            --primary-light: #187a5d;
+            --accent-gold: #d4af37; 
+            --bg-light: #f4f7f6;
+            --text-dark: #2c3e50;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Jameel', serif;
+            font-size: 24px;
+            background-color: #e9ecef;
+            color: var(--text-dark);
+            line-height: 1.8;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 3px solid var(--accent-gold);
+        }
+        .navbar-brand { font-size: 32px; color: var(--accent-gold); }
+        .back-btn {
+            background-color: transparent;
+            color: var(--white);
+            border: 1px solid var(--accent-gold);
+            padding: 5px 15px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+        .back-btn:hover { background-color: var(--accent-gold); color: var(--primary-dark); }
+
+        /* Dashboard Container */
+        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
+        .dashboard-header { text-align: center; margin-bottom: 30px; }
+        .dashboard-header h1 { color: var(--primary-dark); font-weight: normal; font-size: 40px; }
+        .dashboard-header p { color: #666; font-size: 22px; }
+
+        /* Form Cards */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+            border-top: 5px solid var(--primary-dark);
+            transition: transform 0.3s;
+        }
+        .card:hover { transform: translateY(-3px); }
+        .card.gold-border { border-top-color: var(--accent-gold); }
+
+        .card h2 {
+            font-size: 30px;
+            color: var(--primary-dark);
+            font-weight: normal;
+            margin-bottom: 15px;
+            border-bottom: 2px dashed #ccc;
+            padding-bottom: 10px;
+        }
+
+        /* Inputs & Buttons */
+        label { display: block; margin-top: 15px; font-size: 22px; color: #444; }
+        input[type="text"], input[type="file"] {
+            width: 100%;
+            padding: 10px 15px;
+            margin-top: 8px;
+            font-family: 'Jameel', serif;
+            font-size: 22px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            background-color: #fcfcfc;
+        }
+        input:focus {
+            outline: none;
+            border-color: var(--primary-dark);
+            box-shadow: 0 0 5px rgba(15, 76, 58, 0.3);
+        }
+        
+        .submit-btn {
+            width: 100%;
+            background-color: var(--primary-dark);
+            color: var(--white);
+            border: none;
+            padding: 12px;
+            margin-top: 25px;
+            font-size: 24px;
+            font-family: 'Jameel', serif;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .submit-btn:hover { background-color: var(--primary-light); }
+        .submit-btn.gold-btn { background-color: var(--accent-gold); color: var(--primary-dark); }
+        .submit-btn.gold-btn:hover { background-color: #c5a02c; }
+
+        footer { text-align: center; padding: 20px; color: #666; margin-top: 40px; font-size: 20px; }
+
+        /* Mobile Adjustments */
+        @media (max-width: 600px) {
+            .navbar { flex-direction: column; gap: 10px; text-align: center; }
+            .grid-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="navbar">
+        <div class="navbar-brand">جامعہ ایڈمن پینل 🔒</div>
+        <a href="index.html" class="back-btn">ویب سائٹ پر جائیں ➔</a>
+    </div>
+
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>کنٹرول روم</h1>
+            <p>یہاں سے آپ ویب سائٹ پر نیا ڈیٹا اور پی ڈی ایف اپلوڈ کر سکتے ہیں۔</p>
+        </div>
+
+        <div class="grid-container">
+            
+            <!-- Section 1: Tazi Khabar -->
+            <div class="card gold-border">
+                <h2>📢 تازہ ترین خبر</h2>
+                <form id="noticeForm">
+                    <label>اردو میں خبر:</label>
+                    <input type="text" id="noticeUr" placeholder="مثلاً: داخلے کی آخری تاریخ ۲۰ شوال ہے۔" required>
+
+                    <label>العربية (Arabic):</label>
+                    <!-- dir="rtl" rakha gaya hai taake Arabic sahi type ho -->
+                    <input type="text" id="noticeAr" dir="rtl" placeholder="مثلاً: آخر موعد للقبول هو 20 شوال." style="font-family: 'AmiriLocal', serif;" required>
+
+                    <label>English:</label>
+                    <!-- dir="ltr" rakha gaya hai taake English left se right type ho -->
+                    <input type="text" id="noticeEn" dir="ltr" style="font-family: Arial, sans-serif;" placeholder="Example: Last date for admission is 20th Shawwal." required>
+
+                    <label>हिन्दी (Hindi):</label>
+                    <input type="text" id="noticeHi" dir="ltr" style="font-family: 'Noto Sans Devanagari', sans-serif;" placeholder="उदाहरण: दाखिले की अंतिम तिथि 20 शव्वाल है।" required>
+
+                    <button type="submit" class="submit-btn gold-btn">خبر اپڈیٹ کریں</button>
+                </form>
+            </div>
+
+            <!-- Section 2: Dakhila Form Upload -->
+            <div class="card">
+                <h2>📝 داخلہ فارم (پی ڈی ایف)</h2>
+                <form id="admissionPdfForm">
+                    <label>فارم کا عنوان:</label>
+                    <input type="text" id="admissionTitle" placeholder="مثلاً: داخلہ فارم 2026-27" required>
+                    
+                    <label>پی ڈی ایف فائل منتخب کریں:</label>
+                    <input type="file" id="admissionFile" accept=".pdf" required>
+                    
+                    <button type="submit" class="submit-btn">فارم اپلوڈ کریں</button>
+                </form>
+            </div>
+
+            <!-- Section 3: Results Upload -->
+            <div class="card">
+                <h2>📄 امتحانی نتائج</h2>
+                <form id="resultForm">
+                    <label>رزلٹ کا عنوان:</label>
+                    <input type="text" id="resultTitle" placeholder="مثلاً: درجہ پنجم کا رزلٹ 2026" required>
+                    
+                    <label>پی ڈی ایف فائل منتخب کریں:</label>
+                    <input type="file" id="resultFile" accept=".pdf" required>
+                    
+                    <button type="submit" class="submit-btn">رزلٹ اپلوڈ کریں</button>
+                </form>
+            </div>
+
+            <!-- Section 4: Magazine Upload -->
+            <div class="card">
+                <h2>📚 میگزین / مجلہ</h2>
+                <form id="magForm">
+                    <label>میگزین کا نام / شمارہ:</label>
+                    <input type="text" id="magTitle" placeholder="مثلاً: مجلہ استدراک - شمارہ 10" required>
+                    
+                    <label>پی ڈی ایف فائل منتخب کریں:</label>
+                    <input type="file" id="magFile" accept=".pdf" required>
+                    
+                    <button type="submit" class="submit-btn">میگزین اپلوڈ کریں</button>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <footer>
+        جامعہ اسلامیہ دریاباد - ایڈمنسٹریشن پینل
+    </footer>
+
+    <script>
+        document.getElementById('noticeForm').addEventListener('submit', (e) => { e.preventDefault(); alert('خبر اپڈیٹ ہو جائے گی۔'); });
+        document.getElementById('admissionPdfForm').addEventListener('submit', (e) => { e.preventDefault(); alert('داخلہ فارم اپلوڈ ہو جائے گا۔'); });
+        document.getElementById('resultForm').addEventListener('submit', (e) => { e.preventDefault(); alert('رزلٹ کی فائل اپلوڈ ہو جائے گی۔'); });
+        document.getElementById('magForm').addEventListener('submit', (e) => { e.preventDefault(); alert('میگزین اپلوڈ ہو جائے گا۔'); });
+    </script>
+</body>
+</html>
