@@ -1,1 +1,472 @@
+<!DOCTYPE html>
+<html lang="ur" dir="rtl" id="html-tag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>جامعہ اسلامیہ دریاباد</title>
+    <style>
+        /* CSS Reset - Horizontal Scroll Fix */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Local Fonts Setup */
+        @font-face {
+            font-family: 'Jameel';
+            src: url('jameel.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'AmiriLocal';
+            src: url('amiri.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari&display=swap');
+
+        /* Color Palette */
+        :root {
+            --primary-dark: #0f4c3a; 
+            --primary-light: #187a5d;
+            --accent-gold: #d4af37; 
+            --bg-light: #f4f7f6;
+            --text-dark: #2c3e50;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Jameel', serif;
+            font-weight: normal;
+            font-size: 24px;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.8;
+            transition: all 0.3s ease;
+            overflow-x: hidden;
+        }
+
+        body.lang-ar { font-family: 'AmiriLocal', serif; font-size: 28px; }
+        body.lang-hi { font-family: 'Noto Sans Devanagari', sans-serif; font-size: 20px; line-height: 1.6; }
+        
+        body.ltr { direction: ltr; text-align: left; }
+        body.rtl { direction: rtl; text-align: right; }
+
+        /* Navbar */
+        .navbar {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar-brand { font-size: 36px; color: var(--accent-gold); }
+        
+        .lang-switcher select {
+            font-family: inherit;
+            font-size: 22px;
+            padding: 5px 15px;
+            border-radius: 6px;
+            border: 1px solid var(--accent-gold);
+            background: transparent;
+            color: var(--white);
+            cursor: pointer;
+            outline: none;
+        }
+        .lang-switcher select option { background-color: var(--primary-dark); color: var(--white); }
+
+        /* Main Menu */
+        .nav-links {
+            background-color: var(--white);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            padding: 15px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .nav-links a {
+            color: var(--primary-dark);
+            text-decoration: none;
+            font-size: 24px;
+            padding: 8px 15px;
+            border-radius: 6px;
+            transition: 0.3s;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+        }
+        .nav-links a:hover, .nav-links a.active { 
+            color: var(--accent-gold);
+            border-bottom: 2px solid var(--accent-gold);
+            background-color: #f9f9f9;
+        }
+
+        /* Banner */
+        .hero-banner {
+            width: 100%;
+            height: 350px;
+            /* Direct folder se image load hogi */
+            background-image: linear-gradient(rgba(15, 76, 58, 0.8), rgba(15, 76, 58, 0.8)), url('banner.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+        }
+        .hero-banner h1 { font-size: 55px; font-weight: normal; margin: 0; color: var(--accent-gold); }
+        .hero-banner p { font-size: 28px; margin-top: 10px; }
+
+        /* Tazi Khabrein */
+        .news-ticker {
+            background-color: var(--accent-gold);
+            padding: 12px 20px;
+            color: var(--primary-dark);
+            display: flex;
+            align-items: center;
+            font-size: 26px;
+        }
+        .news-ticker span {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 5px 15px;
+            border-radius: 4px;
+            margin: 0 15px;
+            white-space: nowrap;
+        }
+
+        /* Pages System */
+        .container { 
+            max-width: 1200px; 
+            margin: 40px auto; 
+            padding: 0 20px; 
+            min-height: 50vh;
+        }
+        
+        .page-section {
+            display: none; 
+            animation: fadeIn 0.4s ease-in-out;
+            scroll-margin-top: 90px; /* Menu bar ke niche proper gap ke liye */
+        }
+        .page-section.active {
+            display: block; 
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards & Content */
+        .content-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+            margin-bottom: 30px;
+            border-top: 4px solid var(--primary-dark);
+        }
+        .section-title {
+            color: var(--primary-dark);
+            font-size: 34px;
+            font-weight: normal;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 3px;
+            background-color: var(--accent-gold);
+            margin-top: 5px;
+        }
+
+        /* Buttons & Items */
+        .download-btn {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 6px;
+            display: inline-block;
+            margin-top: 15px;
+            border: 1px solid var(--primary-dark);
+        }
+        .download-btn:hover { background-color: var(--white); color: var(--primary-dark); }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .gallery-grid img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        footer {
+            background-color: var(--primary-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 20px;
+            font-size: 22px;
+            margin-top: auto;
+            border-top: 3px solid var(--accent-gold);
+        }
+    </style>
+</head>
+<body class="rtl lang-ur">
+
+    <!-- Header -->
+    <div class="navbar">
+        <div class="navbar-brand" data-key="jamiaName">جامعہ اسلامیہ دریاباد</div>
+        <div class="lang-switcher">
+            <select id="langSelect" onchange="changeLanguage()">
+                <option value="ur">اردو</option>
+                <option value="ar">العربية</option>
+                <option value="en">English</option>
+                <option value="hi">हिन्दी</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Main Menu -->
+    <div class="nav-links">
+        <a onclick="showPage('home')" class="nav-btn active" data-key="home">ہوم</a>
+        <a onclick="showPage('about')" class="nav-btn" data-key="about">تعارف</a>
+        <a onclick="showPage('admission')" class="nav-btn" data-key="admission">داخلہ</a>
+        <a onclick="showPage('examination')" class="nav-btn" data-key="examination">امتحانات</a>
+        <a onclick="showPage('results')" class="nav-btn" data-key="results">نتائج</a>
+        <a onclick="showPage('studentMag')" class="nav-btn" data-key="studentMag">طلبہ کا میگزین</a>
+        <a onclick="showPage('jamiaMag')" class="nav-btn" data-key="jamiaMag">مجلہ استدراک</a>
+        <a onclick="showPage('photos')" class="nav-btn" data-key="photos">تصاویر</a>
+    </div>
+
+    <!-- Banner -->
+    <div class="hero-banner">
+        <h1 data-key="jamiaName">جامعہ اسلامیہ دریاباد</h1>
+        <p data-key="bannerText">مرکزِ علومِ اسلامیہ و عصریہ</p>
+    </div>
+
+    <!-- News Ticker -->
+    <div class="news-ticker">
+        <span data-key="newsTitle">تازہ ترین:</span>
+        <marquee direction="right" scrollamount="6" data-key="newsMarquee">
+            نئے تعلیمی سال کے لیے داخلے جاری ہیں۔ فارم بھرنے کی آخری تاریخ ۲۰ شوال المکرم ہے۔
+        </marquee>
+    </div>
+
+    <!-- Pages Container -->
+    <div class="container">
+        
+        <div id="home" class="page-section active">
+            <div class="content-card">
+                <h2 class="section-title" data-key="welcomeHeading">خوش آمدید</h2>
+                <p data-key="aboutText">جامعہ اسلامیہ دریاباد ایک عظیم دینی درسگاہ ہے جہاں قرآن، حدیث، فقہ اور دیگر اسلامی علوم کے ساتھ ساتھ عصری تعلیم کا بھی بہترین انتظام ہے۔ ہمارا مقصد ایسی نسل تیار کرنا ہے جو دین اور دنیا دونوں میں کامیابی حاصل کر سکے۔</p>
+            </div>
+        </div>
+
+        <div id="about" class="page-section">
+            <div class="content-card">
+                <h2 class="section-title" data-key="about">تعارف</h2>
+                <p data-key="aboutDetail">جامعہ اسلامیہ دریاباد کی بنیاد اخلاص اور للہیت پر رکھی گئی ہے۔ اس ادارے کا مقصد سلف صالحین کے منہج پر قرآن و سنت کی خالص تعلیمات کو عام کرنا ہے۔ جامعہ میں ماہر اور تجربہ کار اساتذہ کی زیر نگرانی طلبہ کی علمی، فکری اور اخلاقی تربیت کی جاتی ہے تاکہ وہ معاشرے کے لیے ایک مفید شہری اور دین کے سچے خادم بن سکیں۔</p>
+            </div>
+        </div>
+
+        <div id="admission" class="page-section">
+            <div class="content-card">
+                <h2 class="section-title" data-key="admission">داخلہ</h2>
+                <p data-key="admissionText">نئے تعلیمی سال کے لیے داخلے جاری ہیں۔ داخلہ کے اصول و ضوابط اور فارم یہاں سے حاصل کریں۔</p>
+                <a href="#" class="download-btn" data-key="downloadForm">داخلہ فارم ڈاؤنلوڈ کریں</a>
+            </div>
+        </div>
+
+        <div id="examination" class="page-section">
+            <div class="content-card">
+                <h2 class="section-title" data-key="examination">امتحانات</h2>
+                <p data-key="examText">جامعہ میں ششماہی اور سالانہ امتحانات کا انعقاد نہایت شفافیت کے ساتھ کیا جاتا ہے۔ امتحانات کا ٹائم ٹیبل اور دیگر ہدایات یہاں شائع کی جاتی ہیں۔</p>
+            </div>
+        </div>
+
+        <div id="results" class="page-section">
+            <div class="content-card">
+                <h2 class="section-title" data-key="results">نتائج</h2>
+                <p data-key="resultsText">تمام درجات کے امتحانی نتائج یہاں اپلوڈ کیے جاتے ہیں۔</p>
+                <div style="margin-top:20px; border-bottom:1px solid #ccc; padding-bottom:10px;">
+                    <p>درجہ پنجم کا سالانہ رزلٹ - ۲۰۲۶</p>
+                    <a href="#" class="download-btn" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="studentMag" class="page-section">
+            <div class="content-card">
+                <h2 class="section-title" data-key="studentMag">طلبہ کا میگزین</h2>
+                <p data-key="studentMagText">جامعہ کے طلبہ کی علمی و ادبی تحریریں، مقالات اور شعری ذوق پر مبنی مجلہ۔</p>
+                <a href="#" class="download-btn" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
+            </div>
+        </div>
+
+        <div id="jamiaMag" class="page-section">
+            <div class="content-card">
+                <h2 class="section-title" data-key="jamiaMag">مجلہ استدراک</h2>
+                <p data-key="jamiaMagText">جامعہ اسلامیہ دریاباد کا ترجمان 'مجلہ استدراک'۔ اس میں اکابرین کے مضامین اور اہم دینی و ملی مسائل پر رہنمائی موجود ہوتی ہے۔</p>
+                <a href="#" class="download-btn" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
+            </div>
+        </div>
+
+        <div id="photos" class="page-section">
+            <div class="content-card">
+                <h2 class="section-title" data-key="photos">تصاویر</h2>
+                <div class="gallery-grid">
+                    <!-- Photos direct folder se -->
+                    <img src="photo1.jpg" alt="Jamia Photo 1">
+                    <img src="photo2.jpg" alt="Jamia Photo 2">
+                    <img src="photo3.jpg" alt="Jamia Photo 3">
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <span data-key="footerText">تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد</span>
+    </footer>
+
+    <!-- JS Logic -->
+    <script>
+        // --- 1. Page Navigation & Smooth Scroll Logic ---
+        function showPage(pageId) {
+            // Sab pages ko hide karo
+            const pages = document.querySelectorAll('.page-section');
+            pages.forEach(page => page.classList.remove('active'));
+
+            // Jo page select hua hai usay show karo
+            const targetPage = document.getElementById(pageId);
+            targetPage.classList.add('active');
+
+            // Button ko 'active' style do
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Niche smoothly scroll karne ka function
+            targetPage.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- 2. Translation Logic ---
+        const translations = {
+            ur: {
+                jamiaName: "جامعہ اسلامیہ دریاباد", home: "ہوم", about: "تعارف", admission: "داخلہ",
+                examination: "امتحانات", results: "نتائج", studentMag: "طلبہ کا میگزین", jamiaMag: "مجلہ استدراک",
+                photos: "تصاویر", bannerText: "مرکزِ علومِ اسلامیہ و عصریہ", newsTitle: "تازہ ترین:",
+                newsMarquee: "نئے تعلیمی سال کے لیے داخلے جاری ہیں۔ فارم بھرنے کی آخری تاریخ ۲۰ شوال المکرم ہے۔",
+                welcomeHeading: "خوش آمدید",
+                aboutText: "جامعہ اسلامیہ دریاباد ایک عظیم دینی درسگاہ ہے جہاں قرآن، حدیث، فقہ اور دیگر اسلامی علوم کے ساتھ ساتھ عصری تعلیم کا بھی بہترین انتظام ہے۔",
+                aboutDetail: "جامعہ اسلامیہ دریاباد کی بنیاد اخلاص اور للہیت پر رکھی گئی ہے۔ اس ادارے کا مقصد سلف صالحین کے منہج پر قرآن و سنت کی خالص تعلیمات کو عام کرنا ہے۔",
+                admissionText: "نئے تعلیمی سال کے لیے داخلے جاری ہیں۔ داخلہ کے اصول و ضوابط اور فارم یہاں سے حاصل کریں۔",
+                downloadForm: "داخلہ فارم ڈاؤنلوڈ کریں",
+                examText: "جامعہ میں ششماہی اور سالانہ امتحانات کا انعقاد نہایت شفافیت کے ساتھ کیا جاتا ہے۔ امتحانات کا ٹائم ٹیبل اور دیگر ہدایات یہاں شائع کی جاتی ہیں۔",
+                resultsText: "تمام درجات کے امتحانی نتائج یہاں اپلوڈ کیے جاتے ہیں۔",
+                viewPdf: "پی ڈی ایف دیکھیں",
+                studentMagText: "جامعہ کے طلبہ کی علمی و ادبی تحریریں، مقالات اور شعری ذوق پر مبنی مجلہ۔",
+                jamiaMagText: "جامعہ اسلامیہ دریاباد کا ترجمان 'مجلہ استدراک'۔ اس میں اکابرین کے مضامین اور اہم دینی و ملی مسائل پر رہنمائی موجود ہوتی ہے۔",
+                footerText: "تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد"
+            },
+            ar: {
+                jamiaName: "الجامعة الإسلامية بدرياباد", home: "الرئيسية", about: "نبذة عنا", admission: "القبول",
+                examination: "الامتحانات", results: "النتائج", studentMag: "مجلة الطلاب", jamiaMag: "مجلة استدراك",
+                photos: "الصور", bannerText: "مركز العلوم الإسلامية والعصرية", newsTitle: "آخر الأخبار:",
+                newsMarquee: "القبول للعام الدراسي الجديد مستمر. آخر موعد لتقديم الاستمارات هو 20 شوال.",
+                welcomeHeading: "مرحباً بكم",
+                aboutText: "الجامعة الإسلامية بدرياباد هي مؤسسة تعليمية دينية عظيمة توفر تعليماً ممتازاً في القرآن والحديث والفقه وغيرها من العلوم الإسلامية إلى جانب التعليم العصري.",
+                aboutDetail: "تأسست الجامعة الإسلامية بدرياباد على الإخلاص. وتهدف إلى نشر التعاليم النقية للقرآن والسنة على منهج السلف الصالح.",
+                admissionText: "القبول للعام الدراسي الجديد مستمر. قواعد وشروط القبول والاستمارات متاحة هنا.",
+                downloadForm: "تحميل استمارة القبول",
+                examText: "يتم إجراء الامتحانات النصف سنوية والسنوية بشفافية تامة. يتم نشر جدول الامتحانات والتعليمات الأخرى هنا.",
+                resultsText: "يتم رفع نتائج الامتحانات لجميع الفصول هنا.",
+                viewPdf: "عرض ملف PDF",
+                studentMagText: "الكتابات العلمية والأدبية والمقالات لطلاب الجامعة.",
+                jamiaMagText: "مجلة 'استدراك' الناطقة باسم الجامعة الإسلامية بدرياباد. تحتوي على مقالات وتوجيهات في القضايا الدينية.",
+                footerText: "جميع الحقوق محفوظة © 2026 الجامعة الإسلامية بدرياباد"
+            },
+            en: {
+                jamiaName: "Jamia Islamia Dariyabad", home: "Home", about: "About Us", admission: "Admission",
+                examination: "Examination", results: "Results", studentMag: "Students Magazine", jamiaMag: "Jamia Magazine Estidrak",
+                photos: "Photos", bannerText: "Center for Islamic & Modern Education", newsTitle: "Latest News:",
+                newsMarquee: "Admissions for the new academic year are open. The last date to apply is 20th Shawwal.",
+                welcomeHeading: "Welcome",
+                aboutText: "Jamia Islamia Dariyabad is a prestigious religious institution offering excellent education in Quran, Hadith, Fiqh along with modern subjects.",
+                aboutDetail: "Jamia Islamia Dariyabad is founded on sincerity and devotion. The aim of this institution is to spread the pure teachings of the Quran and Sunnah based on the methodology of the righteous predecessors.",
+                admissionText: "Admissions for the new academic year are open. Admission rules, regulations, and forms are available here.",
+                downloadForm: "Download Admission Form",
+                examText: "Half-yearly and annual examinations are conducted with utmost transparency. The exam timetable and other instructions are published here.",
+                resultsText: "Examination results for all classes are uploaded here.",
+                viewPdf: "View PDF",
+                studentMagText: "Academic and literary writings, articles, and poetry by Jamia students.",
+                jamiaMagText: "'Estidrak', the official magazine of Jamia Islamia Dariyabad. It contains articles by scholars and guidance on important religious issues.",
+                footerText: "All rights reserved © 2026 Jamia Islamia Dariyabad"
+            },
+            hi: {
+                jamiaName: "जामिया इस्लामिया दरियाबाद", home: "होम", about: "परिचय", admission: "दाखिला",
+                examination: "परीक्षा", results: "परिणाम", studentMag: "छात्र पत्रिका", jamiaMag: "पत्रिका इस्तिद्राक",
+                photos: "तस्वीरें", bannerText: "इस्लामी और आधुनिक शिक्षा का केंद्र", newsTitle: "ताज़ा ख़बर:",
+                newsMarquee: "नए शैक्षणिक वर्ष के लिए दाखिले जारी हैं। फॉर्म भरने की अंतिम तिथि 20 शव्वाल है।",
+                welcomeHeading: "स्वागत है",
+                aboutText: "जामिया इस्लामिया दरियाबाद एक महान धार्मिक शिक्षण संस्थान है जहाँ कुरान, हदीस, फिकह के साथ-साथ आधुनिक शिक्षा का बेहतरीन प्रबंध है।",
+                aboutDetail: "जामिया इस्लामिया दरियाबाद की स्थापना इखलास पर की गई है। इस संस्था का उद्देश्य पूर्वजों के तरीके पर कुरान और सुन्नत की शुद्ध शिक्षाओं को फैलाना है।",
+                admissionText: "नए शैक्षणिक वर्ष के लिए प्रवेश जारी हैं। दाखिले के नियम और फॉर्म यहाँ से प्राप्त करें।",
+                downloadForm: "प्रवेश फॉर्म डाउनलोड करें",
+                examText: "अर्धवार्षिक और वार्षिक परीक्षाएं पूरी पारदर्शिता के साथ आयोजित की जाती हैं। परीक्षा का टाइम टेबल और अन्य निर्देश यहाँ प्रकाशित किए जाते हैं।",
+                resultsText: "सभी कक्षाओं के परीक्षा परिणाम यहाँ अपलोड किए जाते हैं।",
+                viewPdf: "PDF देखें",
+                studentMagText: "जामिया के छात्रों के शैक्षणिक और साहित्यिक लेख और कविताएं।",
+                jamiaMagText: "जामिया इस्लामिया दरियाबाद की आधिकारिक पत्रिका 'इस्तिद्राक'। इसमें विद्वानों के लेख और महत्वपूर्ण धार्मिक मुद्दों पर मार्गदर्शन शामिल है।",
+                footerText: "सर्वाधिकार सुरक्षित © 2026 जामिया इस्लामिया दरियाबाद"
+            }
+        };
+
+        function changeLanguage() {
+            const lang = document.getElementById('langSelect').value;
+            const body = document.body;
+            const htmlTag = document.getElementById('html-tag');
+
+            if(lang === 'en' || lang === 'hi') {
+                body.className = `ltr lang-${lang}`;
+                htmlTag.dir = "ltr";
+                document.querySelector('marquee').direction = "left"; 
+            } else {
+                body.className = `rtl lang-${lang}`;
+                htmlTag.dir = "rtl";
+                document.querySelector('marquee').direction = "right";
+            }
+            htmlTag.lang = lang;
+
+            const elements = document.querySelectorAll('[data-key]');
+            elements.forEach(element => {
+                const key = element.getAttribute('data-key');
+                if(translations[lang][key]) {
+                    element.innerText = translations[lang][key];
+                }
+            });
+        }
+    </script>
+</body>
+</html>
 
