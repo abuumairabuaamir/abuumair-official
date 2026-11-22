@@ -112,9 +112,9 @@
         /* Banner */
         .hero-banner {
             width: 100%;
-            height: 350px;
+            height: 380px;
             /* Direct folder se image load hogi */
-            background-image: linear-gradient(rgba(15, 76, 58, 0.8), rgba(15, 76, 58, 0.8)), url('banner.jpg');
+            background-image: linear-gradient(rgba(15, 76, 58, 0.85), rgba(15, 76, 58, 0.85)), url('banner.jpg');
             background-size: cover;
             background-position: center;
             display: flex;
@@ -126,7 +126,17 @@
             padding: 20px;
         }
         .hero-banner h1 { font-size: 55px; font-weight: normal; margin: 0; color: var(--accent-gold); }
-        .hero-banner p { font-size: 28px; margin-top: 10px; }
+        
+        /* New Banner Elements */
+        .banner-supervisor {
+            background-color: rgba(15, 76, 58, 0.6);
+            border: 1px solid var(--accent-gold);
+            padding: 5px 25px;
+            border-radius: 50px;
+            margin-top: 15px;
+            font-size: 24px;
+            color: var(--accent-gold);
+        }
 
         /* Tazi Khabrein */
         .news-ticker {
@@ -157,7 +167,7 @@
         .page-section {
             display: none; 
             animation: fadeIn 0.4s ease-in-out;
-            scroll-margin-top: 90px; /* Menu bar ke niche proper gap ke liye */
+            scroll-margin-top: 90px;
         }
         .page-section.active {
             display: block; 
@@ -191,6 +201,37 @@
             height: 3px;
             background-color: var(--accent-gold);
             margin-top: 5px;
+        }
+
+        /* Lists */
+        ul.styled-list {
+            list-style-type: none;
+            padding-right: 0; 
+        }
+        body.ltr ul.styled-list {
+            padding-right: auto;
+            padding-left: 0;
+        }
+        ul.styled-list li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-right: 25px; 
+        }
+        body.ltr ul.styled-list li {
+            padding-right: 0;
+            padding-left: 25px;
+        }
+        ul.styled-list li::before {
+            content: '•';
+            color: var(--accent-gold);
+            font-size: 30px;
+            position: absolute;
+            right: 0; 
+            top: -5px;
+        }
+        body.ltr ul.styled-list li::before {
+            right: auto;
+            left: 0;
         }
 
         /* Buttons & Items */
@@ -257,10 +298,13 @@
         <a onclick="showPage('photos')" class="nav-btn" data-key="photos">تصاویر</a>
     </div>
 
-    <!-- Banner -->
+    <!-- Banner (Updated) -->
     <div class="hero-banner">
         <h1 data-key="jamiaName">جامعہ اسلامیہ دریاباد</h1>
-        <p data-key="bannerText">مرکزِ علومِ اسلامیہ و عصریہ</p>
+        <p data-key="bannerText" style="font-size: 30px; margin-top: 5px;">زیرِ نگرانی: اہل حدیث تعلیمی و رفاہی سوسائٹی</p>
+        <div class="banner-supervisor">
+            <span data-key="bannerDirector">مشرفِ عام: فضیلۃ الشیخ الدکتور عبدالباری فتح اللہ المدنی حفظہ اللہ</span>
+        </div>
     </div>
 
     <!-- News Ticker -->
@@ -283,8 +327,31 @@
 
         <div id="about" class="page-section">
             <div class="content-card">
-                <h2 class="section-title" data-key="about">تعارف</h2>
-                <p data-key="aboutDetail">جامعہ اسلامیہ دریاباد کی بنیاد اخلاص اور للہیت پر رکھی گئی ہے۔ اس ادارے کا مقصد سلف صالحین کے منہج پر قرآن و سنت کی خالص تعلیمات کو عام کرنا ہے۔ جامعہ میں ماہر اور تجربہ کار اساتذہ کی زیر نگرانی طلبہ کی علمی، فکری اور اخلاقی تربیت کی جاتی ہے تاکہ وہ معاشرے کے لیے ایک مفید شہری اور دین کے سچے خادم بن سکیں۔</p>
+                <h2 class="section-title" data-key="about">تعارف و شعبہ جات</h2>
+                <p data-key="aboutDetail">جامعہ اسلامیہ دریاباد کی تاسیس 1990ء مطابق 1411ھ میں ہوئی۔ یہ جامعہ اہل حدیث تعلیمی و رفاہی سوسائٹی کے زیرِ نگرانی کام کر رہا ہے۔ جامعہ میں ایک عظیم الشان جنرل لائبریری (مکتبہ عامہ) بھی موجود ہے جس میں تفسیر، عقائد، احادیث اور فقہ اسلامی پر معتبر کتابوں کا ذخیرہ ہے۔ اسی کے تحت 'مکتبۃ التوزیع' سے اہم دعوتی اور تحقیقی رسائل کی مفت تقسیم بھی ہوتی ہے۔</p>
+                
+                <h3 style="color: var(--primary-dark); margin-top: 20px; font-weight: normal;" data-key="aimsHeading">جامعہ کے اغراض و مقاصد:</h3>
+                <ul class="styled-list">
+                    <li data-key="aim1">منہج سلف کے مطابق قرآن و حدیث کی اشاعت اور رجوع الی الکتاب والسنہ کی دعوت۔</li>
+                    <li data-key="aim2">مسلمانوں کے درمیان دین اسلام کا صحیح تعارف پیش کرنا اور شرک و بدعات سے آگاہ کرنا۔</li>
+                    <li data-key="aim3">امت مسلمہ کو ضعیف و موضوع احادیث سے آگاہ کرنا اور فقہی جمود سے دور رکھنا۔</li>
+                    <li data-key="aim4">ایسی نسل تیار کرنا جو علوم کتاب و سنت سے آراستہ اور ملک و ملت کے لیے مفید ہو۔</li>
+                    <li data-key="aim5">غربا، مساکین، یتامیٰ اور بیواؤں کا حتی الامکان تعاون کرنا اور ہنگامی آفات میں بلا امتیاز مذہب مدد کرنا۔</li>
+                    <li data-key="aim6">مساجد و مدارس کی نگرانی، رفاہی شفاخانہ کا قیام اور مختلف علاقوں میں دعوت و تبلیغ کا اہتمام کرنا۔</li>
+                </ul>
+
+                <h3 style="color: var(--primary-dark); margin-top: 20px; font-weight: normal;" data-key="departmentsHeading">جامعہ کے اہم شعبہ جات:</h3>
+                <ul class="styled-list">
+                    <li data-key="dep1">روضۃ الاطفال (پرائمری) - 6 سال</li>
+                    <li data-key="dep2">مرحلہ متوسطہ - 3 سال</li>
+                    <li data-key="dep3">مرحلہ ثانویہ (عالمیت) - 4 سال</li>
+                    <li data-key="dep4">مرحلہ کلیۃ الحدیث (B.A) - 3 سال</li>
+                    <li data-key="dep5">شعبہ تحفیظ القرآن الکریم - 4 سال</li>
+                    <li data-key="dep6">مدرسۃ البنات (نسواں) - 9 سال</li>
+                    <li data-key="dep7">دار الافتاء والبحوث العلمیہ</li>
+                    <li data-key="dep8">شعبہ دعوت و ارشاد</li>
+                    <li data-key="dep9">عیادہ خیریہ (رفاہی اسپتال) و شعبہ یتامیٰ و مساکین</li>
+                </ul>
             </div>
         </div>
 
@@ -303,70 +370,107 @@
             </div>
         </div>
 
+ <!-- 5. RESULTS PAGE (Class-wise Archive) -->
         <div id="results" class="page-section">
             <div class="content-card">
                 <h2 class="section-title" data-key="results">نتائج</h2>
                 <p data-key="resultsText">تمام درجات کے امتحانی نتائج یہاں اپلوڈ کیے جاتے ہیں۔</p>
-                <div style="margin-top:20px; border-bottom:1px solid #ccc; padding-bottom:10px;">
-                    <p>درجہ پنجم کا سالانہ رزلٹ - ۲۰۲۶</p>
-                    <a href="#" class="download-btn" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
+                
+                <!-- Class Selection Filter -->
+                <div style="background: #f4f7f6; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+                    <label data-key="selectClassLabel" style="font-weight:bold; margin-bottom:10px; display:block; color: var(--primary-dark);">اپنا درجہ منتخب کریں:</label>
+                    <select id="userResultClass" style="width:100%; padding:12px; font-family:'Jameel', serif; font-size:22px; border-radius:6px; border:1px solid #ccc; outline:none;">
+                        <option value="" data-key="optSelect">درجہ منتخب کریں...</option>
+                        <option value="hifz" data-key="optHifz">شعبہ حفظ و ناظرہ</option>
+                        <option value="idadia" data-key="optIdadia">درجہ اعدادیہ</option>
+                        <option value="ula" data-key="optUla">درجہ اولیٰ</option>
+                        <option value="sania" data-key="optSania">درجہ ثانیہ</option>
+                        <option value="salisa" data-key="optSalisa">درجہ ثالثہ</option>
+                        <option value="rabia" data-key="optRabia">درجہ رابعہ</option>
+                        <option value="khamisa" data-key="optKhamisa">درجہ خامسہ</option>
+                    </select>
+                </div>
+
+                <!-- Results List (Fehrist) -->
+                <div id="resultsListArea">
+                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
+                        <span style="font-size:24px;">سالانہ امتحان - ۲۰۲۶</span>
+                        <a href="#" class="download-btn" style="margin-top:0;" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
+                    </div>
                 </div>
             </div>
         </div>
 
+<!-- 6. STUDENT MAGAZINE PAGE -->
         <div id="studentMag" class="page-section">
             <div class="content-card">
                 <h2 class="section-title" data-key="studentMag">طلبہ کا میگزین</h2>
-                <p data-key="studentMagText">جامعہ کے طلبہ کی علمی و ادبی تحریریں، مقالات اور شعری ذوق پر مبنی مجلہ۔</p>
-                <a href="#" class="download-btn" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
-            </div>
-        </div>
-
-        <div id="jamiaMag" class="page-section">
-            <div class="content-card">
-                <h2 class="section-title" data-key="jamiaMag">مجلہ استدراک</h2>
-                <p data-key="jamiaMagText">جامعہ اسلامیہ دریاباد کا ترجمان 'مجلہ استدراک'۔ اس میں اکابرین کے مضامین اور اہم دینی و ملی مسائل پر رہنمائی موجود ہوتی ہے۔</p>
-                <a href="#" class="download-btn" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
-            </div>
-        </div>
-
-        <div id="photos" class="page-section">
-            <div class="content-card">
-                <h2 class="section-title" data-key="photos">تصاویر</h2>
-                <div class="gallery-grid">
-                    <!-- Photos direct folder se -->
-                    <img src="photo1.jpg" alt="Jamia Photo 1">
-                    <img src="photo2.jpg" alt="Jamia Photo 2">
-                    <img src="photo3.jpg" alt="Jamia Photo 3">
+                <p data-key="studentMagText" style="margin-bottom: 20px;">جامعہ کے طلبہ کی علمی و ادبی تحریریں، مقالات اور شعری ذوق پر مبنی مجلہ۔</p>
+                
+                <div id="studentMagListArea">
+                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
+                        <span style="font-size:24px;">طلبہ میگزین - شمارہ ۲۰۲۶</span>
+                        <a href="#" class="download-btn" style="margin-top:0;" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
+                    </div>
                 </div>
             </div>
         </div>
 
-    </div>
+        <!-- 7. JAMIA MAGAZINE (ESTIDRAK) PAGE -->
+        <div id="jamiaMag" class="page-section">
+            <div class="content-card">
+                <h2 class="section-title" data-key="jamiaMag">مجلہ استدراک</h2>
+                <p data-key="jamiaMagText">یہ جامعہ کے افق صحافت سے طلوع ہونے والا دینی، علمی اور اصلاحی مجلہ ہے۔ سنہ 2006ء سے 2010ء تک یہ مجلہ 'احتساب' کے نام سے شائع ہوتا رہا ہے۔</p>
+                
+                <h3 style="color: var(--primary-dark); margin-top: 15px; font-weight: normal;" data-key="magContentsHeading">اس مجلے کے مشمولات درج ذیل ہیں:</h3>
+                <ul class="styled-list" style="margin-bottom: 20px;">
+                    <li data-key="mag1">کتاب و سنت کی روشنی میں فکری و اصلاحی بحث و مناقشہ۔</li>
+                    <li data-key="mag2">مختلف مہینوں کے لحاظ سے علمی و اصلاحی مضامین۔</li>
+                    <li data-key="mag3">احکام و مسائل کے تعلق سے ضعیف و موضوع روایات کی تخریج و تحقیق۔</li>
+                    <li data-key="mag4">اہم و حساس موضوعات پر علمی مقالات اور مختلف علاقوں سے آنے والے سوالات کے تحقیقی جوابات۔</li>
+                    <li data-key="mag5">حالات حاضرہ کے مطابق اداریے اور مقالات میں صحتِ احادیث و آثار کا التزام۔</li>
+                </ul>
 
+                <div id="jamiaMagListArea">
+                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
+                        <span style="font-size:24px;">مجلہ استدراک - شمارہ ۱۰ (نومبر ۲۰۲۶)</span>
+                        <a href="#" class="download-btn" style="margin-top:0;" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!-- 8. PHOTOS PAGE -->
+        <div id="photos" class="page-section">
+            <div class="content-card">
+                <h2 class="section-title" data-key="photos">تصاویر</h2>
+                
+                <div class="gallery-grid" id="photoGalleryArea">
+                    <div style="background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; text-align: center;">
+                        <img src="photo1.jpg" alt="Jamia Photo" style="width: 100%; height: 250px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;">
+                        <p style="margin: 0; font-size: 22px; color: var(--primary-dark);">سالانہ جلسہ دستار بندی - ۲۰۲۶</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     <!-- Footer -->
     <footer>
         <span data-key="footerText">تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد</span>
     </footer>
 
-    <!-- JS Logic -->
+   <!-- JS Logic -->
     <script>
         // --- 1. Page Navigation & Smooth Scroll Logic ---
         function showPage(pageId) {
-            // Sab pages ko hide karo
             const pages = document.querySelectorAll('.page-section');
             pages.forEach(page => page.classList.remove('active'));
 
-            // Jo page select hua hai usay show karo
             const targetPage = document.getElementById(pageId);
             targetPage.classList.add('active');
 
-            // Button ko 'active' style do
             const buttons = document.querySelectorAll('.nav-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
 
-            // Niche smoothly scroll karne ka function
             targetPage.scrollIntoView({ behavior: 'smooth' });
         }
 
@@ -375,70 +479,146 @@
             ur: {
                 jamiaName: "جامعہ اسلامیہ دریاباد", home: "ہوم", about: "تعارف", admission: "داخلہ",
                 examination: "امتحانات", results: "نتائج", studentMag: "طلبہ کا میگزین", jamiaMag: "مجلہ استدراک",
-                photos: "تصاویر", bannerText: "مرکزِ علومِ اسلامیہ و عصریہ", newsTitle: "تازہ ترین:",
+                photos: "تصاویر", 
+                bannerText: "زیرِ نگرانی: اہل حدیث تعلیمی و رفاہی سوسائٹی",
+                bannerDirector: "مشرفِ عام: فضیلۃ الشیخ الدکتور عبدالباری فتح اللہ المدنی حفظہ اللہ", 
+                newsTitle: "تازہ ترین:",
                 newsMarquee: "نئے تعلیمی سال کے لیے داخلے جاری ہیں۔ فارم بھرنے کی آخری تاریخ ۲۰ شوال المکرم ہے۔",
                 welcomeHeading: "خوش آمدید",
                 aboutText: "جامعہ اسلامیہ دریاباد ایک عظیم دینی درسگاہ ہے جہاں قرآن، حدیث، فقہ اور دیگر اسلامی علوم کے ساتھ ساتھ عصری تعلیم کا بھی بہترین انتظام ہے۔",
-                aboutDetail: "جامعہ اسلامیہ دریاباد کی بنیاد اخلاص اور للہیت پر رکھی گئی ہے۔ اس ادارے کا مقصد سلف صالحین کے منہج پر قرآن و سنت کی خالص تعلیمات کو عام کرنا ہے۔",
+                aboutDetail: "جامعہ اسلامیہ دریاباد کی تاسیس 1990ء مطابق 1411ھ میں ہوئی۔ یہ جامعہ اہل حدیث تعلیمی و رفاہی سوسائٹی کے زیرِ نگرانی کام کر رہا ہے۔ جامعہ میں ایک عظیم الشان جنرل لائبریری (مکتبہ عامہ) بھی موجود ہے جس میں تفسیر، عقائد، احادیث اور فقہ اسلامی پر معتبر کتابوں کا ذخیرہ ہے۔ اسی کے تحت 'مکتبۃ التوزیع' سے اہم دعوتی اور تحقیقی رسائل کی مفت تقسیم بھی ہوتی ہے۔",
+                aimsHeading: "جامعہ کے اغراض و مقاصد:",
+                aim1: "منہج سلف کے مطابق قرآن و حدیث کی اشاعت اور رجوع الی الکتاب والسنہ کی دعوت۔",
+                aim2: "مسلمانوں کے درمیان دین اسلام کا صحیح تعارف پیش کرنا اور شرک و بدعات سے آگاہ کرنا۔",
+                aim3: "امت مسلمہ کو ضعیف و موضوع احادیث سے آگاہ کرنا اور فقہی جمود سے دور رکھنا۔",
+                aim4: "ایسی نسل تیار کرنا جو علوم کتاب و سنت سے آراستہ اور ملک و ملت کے لیے مفید ہو۔",
+                aim5: "غربا، مساکین، یتامیٰ اور بیواؤں کا حتی الامکان تعاون کرنا اور ہنگامی آفات میں بلا امتیاز مذہب مدد کرنا۔",
+                aim6: "مساجد و مدارس کی نگرانی، رفاہی شفاخانہ کا قیام اور مختلف علاقوں میں دعوت و تبلیغ کا اہتمام کرنا۔",
+                departmentsHeading: "جامعہ کے اہم شعبہ جات:",
+                dep1: "روضۃ الاطفال (پرائمری) - 6 سال", dep2: "مرحلہ متوسطہ - 3 سال", dep3: "مرحلہ ثانویہ (عالمیت) - 4 سال",
+                dep4: "مرحلہ کلیۃ الحدیث (B.A) - 3 سال", dep5: "شعبہ تحفیظ القرآن الکریم - 4 سال", dep6: "مدرسۃ البنات (نسواں) - 9 سال",
+                dep7: "دار الافتاء والبحوث العلمیہ", dep8: "شعبہ دعوت و ارشاد", dep9: "عیادہ خیریہ (رفاہی اسپتال) و شعبہ یتامیٰ و مساکین",
                 admissionText: "نئے تعلیمی سال کے لیے داخلے جاری ہیں۔ داخلہ کے اصول و ضوابط اور فارم یہاں سے حاصل کریں۔",
                 downloadForm: "داخلہ فارم ڈاؤنلوڈ کریں",
                 examText: "جامعہ میں ششماہی اور سالانہ امتحانات کا انعقاد نہایت شفافیت کے ساتھ کیا جاتا ہے۔ امتحانات کا ٹائم ٹیبل اور دیگر ہدایات یہاں شائع کی جاتی ہیں۔",
                 resultsText: "تمام درجات کے امتحانی نتائج یہاں اپلوڈ کیے جاتے ہیں۔",
                 viewPdf: "پی ڈی ایف دیکھیں",
                 studentMagText: "جامعہ کے طلبہ کی علمی و ادبی تحریریں، مقالات اور شعری ذوق پر مبنی مجلہ۔",
-                jamiaMagText: "جامعہ اسلامیہ دریاباد کا ترجمان 'مجلہ استدراک'۔ اس میں اکابرین کے مضامین اور اہم دینی و ملی مسائل پر رہنمائی موجود ہوتی ہے۔",
-                footerText: "تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد"
+                jamiaMagText: "یہ جامعہ کے افق صحافت سے طلوع ہونے والا دینی، علمی اور اصلاحی مجلہ ہے۔ سنہ 2006ء سے 2010ء تک یہ مجلہ 'احتساب' کے نام سے شائع ہوتا رہا ہے۔",
+                magContentsHeading: "اس مجلے کے مشمولات درج ذیل ہیں:",
+                mag1: "کتاب و سنت کی روشنی میں فکری و اصلاحی بحث و مناقشہ۔", mag2: "مختلف مہینوں کے لحاظ سے علمی و اصلاحی مضامین۔",
+                mag3: "احکام و مسائل کے تعلق سے ضعیف و موضوع روایات کی تخریج و تحقیق۔", mag4: "اہم و حساس موضوعات پر علمی مقالات اور مختلف علاقوں سے آنے والے سوالات کے تحقیقی جوابات۔",
+                mag5: "حالات حاضرہ کے مطابق اداریے اور مقالات میں صحتِ احادیث و آثار کا التزام۔",
+                footerText: "تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد",
+                selectClassLabel: "اپنا درجہ منتخب کریں:", optSelect: "درجہ منتخب کریں...", optHifz: "شعبہ حفظ و ناظرہ", optIdadia: "درجہ اعدادیہ", optUla: "درجہ اولیٰ", optSania: "درجہ ثانیہ", optSalisa: "درجہ ثالثہ", optRabia: "درجہ رابعہ", optKhamisa: "درجہ خامسہ"
             },
             ar: {
                 jamiaName: "الجامعة الإسلامية بدرياباد", home: "الرئيسية", about: "نبذة عنا", admission: "القبول",
                 examination: "الامتحانات", results: "النتائج", studentMag: "مجلة الطلاب", jamiaMag: "مجلة استدراك",
-                photos: "الصور", bannerText: "مركز العلوم الإسلامية والعصرية", newsTitle: "آخر الأخبار:",
+                photos: "الصور", 
+                bannerText: "تحت إشراف: جمعية أهل الحديث التعليمية والرفاهية",
+                bannerDirector: "المشرف العام: فضيلة الشيخ الدكتور عبد الباري فتح الله المدني حفظه الله", 
+                newsTitle: "آخر الأخبار:",
                 newsMarquee: "القبول للعام الدراسي الجديد مستمر. آخر موعد لتقديم الاستمارات هو 20 شوال.",
                 welcomeHeading: "مرحباً بكم",
                 aboutText: "الجامعة الإسلامية بدرياباد هي مؤسسة تعليمية دينية عظيمة توفر تعليماً ممتازاً في القرآن والحديث والفقه وغيرها من العلوم الإسلامية إلى جانب التعليم العصري.",
-                aboutDetail: "تأسست الجامعة الإسلامية بدرياباد على الإخلاص. وتهدف إلى نشر التعاليم النقية للقرآن والسنة على منهج السلف الصالح.",
+                aboutDetail: "تأسست الجامعة الإسلامية بدرياباد عام 1990م الموافق 1411هـ. تعمل هذه الجامعة تحت إشراف جمعية أهل الحديث التعليمية والرفاهية. تحتوي الجامعة أيضًا على مكتبة عامة ضخمة تضم مجموعة من الكتب المعتمدة.",
+                aimsHeading: "أهداف ومقاصد الجامعة:",
+                aim1: "نشر القرآن والحديث وفق منهج السلف الصالح والدعوة إلى الرجوع للكتاب والسنة.",
+                aim2: "تقديم التعريف الصحيح للإسلام بين المسلمين والتحذير من الشرك والبدع.",
+                aim3: "توعية الأمة الإسلامية بالأحاديث الضعيفة والموضوعة وإبعادهم عن الجمود الفقهي.",
+                aim4: "إعداد جيل مزود بعلوم الكتاب والسنة ومفيد للبلاد والعباد.",
+                aim5: "التعاون مع الفقراء والمساكين والأيتام والأرامل قدر الإمكان، وتقديم المساعدة في حالات الطوارئ دون تمييز.",
+                aim6: "الإشراف على المساجد والمدارس، وإنشاء مستشفيات خيرية، وتنظيم الدعوة والتبليغ في مناطق مختلفة.",
+                departmentsHeading: "أهم أقسام الجامعة:",
+                dep1: "روضة الأطفال (الابتدائي) - 6 سنوات", dep2: "المرحلة المتوسطة - 3 سنوات", dep3: "المرحلة الثانوية (عالمية) - 4 سنوات",
+                dep4: "مرحلة كلية الحديث (B.A) - 3 سنوات", dep5: "قسم تحفيظ القرآن الكريم - 4 سنوات", dep6: "مدرسة البنات (نسوان) - 9 سنوات",
+                dep7: "دار الإفتاء والبحوث العلمية", dep8: "قسم الدعوة والإرشاد", dep9: "عيادة خيرية وقسم الأيتام والمساكين",
                 admissionText: "القبول للعام الدراسي الجديد مستمر. قواعد وشروط القبول والاستمارات متاحة هنا.",
                 downloadForm: "تحميل استمارة القبول",
                 examText: "يتم إجراء الامتحانات النصف سنوية والسنوية بشفافية تامة. يتم نشر جدول الامتحانات والتعليمات الأخرى هنا.",
                 resultsText: "يتم رفع نتائج الامتحانات لجميع الفصول هنا.",
                 viewPdf: "عرض ملف PDF",
                 studentMagText: "الكتابات العلمية والأدبية والمقالات لطلاب الجامعة.",
-                jamiaMagText: "مجلة 'استدراك' الناطقة باسم الجامعة الإسلامية بدرياباد. تحتوي على مقالات وتوجيهات في القضايا الدينية.",
-                footerText: "جميع الحقوق محفوظة © 2026 الجامعة الإسلامية بدرياباد"
+                jamiaMagText: "هذه المجلة هي مجلة دينية وعلمية وإصلاحية للجامعة. من عام 2006م إلى 2010م، نُشرت هذه المجلة باسم 'احتساب'.",
+                magContentsHeading: "محتويات هذه المجلة تشمل:",
+                mag1: "نقاشات فكرية وإصلاحية في ضوء الكتاب والسنة.", mag2: "مقالات علمية وإصلاحية حسب الأشهر المختلفة.",
+                mag3: "تخريج وتحقيق الروايات الضعيفة والموضوعة المتعلقة بالأحكام والمسائل.", mag4: "مقالات علمية حول موضوعات هامة وحساسة وإجابات محققة للأسئلة الواردة من مناطق مختلفة.",
+                mag5: "افتتاحيات تواكب الأحداث الجارية مع الالتزام بصحة الأحاديث والآثار في المقالات.",
+                footerText: "جميع الحقوق محفوظة © 2026 الجامعة الإسلامية بدرياباد",
+                selectClassLabel: "اختر صفك الدراسي:", optSelect: "اختر الصف...", optHifz: "قسم تحفيظ القرآن", optIdadia: "الصف الإعدادي", optUla: "الصف الأول", optSania: "الصف الثاني", optSalisa: "الصف الثالث", optRabia: "الصف الرابع", optKhamisa: "الصف الخامس"
             },
             en: {
                 jamiaName: "Jamia Islamia Dariyabad", home: "Home", about: "About Us", admission: "Admission",
                 examination: "Examination", results: "Results", studentMag: "Students Magazine", jamiaMag: "Jamia Magazine Estidrak",
-                photos: "Photos", bannerText: "Center for Islamic & Modern Education", newsTitle: "Latest News:",
+                photos: "Photos", 
+                bannerText: "Under the Supervision of: Ahl-e-Hadees Educational & Welfare Society",
+                bannerDirector: "General Supervisor: Fazeelat Ash-Sheikh Dr. Abdul Bari Fathullah Madani", 
+                newsTitle: "Latest News:",
                 newsMarquee: "Admissions for the new academic year are open. The last date to apply is 20th Shawwal.",
                 welcomeHeading: "Welcome",
                 aboutText: "Jamia Islamia Dariyabad is a prestigious religious institution offering excellent education in Quran, Hadith, Fiqh along with modern subjects.",
-                aboutDetail: "Jamia Islamia Dariyabad is founded on sincerity and devotion. The aim of this institution is to spread the pure teachings of the Quran and Sunnah based on the methodology of the righteous predecessors.",
+                aboutDetail: "Jamia Islamia Dariyabad was established in 1990 (1411 AH). This Jamia is operating under the supervision of the Ahl-e-Hadees Educational and Welfare Society. The Jamia also houses a grand General Library containing a collection of authentic books on Tafseer, Aqaid, Hadith, and Islamic Jurisprudence.",
+                aimsHeading: "Aims and Objectives:",
+                aim1: "To propagate the Quran and Hadith according to the methodology of the Salaf and invite towards the Book and Sunnah.",
+                aim2: "To present the true introduction of Islam among Muslims and warn them against shirk and innovations.",
+                aim3: "To aware the Muslim ummah about weak and fabricated hadiths and keep them away from juristic rigidity.",
+                aim4: "To prepare a generation equipped with the knowledge of Quran and Sunnah, beneficial for the nation and community.",
+                aim5: "To help the poor, needy, orphans, and widows as much as possible, and provide aid during emergencies regardless of religion.",
+                aim6: "To supervise mosques and madrasas, establish welfare hospitals, and organize dawah in various areas.",
+                departmentsHeading: "Important Departments:",
+                dep1: "Kindergarten (Primary) - 6 Years", dep2: "Middle Stage - 3 Years", dep3: "Secondary Stage (Alimiyyah) - 4 Years",
+                dep4: "College of Hadith (B.A) - 3 Years", dep5: "Department of Quran Memorization - 4 Years", dep6: "Girls School - 9 Years",
+                dep7: "Dar-ul-Ifta and Academic Research", dep8: "Department of Dawah and Guidance", dep9: "Charitable Clinic & Orphans Department",
                 admissionText: "Admissions for the new academic year are open. Admission rules, regulations, and forms are available here.",
                 downloadForm: "Download Admission Form",
                 examText: "Half-yearly and annual examinations are conducted with utmost transparency. The exam timetable and other instructions are published here.",
                 resultsText: "Examination results for all classes are uploaded here.",
                 viewPdf: "View PDF",
                 studentMagText: "Academic and literary writings, articles, and poetry by Jamia students.",
-                jamiaMagText: "'Estidrak', the official magazine of Jamia Islamia Dariyabad. It contains articles by scholars and guidance on important religious issues.",
-                footerText: "All rights reserved © 2026 Jamia Islamia Dariyabad"
+                jamiaMagText: "This is the religious, academic, and reformative magazine emerging from the journalism horizon of the Jamia. From 2006 to 2010, this magazine was published under the name 'Ihtisab'.",
+                magContentsHeading: "The contents of this magazine include:",
+                mag1: "Ideological and reformative discussion in the light of the Quran and Sunnah.", mag2: "Academic and reformative articles according to different months.",
+                mag3: "Research and extraction (Takhreej) of weak and fabricated narrations regarding rules and issues.", mag4: "Academic articles on important and sensitive topics and researched answers to questions coming from various regions.",
+                mag5: "Editorials based on current affairs and commitment to the authenticity of Ahadith and Athar in articles.",
+                footerText: "All rights reserved © 2026 Jamia Islamia Dariyabad",
+                selectClassLabel: "Select Your Class:", optSelect: "Select Class...", optHifz: "Hifz Department", optIdadia: "Preparatory Class", optUla: "First Year", optSania: "Second Year", optSalisa: "Third Year", optRabia: "Fourth Year", optKhamisa: "Fifth Year"
             },
             hi: {
                 jamiaName: "जामिया इस्लामिया दरियाबाद", home: "होम", about: "परिचय", admission: "दाखिला",
                 examination: "परीक्षा", results: "परिणाम", studentMag: "छात्र पत्रिका", jamiaMag: "पत्रिका इस्तिद्राक",
-                photos: "तस्वीरें", bannerText: "इस्लामी और आधुनिक शिक्षा का केंद्र", newsTitle: "ताज़ा ख़बर:",
+                photos: "तस्वीरें", 
+                bannerText: "देखरेख: अहल-ए-हदीस एजुकेशनल एंड वेलफेयर सोसाइटी",
+                bannerDirector: "महासचिव: फ़ज़ीलत अश-शेख डॉ. अब्दुल बारी फतहुल्लाह मदनी", 
+                newsTitle: "ताज़ा ख़बर:",
                 newsMarquee: "नए शैक्षणिक वर्ष के लिए दाखिले जारी हैं। फॉर्म भरने की अंतिम तिथि 20 शव्वाल है।",
                 welcomeHeading: "स्वागत है",
                 aboutText: "जामिया इस्लामिया दरियाबाद एक महान धार्मिक शिक्षण संस्थान है जहाँ कुरान, हदीस, फिकह के साथ-साथ आधुनिक शिक्षा का बेहतरीन प्रबंध है।",
-                aboutDetail: "जामिया इस्लामिया दरियाबाद की स्थापना इखलास पर की गई है। इस संस्था का उद्देश्य पूर्वजों के तरीके पर कुरान और सुन्नत की शुद्ध शिक्षाओं को फैलाना है।",
+                aboutDetail: "जामिया इस्लामिया दरियाबाद की स्थापना 1990 (1411 हिजरी) में हुई थी। यह जामिया अहल-ए-हदीस एजुकेशनल एंड वेलफेयर सोसाइटी की देखरेख में काम कर रहा है। संस्था का उद्देश्य पूर्वजों के तरीके पर कुरान और सुन्नत की शुद्ध शिक्षाओं को फैलाना है। जामिया में एक विशाल जनरल लाइब्रेरी भी है।",
+                aimsHeading: "जामिया के उद्देश्य:",
+                aim1: "सलफ के तरीके पर कुरान और हदीस का प्रचार करना।",
+                aim2: "मुसलमानों के बीच इस्लाम का सही परिचय प्रस्तुत करना।",
+                aim3: "मुस्लिम उम्माह को कमजोर और मनगढ़ंत हदीसों से अवगत कराना।",
+                aim4: "ऐसी पीढ़ी तैयार करना जो राष्ट्र और समुदाय के लिए लाभकारी हो।",
+                aim5: "गरीबों, अनाथों और विधवाओं की यथासंभव मदद करना।",
+                aim6: "मस्जिदों और मदरसों की देखरेख करना, धर्मार्थ अस्पताल स्थापित करना।",
+                departmentsHeading: "जामिया के महत्वपूर्ण विभाग:",
+                dep1: "किंडरगार्टन (प्राइमरी) - 6 वर्ष", dep2: "मध्य स्तर - 3 वर्ष", dep3: "माध्यमिक स्तर (आलिमीयत) - 4 वर्ष",
+                dep4: "हृदीथ कॉलेज (B.A) - 3 वर्ष", dep5: "कुरान हिफ्ज़ विभाग - 4 वर्ष", dep6: "गर्ल्स स्कूल - 9 वर्ष",
+                dep7: "दारुल इफ्ता और अकादमिक अनुसंधान", dep8: "दावा और मार्गदर्शन विभाग", dep9: "धर्मार्थ क्लिनिक और अनाथ व निराश्रित विभाग",
                 admissionText: "नए शैक्षणिक वर्ष के लिए प्रवेश जारी हैं। दाखिले के नियम और फॉर्म यहाँ से प्राप्त करें।",
                 downloadForm: "प्रवेश फॉर्म डाउनलोड करें",
                 examText: "अर्धवार्षिक और वार्षिक परीक्षाएं पूरी पारदर्शिता के साथ आयोजित की जाती हैं। परीक्षा का टाइम टेबल और अन्य निर्देश यहाँ प्रकाशित किए जाते हैं।",
                 resultsText: "सभी कक्षाओं के परीक्षा परिणाम यहाँ अपलोड किए जाते हैं।",
                 viewPdf: "PDF देखें",
                 studentMagText: "जामिया के छात्रों के शैक्षणिक और साहित्यिक लेख और कविताएं।",
-                jamiaMagText: "जामिया इस्लामिया दरियाबाद की आधिकारिक पत्रिका 'इस्तिद्राक'। इसमें विद्वानों के लेख और महत्वपूर्ण धार्मिक मुद्दों पर मार्गदर्शन शामिल है।",
-                footerText: "सर्वाधिकार सुरक्षित © 2026 जामिया इस्लामिया दरियाबाद"
+                jamiaMagText: "यह जामिया की धार्मिक, शैक्षणिक और सुधारात्मक पत्रिका है। वर्ष 2006 से 2010 तक यह पत्रिका 'एहतिसाब' के नाम से प्रकाशित होती रही।",
+                magContentsHeading: "इस पत्रिका की सामग्री में शामिल हैं:",
+                mag1: "कुरान और सुन्नत के प्रकाश में वैचारिक चर्चा।", mag2: "विभिन्न महीनों के अनुसार शैक्षणिक और सुधारात्मक लेख।",
+                mag3: "कमजोर और मनगढ़ंत कथाओं का शोध।", mag4: "महत्वपूर्ण विषयों पर लेख और विभिन्न क्षेत्रों से आने वाले प्रश्नों के शोधित उत्तर।",
+                mag5: "वर्तमान मामलों के अनुसार संपादकीय।",
+                footerText: "सर्वाधिकार सुरक्षित © 2026 जामिया इस्लामिया दरियाबाद",
+                selectClassLabel: "अपनी कक्षा चुनें:", optSelect: "कक्षा चुनें...", optHifz: "हिफ्ज़ विभाग", optIdadia: "प्रारंभिक कक्षा", optUla: "प्रथम वर्ष", optSania: "द्वितीय वर्ष", optSalisa: "तृतीय वर्ष", optRabia: "चतुर्थ वर्ष", optKhamisa: "पंचम वर्ष"
             }
         };
 
@@ -461,12 +641,13 @@
             const elements = document.querySelectorAll('[data-key]');
             elements.forEach(element => {
                 const key = element.getAttribute('data-key');
-                if(translations[lang][key]) {
+                if(translations[lang] && translations[lang][key]) {
                     element.innerText = translations[lang][key];
+                } else if(translations['ur'][key]) {
+                    element.innerText = translations['ur'][key]; 
                 }
             });
         }
     </script>
 </body>
 </html>
-
