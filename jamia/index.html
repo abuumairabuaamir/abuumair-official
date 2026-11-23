@@ -447,41 +447,77 @@
                 <div class="gallery-grid" id="photoGalleryArea">
                     <div style="background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; text-align: center;">
                         <img src="photo1.jpg" alt="Jamia Photo" style="width: 100%; height: 250px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;">
-                        <!-- نام بدل کر 'جنرل لائبریری' کر دیا گیا ہے -->
-                        <p data-key="photo1Caption" style="margin: 0; font-size: 22px; color: var(--primary-dark);">جنرل لائبریری</p>
+                        <p style="margin: 0; font-size: 22px; color: var(--primary-dark);">سالانہ جلسہ دستار بندی - ۲۰۲۶</p>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- Footer -->
+    <!-- Footer -->
     <footer>
         <span data-key="footerText">تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد</span>
     </footer>
 
    <!-- JS Logic -->
-    <script>
-        // --- 1. Page Navigation & Smooth Scroll Logic ---
-        function showPage(pageId) {
-            const pages = document.querySelectorAll('.page-section');
-            pages.forEach(page => page.classList.remove('active'));
+  <script type="module">
+        // --- FIREBASE SETUP ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-            const targetPage = document.getElementById(pageId);
-            targetPage.classList.add('active');
+        const firebaseConfig = {
+            apiKey: "AIzaSyBQ257lT1xbGEBQvWPl-0eWKXHPTzjT0wI",
+            authDomain: "abuumairdailyazkar.firebaseapp.com",
+            projectId: "abuumairdailyazkar",
+            storageBucket: "abuumairdailyazkar.firebasestorage.app",
+            messagingSenderId: "283668859897",
+            appId: "1:283668859897:web:06da60ff5a082d44afcb28",
+            measurementId: "G-N3R3NHV8FN"
+        };
 
-            const buttons = document.querySelectorAll('.nav-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Global Variable for Live Notice Data
+        window.liveNoticeData = null;
+
+        // Fetch Live Notice from Firebase
+        const noticeRef = ref(db, 'jamiaData/latestNotice');
+        onValue(noticeRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                window.liveNoticeData = data;
+                window.updateNoticeDisplay();
+            }
+        });
+
+        // Update Notice Text based on selected language
+        window.updateNoticeDisplay = function() {
+            const lang = document.getElementById('langSelect').value;
+            const marquee = document.querySelector('marquee');
+            
+            if (window.liveNoticeData) {
+                if (window.liveNoticeData[lang] && window.liveNoticeData[lang] !== "") {
+                    marquee.innerText = window.liveNoticeData[lang];
+                } else if (window.liveNoticeData['ur']) {
+                    marquee.innerText = window.liveNoticeData['ur'];
+                }
+            }
+        };
+
+        // --- PAGE NAVIGATION ---
+        window.showPage = function(pageId) {
+            document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
+            document.getElementById(pageId).classList.add('active');
+            document.querySelectorAll('.nav-btn').forEach(btn => btn.classList.remove('active'));
             event.target.classList.add('active');
+            document.getElementById(pageId).scrollIntoView({ behavior: 'smooth' });
+        };
 
-            targetPage.scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // --- 2. Translation Logic ---
+        // --- FULL TRANSLATIONS SYSTEM ---
         const translations = {
             ur: {
                 jamiaName: "جامعہ اسلامیہ دریاباد", home: "ہوم", about: "تعارف", admission: "داخلہ",
                 examination: "امتحانات", results: "نتائج", studentMag: "طلبہ کا میگزین", jamiaMag: "مجلہ استدراک",
                 photos: "تصاویر", 
-                photo1Caption: "جنرل لائبریری",
                 bannerText: "زیرِ نگرانی: اہل حدیث تعلیمی و رفاہی سوسائٹی",
                 bannerDirector: "مشرفِ عام: فضیلۃ الشیخ الدکتور عبدالباری فتح اللہ المدنی حفظہ اللہ", 
                 newsTitle: "تازہ ترین:",
@@ -512,13 +548,13 @@
                 mag3: "احکام و مسائل کے تعلق سے ضعیف و موضوع روایات کی تخریج و تحقیق۔", mag4: "اہم و حساس موضوعات پر علمی مقالات اور مختلف علاقوں سے آنے والے سوالات کے تحقیقی جوابات۔",
                 mag5: "حالات حاضرہ کے مطابق اداریے اور مقالات میں صحتِ احادیث و آثار کا التزام۔",
                 footerText: "تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد",
-                selectClassLabel: "اپنا درجہ منتخب کریں:", optSelect: "درجہ منتخب کریں...", optHifz: "شعبہ حفظ و ناظرہ", optIdadia: "درجہ اعدادیہ", optUla: "درجہ اولیٰ", optSania: "درجہ ثانیہ", optSalisa: "درجہ ثالثہ", optRabia: "درجہ رابعہ", optKhamisa: "درجہ خامسہ"
+                selectClassLabel: "اپنا درجہ منتخب کریں:", optSelect: "درجہ منتخب کریں...", optHifz: "شعبہ حفظ و ناظرہ", optIdadia: "درجہ اعدادیہ", optUla: "درجہ اولیٰ", optSania: "درجہ ثانیہ", optSalisa: "درجہ ثالثہ", optRabia: "درجہ رابعہ", optKhamisa: "درجہ خامسہ",
+                photo1Caption: "جنرل لائبریری"
             },
             ar: {
                 jamiaName: "الجامعة الإسلامية بدرياباد", home: "الرئيسية", about: "نبذة عنا", admission: "القبول",
                 examination: "الامتحانات", results: "النتائج", studentMag: "مجلة الطلاب", jamiaMag: "مجلة استدراك",
                 photos: "الصور", 
-                photo1Caption: "المكتبة العامة",
                 bannerText: "تحت إشراف: جمعية أهل الحديث التعليمية والرفاهية",
                 bannerDirector: "المشرف العام: فضيلة الشيخ الدكتور عبد الباري فتح الله المدني حفظه الله", 
                 newsTitle: "آخر الأخبار:",
@@ -549,13 +585,13 @@
                 mag3: "تخريج وتحقيق الروايات الضعيفة والموضوعة المتعلقة بالأحكام والمسائل.", mag4: "مقالات علمية حول موضوعات هامة وحساسة وإجابات محققة للأسئلة الواردة من مناطق مختلفة.",
                 mag5: "افتتاحيات تواكب الأحداث الجارية مع الالتزام بصحة الأحاديث والآثار في المقالات.",
                 footerText: "جميع الحقوق محفوظة © 2026 الجامعة الإسلامية بدرياباد",
-                selectClassLabel: "اختر صفك الدراسي:", optSelect: "اختر الصف...", optHifz: "قسم تحفيظ القرآن", optIdadia: "الصف الإعدادي", optUla: "الصف الأول", optSania: "الصف الثاني", optSalisa: "الصف الثالث", optRabia: "الصف الرابع", optKhamisa: "الصف الخامس"
+                selectClassLabel: "اختر صفك الدراسي:", optSelect: "اختر الصف...", optHifz: "قسم تحفيظ القرآن", optIdadia: "الصف الإعدادي", optUla: "الصف الأول", optSania: "الصف الثاني", optSalisa: "الصف الثالث", optRabia: "الصف الرابع", optKhamisa: "الصف الخامس",
+                photo1Caption: "المكتبة العامة"
             },
             en: {
                 jamiaName: "Jamia Islamia Dariyabad", home: "Home", about: "About Us", admission: "Admission",
                 examination: "Examination", results: "Results", studentMag: "Students Magazine", jamiaMag: "Jamia Magazine Estidrak",
                 photos: "Photos", 
-                photo1Caption: "General Library",
                 bannerText: "Under the Supervision of: Ahl-e-Hadees Educational & Welfare Society",
                 bannerDirector: "General Supervisor: Fazeelat Ash-Sheikh Dr. Abdul Bari Fathullah Madani", 
                 newsTitle: "Latest News:",
@@ -586,13 +622,13 @@
                 mag3: "Research and extraction (Takhreej) of weak and fabricated narrations regarding rules and issues.", mag4: "Academic articles on important and sensitive topics and researched answers to questions coming from various regions.",
                 mag5: "Editorials based on current affairs and commitment to the authenticity of Ahadith and Athar in articles.",
                 footerText: "All rights reserved © 2026 Jamia Islamia Dariyabad",
-                selectClassLabel: "Select Your Class:", optSelect: "Select Class...", optHifz: "Hifz Department", optIdadia: "Preparatory Class", optUla: "First Year", optSania: "Second Year", optSalisa: "Third Year", optRabia: "Fourth Year", optKhamisa: "Fifth Year"
+                selectClassLabel: "Select Your Class:", optSelect: "Select Class...", optHifz: "Hifz Department", optIdadia: "Preparatory Class", optUla: "First Year", optSania: "Second Year", optSalisa: "Third Year", optRabia: "Fourth Year", optKhamisa: "Fifth Year",
+                photo1Caption: "General Library"
             },
             hi: {
                 jamiaName: "जामिया इस्लामिया दरियाबाद", home: "होम", about: "परिचय", admission: "दाखिला",
                 examination: "परीक्षा", results: "परिणाम", studentMag: "छात्र पत्रिका", jamiaMag: "पत्रिका इस्तिद्राक",
                 photos: "तस्वीरें", 
-                photo1Caption: "जनरल लाइब्रेरी",
                 bannerText: "देखरेख: अहल-ए-हदीस एजुकेशनल एंड वेलफेयर सोसाइटी",
                 bannerDirector: "महासचिव: फ़ज़ीलत अश-शेख डॉ. अब्दुल बारी फतहुल्लाह मदनी", 
                 newsTitle: "ताज़ा ख़बर:",
@@ -623,11 +659,12 @@
                 mag3: "कमजोर और मनगढ़ंत कथाओं का शोध।", mag4: "महत्वपूर्ण विषयों पर लेख और विभिन्न क्षेत्रों से आने वाले प्रश्नों के शोधित उत्तर।",
                 mag5: "वर्तमान मामलों के अनुसार संपादकीय।",
                 footerText: "सर्वाधिकार सुरक्षित © 2026 जामिया इस्लामिया दरियाबाद",
-                selectClassLabel: "अपनी कक्षा चुनें:", optSelect: "कक्षा चुनें...", optHifz: "हिफ्ज़ विभाग", optIdadia: "प्रारंभिक कक्षा", optUla: "प्रथम वर्ष", optSania: "द्वितीय वर्ष", optSalisa: "तृतीय वर्ष", optRabia: "चतुर्थ वर्ष", optKhamisa: "पंचम वर्ष"
+                selectClassLabel: "अपनी कक्षा चुनें:", optSelect: "कक्षा चुनें...", optHifz: "हिफ्ज़ विभाग", optIdadia: "प्रारंभिक कक्षा", optUla: "प्रथम वर्ष", optSania: "द्वितीय वर्ष", optSalisa: "तृतीय वर्ष", optRabia: "चतुर्थ वर्ष", optKhamisa: "पंचम वर्ष",
+                photo1Caption: "जनरल लाइब्रेरी"
             }
         };
 
-        function changeLanguage() {
+        window.changeLanguage = function() {
             const lang = document.getElementById('langSelect').value;
             const body = document.body;
             const htmlTag = document.getElementById('html-tag');
@@ -643,6 +680,7 @@
             }
             htmlTag.lang = lang;
 
+            // Static texts update
             const elements = document.querySelectorAll('[data-key]');
             elements.forEach(element => {
                 const key = element.getAttribute('data-key');
@@ -652,7 +690,10 @@
                     element.innerText = translations['ur'][key]; 
                 }
             });
-        }
+
+            // Firebase live notice text update
+            window.updateNoticeDisplay();
+        };
     </script>
 </body>
 </html>
