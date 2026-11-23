@@ -701,23 +701,31 @@
             });
 
             // Firebase live content updates
-        window.updateNoticeDisplay = function() {
-            const lang = document.getElementById('langSelect').value;
+    window.updateNoticeDisplay = function() {
+            // 1. Check if langSelect exists before getting value
+            const langElement = document.getElementById('langSelect');
+            const lang = langElement ? langElement.value : 'ur';
             const marquee = document.querySelector('marquee');
             
             if (window.liveNoticeData && marquee) {
                 let textToShow = "";
                 
+                // 2. Get the correct language text
                 if (window.liveNoticeData[lang] && window.liveNoticeData[lang] !== "") {
                     textToShow = window.liveNoticeData[lang];
                 } else if (window.liveNoticeData['ur']) {
                     textToShow = window.liveNoticeData['ur'];
                 }
 
-                // یہ لائن ہر قسم کے 'Enter' اور پیراگراف کو ختم کر کے ایک سیدھی لائن بنا دے گی
-                marquee.innerText = textToShow.replace(/\n/g, "   |   ");
+                // 3. Safely update text and remove Enters
+                if (textToShow) {
+                    // String() یقینی بناتا ہے کہ کوئی ایرر نہ آئے
+                    marquee.innerText = String(textToShow).replace(/\n/g, "   |   ");
+                } else {
+                    marquee.innerText = "";
+                }
             }
         };
-    </script>
+            </script>
 </body>
 </html>
