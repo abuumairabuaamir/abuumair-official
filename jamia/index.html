@@ -55,8 +55,7 @@
 
         /* Language Specific Adjustments - Desktop */
         body.lang-ar { font-family: 'AmiriLocal', serif; font-size: 22px; } /* عربی کا سائز چھوٹا کیا گیا */
-        body.lang-en { font-family: 'Jameel', serif; font-size: 20px; line-height: 1.6; }
- انگلش کا سائز چھوٹا کیا گیا */
+        body.lang-en { font-family: 'Jameel', serif; font-size: 20px; line-height: 1.6; } /* انگلش کا سائز چھوٹا کیا گیا */
         body.lang-hi { font-family: 'HindiFont', sans-serif; font-size: 22px; line-height: 1.6; } /* ہندی ttf شامل */
         
         body.ltr { direction: ltr; text-align: left; }
@@ -144,7 +143,7 @@
             color: var(--accent-gold);
         }
 
-     /* Tazi Khabrein */
+        /* Tazi Khabrein */
         .news-ticker {
             background-color: var(--accent-gold);
             padding: 12px 20px;
@@ -167,6 +166,7 @@
             flex: 1; /* یہ مارکی کو اسکرین کی پوری بچی ہوئی چوڑائی دے گا */
             white-space: nowrap; /* یہ خبر کو ایک ہی لائن میں چلنے پر مجبور کرے گا */
         }
+        
         /* Pages System */
         .container { 
             max-width: 1200px; 
@@ -374,7 +374,7 @@
             </div>
         </div>
 
-        <!-- RESULTS PAGE (Updated Dropdown) -->
+        <!-- RESULTS PAGE -->
         <div id="results" class="page-section">
             <div class="content-card">
                 <h2 class="section-title" data-key="results">نتائج</h2>
@@ -464,7 +464,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // --- FULL TRANSLATIONS SYSTEM (Updated with New Classes) ---
+        // --- FULL TRANSLATIONS SYSTEM ---
         const translations = {
             ur: {
                 jamiaName: "جامعہ اسلامیہ دریاباد", home: "ہوم", about: "تعارف", admission: "داخلہ",
@@ -521,7 +521,7 @@
                 newsTitle: "ताज़ा ख़बर:", newsMarquee: "नए शैक्षणिक वर्ष के लिए दाखिले जारी हैं। फॉर्म भरने की अंतिम तिथि 20 शव्वाल है।",
                 welcomeHeading: "स्वागत है", aboutText: "जामिया इस्लामिया दरियाबाद एक महान धार्मिक शिक्षण संस्थान है जहाँ कुरान, हदीस, फिकह के साथ-साथ आधुनिक शिक्षा का बेहतरीन प्रबंध है।", aboutDetail: "जामिया इस्लामिया दरियाबाद की स्थापना 1990 (1411 हिजरी) में हुई थी। यह जामिया अहल-ए-हदीस एजुकेशनल एंड वेलफेयर सोसाइटी की देखरेख में काम कर रहा है। संस्था का उद्देश्य पूर्वजों के तरीके पर कुरान और सुन्नत की शुद्ध शिक्षाओं को फैलाना है। जामिया में एक विशाल जनरल लाइब्रेरी भी है।",
                 aimsHeading: "जामिया के उद्देश्य:", aim1: "सलफ के तरीके पर कुरान और हदीस का प्रचार करना।", aim2: "मुसलमानों के बीच इस्लाम का सही परिचय प्रस्तुत करना।", aim3: "मुस्लिम उम्माह को कमजोर और मनगढ़ंत हदीसों से अवगत कराना।", aim4: "ऐसी पीढ़ी तैयार करना जो राष्ट्र और समुदाय के लिए लाभकारी हो।", aim5: "गरीबों, अनाथों और विधवाओं की यथासंभव मदद करना।", aim6: "मस्जिदों और मदरसों की देखरेख करना, धर्मार्थ अस्पताल स्थापित करना।",
-                departmentsHeading: "जामिया के महत्वपूर्ण विभाग:", dep1: "किंडरगार्टन (प्राइमरी) - 6 वर्ष", dep2: "मध्य स्तर - 3 वर्ष", dep3: "माध्यमिक स्तर (आलिमीयत) - 4 वर्ष", dep4: "हृदीथ कॉलेज (B.A) - 3 वर्ष", dep5: "कुरान हिफ्ज़ विभाग - 4 वर्ष", dep6: "गर्ल्स स्कूल - 9 वर्ष", dep7: "दारुल इफ्ता और अकादमिक अनुसंधान", dep8: "दावा और मार्गदर्शन विभाग", dep9: "धर्मार्थ क्लिनिक और अनाथ व निराश्रित विभाग",
+                departmentsHeading: "जामिया के महत्वपूर्ण विभाग:", dep1: "किंडरगार्टन (प्राइमरी) - 6 वर्ष", dep2: "मध्य स्तर - 3 वर्ष", dep3: "माध्यमिक स्तर (आलिमीयत) - 4 वर्ष", dep4: "हृदीथ कॉलेज (B.A) - 3 वर्ष", dep5: "कुरान हिफ्ज़ विभाग - 4 वर्ष", dep6: "गर्ल्स स्कूल - 9 वर्ष", dep7: "दारुल इफ्ता और अकादमिक अनुसंधान", dep8: "दावा और मार्गदर्शन विभाग", dep9: "धर्मार्थ क्लिनिक और अनाथ व निराश्रित विभाग",
                 admissionText: "नए शैक्षणिक वर्ष के लिए प्रवेश जारी हैं। दाखिले के नियम और फॉर्म यहाँ से प्राप्त करें।", downloadForm: "प्रवेश फॉर्म डाउनलोड करें",
                 examText: "अर्धवार्षिक और वार्षिक परीक्षाएं पूरी पारदर्शिता के साथ आयोजित की जाती हैं। परीक्षा का टाइम टेबल और अन्य निर्देश यहाँ प्रकाशित किए जाते हैं।", resultsText: "सभी कक्षाओं के परीक्षा परिणाम यहाँ अपलोड किए जाते हैं।", viewPdf: "PDF देखें",
                 studentMagText: "जामिया के छात्रों के शैक्षणिक और साहित्यिक लेख और कविताएं।", jamiaMagText: "यह जामिया की धार्मिक, शैक्षणिक और सुधारात्मक पत्रिका है। वर्ष 2006 से 2010 तक यह पत्रिका 'एहतिसाब' के नाम से प्रकाशित होती रही।", magContentsHeading: "इस पत्रिका की सामग्री में शामिल हैं:", mag1: "कुरान और सुन्नत के प्रकाश में वैचारिक चर्चा।", mag2: "विभिन्न महीनों के अनुसार शैक्षणिक और सुधारात्मक लेख।", mag3: "कमजोर और मनगढ़ंत कथाओं का शोध।", mag4: "महत्वपूर्ण विषयों पर लेख और विभिन्न क्षेत्रों से आने वाले प्रश्नों के शोधित उत्तर।", mag5: "वर्तमान मामलों के अनुसार संपादकीय।",
@@ -544,13 +544,23 @@
         });
 
         window.updateNoticeDisplay = function() {
-            const lang = document.getElementById('langSelect').value;
+            const langElement = document.getElementById('langSelect');
+            const lang = langElement ? langElement.value : 'ur';
             const marquee = document.querySelector('marquee');
+            
             if (window.liveNoticeData && marquee) {
+                let textToShow = "";
+                
                 if (window.liveNoticeData[lang] && window.liveNoticeData[lang] !== "") {
-                    marquee.innerText = window.liveNoticeData[lang];
+                    textToShow = window.liveNoticeData[lang];
                 } else if (window.liveNoticeData['ur']) {
-                    marquee.innerText = window.liveNoticeData['ur'];
+                    textToShow = window.liveNoticeData['ur'];
+                }
+
+                if (textToShow) {
+                    marquee.innerText = String(textToShow).replace(/\n/g, "   |   ");
+                } else {
+                    marquee.innerText = "";
                 }
             }
         };
@@ -701,31 +711,10 @@
             });
 
             // Firebase live content updates
-    window.updateNoticeDisplay = function() {
-            // 1. Check if langSelect exists before getting value
-            const langElement = document.getElementById('langSelect');
-            const lang = langElement ? langElement.value : 'ur';
-            const marquee = document.querySelector('marquee');
-            
-            if (window.liveNoticeData && marquee) {
-                let textToShow = "";
-                
-                // 2. Get the correct language text
-                if (window.liveNoticeData[lang] && window.liveNoticeData[lang] !== "") {
-                    textToShow = window.liveNoticeData[lang];
-                } else if (window.liveNoticeData['ur']) {
-                    textToShow = window.liveNoticeData['ur'];
-                }
-
-                // 3. Safely update text and remove Enters
-                if (textToShow) {
-                    // String() یقینی بناتا ہے کہ کوئی ایرر نہ آئے
-                    marquee.innerText = String(textToShow).replace(/\n/g, "   |   ");
-                } else {
-                    marquee.innerText = "";
-                }
-            }
+            window.updateNoticeDisplay();
+            window.updatePhotoCaptions(lang);
+            window.updateResultsDisplay(); 
         };
-            </script>
+    </script>
 </body>
 </html>
