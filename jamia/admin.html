@@ -3,440 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ایڈمن لاگ ان - جامعہ اسلامیہ</title>
+    <title>ایڈمن پینل - جامعہ اسلامیہ دریاباد</title>
     <style>
-        /* CSS Reset & Scroll Fix */
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        html, body {
-            overflow-x: hidden;
-            width: 100%;
-            height: 100%;
-        }
-
-        @font-face {
-            font-family: 'Jameel';
-            src: url('jameel.ttf') format('truetype');
-            font-weight: normal;
-        }
-
-        /* Color Palette */
-        :root {
-            --primary-dark: #0f4c3a; 
-            --primary-light: #187a5d;
-            --accent-gold: #d4af37; 
-            --bg-light: #f4f7f6;
-            --text-dark: #2c3e50;
-            --white: #ffffff;
-            --danger-red: #d9534f;
-            --edit-blue: #0275d8;
-        }
-
-        body {
-            font-family: 'Jameel', serif;
-            font-size: 24px;
-            background-color: #e9ecef;
-            color: var(--text-dark);
-            line-height: 1.8;
-        }
-
-        /* ============================
-           LOGIN SCREEN STYLES
-           ============================ */
-        #loginScreen {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-image: linear-gradient(rgba(15, 76, 58, 0.9), rgba(15, 76, 58, 0.9)), url('banner.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-        .login-box {
-            background: var(--white);
-            padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            text-align: center;
-            width: 100%;
-            max-width: 450px;
-            border-top: 6px solid var(--accent-gold);
-        }
-        .login-box h2 {
-            color: var(--primary-dark);
-            font-size: 36px;
-            margin-bottom: 10px;
-            font-weight: normal;
-        }
-        .login-box p { color: #666; font-size: 20px; margin-bottom: 25px; }
-        
-        .login-box input {
-            width: 100%;
-            padding: 12px;
-            margin-bottom: 15px;
-            font-size: 20px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-        }
-        .login-box input:focus {
-            outline: none;
-            border-color: var(--primary-dark);
-            box-shadow: 0 0 5px rgba(15, 76, 58, 0.3);
-        }
-        #loginError {
-            color: var(--danger-red);
-            font-size: 20px;
-            margin-top: 15px;
-            display: none;
-        }
-
-        /* ============================
-           DASHBOARD STYLES
-           ============================ */
-        #mainAdminPanel { display: none; } /* Initially Hidden */
-
-        .navbar {
-            background-color: var(--primary-dark);
-            color: var(--white);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 30px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            border-bottom: 3px solid var(--accent-gold);
-        }
-        .navbar-brand { font-size: 32px; color: var(--accent-gold); }
-        .back-btn {
-            background-color: transparent;
-            color: var(--white);
-            border: 1px solid var(--accent-gold);
-            padding: 5px 15px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-size: 20px;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        .back-btn:hover { background-color: var(--accent-gold); color: var(--primary-dark); }
-
-        .container { max-width: 1100px; margin: 40px auto; padding: 0 20px; }
-        .dashboard-header { text-align: center; margin-bottom: 30px; }
-        .dashboard-header h1 { color: var(--primary-dark); font-weight: normal; font-size: 40px; }
-        .dashboard-header p { color: #666; font-size: 22px; }
-
-        .admin-tabs { display: flex; justify-content: center; gap: 15px; margin-bottom: 30px; }
-        .tab-btn {
-            background-color: var(--white);
-            color: var(--primary-dark);
-            border: 2px solid var(--primary-dark);
-            padding: 10px 30px;
-            font-size: 24px;
-            font-family: 'Jameel', serif;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .tab-btn.active, .tab-btn:hover { background-color: var(--primary-dark); color: var(--white); }
-
+        body { font-family: 'Jameel Noori Nastaleeq', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
+        .container { max-width: 800px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #2c3e50; }
+        input, select, textarea, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; font-family: inherit; box-sizing: border-box; }
+        input[type="url"] { direction: ltr; text-align: left; }
+        button { background-color: #2980b9; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: bold; }
+        button:hover { background-color: #34495e; }
+        .tab-btn-container { display: flex; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
+        .tab-btn { background-color: #ddd; color: #333; margin: 5px; width: auto; padding: 10px 20px; }
+        .tab-btn.active { background-color: #27ae60; color: white; }
         .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.4s; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
-        .card {
-            background: var(--white);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.06);
-            border-top: 5px solid var(--primary-dark);
-            transition: transform 0.3s;
-        }
-        .card.gold-border { border-top-color: var(--accent-gold); }
-        .card h2 {
-            font-size: 30px;
-            color: var(--primary-dark);
-            font-weight: normal;
-            margin-bottom: 15px;
-            border-bottom: 2px dashed #ccc;
-            padding-bottom: 10px;
-        }
-
-        label { display: block; margin-top: 15px; font-size: 22px; color: #444; }
-        input[type="text"], input[type="file"], select {
-            width: 100%;
-            padding: 10px 15px;
-            margin-top: 8px;
-            font-family: 'Jameel', serif;
-            font-size: 22px;
-            border: 1px solid #ccc;
-            border-radius: 6px;
-            background-color: #fcfcfc;
-        }
-        
-        .submit-btn {
-            width: 100%;
-            background-color: var(--primary-dark);
-            color: var(--white);
-            border: none;
-            padding: 12px;
-            margin-top: 25px;
-            font-size: 24px;
-            font-family: 'Jameel', serif;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .submit-btn:hover { background-color: var(--primary-light); }
-        .submit-btn.gold-btn { background-color: var(--accent-gold); color: var(--primary-dark); }
-        .submit-btn.gold-btn:hover { background-color: #c5a02c; }
-
-        /* History Data Section */
-        .data-list-card {
-            background: var(--white);
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-        }
-        .data-list-card h3 {
-            color: var(--primary-dark);
-            font-size: 28px;
-            border-bottom: 2px solid var(--accent-gold);
-            padding-bottom: 10px;
-            margin-bottom: 15px;
-        }
-        .data-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            border-bottom: 1px solid #eee;
-            background-color: #fafafa;
-            border-radius: 6px;
-            margin-bottom: 10px;
-        }
-        .data-info { font-size: 24px; }
-        .data-date { font-size: 18px; color: #888; display: block; }
-        .action-btns button {
-            padding: 8px 15px;
-            font-size: 20px;
-            font-family: 'Jameel', serif;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 10px;
-            color: white;
-        }
-        .edit-btn { background-color: var(--edit-blue); }
-        .delete-btn { background-color: var(--danger-red); }
-
-        footer { text-align: center; padding: 20px; color: #666; margin-top: 40px; font-size: 20px; }
-
-        @media (max-width: 600px) {
-            .navbar { flex-direction: column; gap: 10px; text-align: center; }
-            .grid-container { grid-template-columns: 1fr; }
-            .data-item { flex-direction: column; align-items: flex-start; gap: 15px; }
-        }
+        .tab-content.active { display: block; }
+        #loginError { color: red; text-align: center; display: none; margin-bottom: 15px; }
     </style>
 </head>
 <body>
 
-    <!-- ============================
-         1. LOGIN SCREEN (LOCK)
-         ============================ -->
-    <div id="loginScreen">
-        <div class="login-box">
-            <h2>جامعہ ایڈمن 🔒</h2>
-            <p>سسٹم میں داخل ہونے کے لیے لاگ ان کریں</p>
-            
-            <input type="text" id="adminUser" placeholder="یوزر نیم (Username)" dir="ltr">
-            <input type="password" id="adminPass" placeholder="پاس ورڈ (Password)" dir="ltr">
-            
-            <button class="submit-btn gold-btn" onclick="checkLogin()">لاگ ان کریں</button>
-            <p id="loginError">یوزر نیم یا پاس ورڈ غلط ہے!</p>
-            
-            <div style="margin-top: 15px;">
-                <a href="index.html" style="color: var(--primary-dark); font-size: 20px;">ویب سائٹ پر واپس جائیں</a>
-            </div>
+    <!-- 1. LOGIN SCREEN -->
+    <div id="loginScreen" class="container">
+        <h2>ایڈمن لاگ ان</h2>
+        <div id="loginError">ای میل یا پاس ورڈ غلط ہے!</div>
+        <input type="email" id="adminUser" placeholder="ای میل درج کریں" required dir="ltr">
+        <input type="password" id="adminPass" placeholder="پاس ورڈ درج کریں" required dir="ltr">
+        <button onclick="checkLogin()">لاگ ان کریں</button>
+    </div>
+
+    <!-- 2. MAIN ADMIN PANEL (Hidden by default) -->
+    <div id="mainAdminPanel" class="container" style="display: none;">
+        <h2>جامعہ اسلامیہ دریاباد - کنٹرول پینل</h2>
+        <button onclick="logoutAdmin()" style="background-color: #e74c3c; width: auto; padding: 5px 15px; float: left;">لاگ آؤٹ</button>
+        <div style="clear: both;"></div>
+
+        <!-- Tabs -->
+        <div class="tab-btn-container">
+            <button class="tab-btn active" onclick="switchTab('noticeTab')">تازہ خبر</button>
+            <button class="tab-btn" onclick="switchTab('magTab')">میگزین</button>
+            <button class="tab-btn" onclick="switchTab('resultTab')">امتحانی نتائج</button>
+            <button class="tab-btn" onclick="switchTab('photoTab')">تصاویر</button>
+        </div>
+
+        <!-- TAB 1: Notice -->
+        <div id="noticeTab" class="tab-content active">
+            <form id="noticeForm">
+                <h3>تازہ ترین خبر اپڈیٹ کریں</h3>
+                <textarea id="noticeUr" rows="3" placeholder="اردو میں خبر لکھیں..." required></textarea>
+                <textarea id="noticeAr" rows="3" placeholder="عربی میں خبر لکھیں..." required></textarea>
+                <textarea id="noticeEn" rows="3" placeholder="English News..." required dir="ltr"></textarea>
+                <textarea id="noticeHi" rows="3" placeholder="हिंदी में खबर लिखें..." required></textarea>
+                <button type="submit">خبر اپڈیٹ کریں</button>
+            </form>
+        </div>
+
+        <!-- TAB 2: Magazine -->
+        <div id="magTab" class="tab-content">
+            <form id="magazineForm">
+                <h3>میگزین اپلوڈ کریں</h3>
+                <select id="magCategory" required>
+                    <option value="">میگزین کی قسم منتخب کریں...</option>
+                    <option value="student_mag">طلبہ کا میگزین</option>
+                    <option value="jamia_mag">مجلہ استدراک</option>
+                </select>
+                <input type="text" id="magTitle" placeholder="میگزین کا نام / شمارہ نمبر (اردو میں)" required>
+                <input type="url" id="magLink" placeholder="میگزین کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
+                <button type="submit">میگزین محفوظ کریں</button>
+            </form>
+        </div>
+
+        <!-- TAB 3: Results -->
+        <div id="resultTab" class="tab-content">
+            <form id="resultForm">
+                <h3>امتحانی رزلٹ اپلوڈ کریں</h3>
+                <select id="resultClass" required>
+                    <option value="">درجہ منتخب کریں...</option>
+                    <option value="hifz">شعبہ حفظ و ناظرہ</option>
+                    <option value="idadia">درجہ اعدادیہ</option>
+                    <option value="ula">درجہ اولیٰ</option>
+                    <option value="sania">درجہ ثانیہ</option>
+                    <option value="salisa">درجہ ثالثہ</option>
+                    <option value="rabia">درجہ رابعہ</option>
+                    <option value="khamisa">درجہ خامسہ</option>
+                </select>
+                <input type="text" id="resultTitle" placeholder="امتحان کا نام (جیسے: ششماہی 2026)" required>
+                <input type="url" id="resultLink" placeholder="رزلٹ کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
+                <button type="submit">رزلٹ محفوظ کریں</button>
+            </form>
+        </div>
+
+        <!-- TAB 4: Photos -->
+        <div id="photoTab" class="tab-content">
+            <form id="photoForm">
+                <h3>گیلری کے لیے تصویر اپلوڈ کریں</h3>
+                <input type="url" id="photoLink" placeholder="تصویر کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
+                <input type="text" id="photoUr" placeholder="تصویر کی تفصیل (اردو)">
+                <input type="text" id="photoAr" placeholder="تصویر کی تفصیل (عربی)">
+                <input type="text" id="photoEn" placeholder="Caption (English)" dir="ltr">
+                <input type="text" id="photoHi" placeholder="تصویر की تفصیل (हिंदी)">
+                <button type="submit">تصویر محفوظ کریں</button>
+            </form>
         </div>
     </div>
 
-    <!-- ============================
-         2. MAIN DASHBOARD (HIDDEN)
-         ============================ -->
-    <div id="mainAdminPanel">
-        <div class="navbar">
-            <div class="navbar-brand">جامعہ ایڈمن پینل 🔒</div>
-            <div>
-                <a href="index.html" class="back-btn">ویب سائٹ ➔</a>
-                <button onclick="logoutAdmin()" class="back-btn" style="background: var(--danger-red); border-color: var(--danger-red); margin-right: 10px;">لاگ آؤٹ</button>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="dashboard-header">
-                <h1>کنٹرول روم</h1>
-                <p>یہاں سے آپ ویب سائٹ پر نیا ڈیٹا اپلوڈ کر سکتے ہیں یا پرانے ڈیٹا کو ایڈٹ/ڈیلیٹ کر سکتے ہیں۔</p>
-            </div>
-
-            <!-- Tabs Navigation -->
-            <div class="admin-tabs">
-                <button class="tab-btn active" onclick="switchTab('uploadTab')">نیا ڈیٹا اپلوڈ کریں</button>
-                <button class="tab-btn" onclick="switchTab('manageTab')">ڈیٹا مینج کریں (ایڈٹ/ڈیلیٹ)</button>
-            </div>
-
-            <!-- TAB 1: UPLOAD DATA -->
-            <div id="uploadTab" class="tab-content active">
-                <div class="grid-container">
-                    
-                    <!-- Section 1: Tazi Khabar -->
-                    <div class="card gold-border">
-                        <h2>📢 تازہ ترین خبر</h2>
-                        <form id="noticeForm">
-                            <label>اردو میں خبر:</label>
-                            <input type="text" id="noticeUr" placeholder="مثلاً: داخلے کی آخری تاریخ..." required>
-                            <label>العربية:</label>
-                            <input type="text" id="noticeAr" dir="rtl" style="font-family: 'AmiriLocal', serif;">
-                            <label>English:</label>
-                            <input type="text" id="noticeEn" dir="ltr" style="font-family: Arial, sans-serif;">
-                            <label>हिन्दी:</label>
-                            <input type="text" id="noticeHi" dir="ltr" style="font-family: 'Noto Sans Devanagari', sans-serif;">
-                            <button type="submit" class="submit-btn gold-btn">خبر اپڈیٹ کریں</button>
-                        </form>
-                    </div>
-
-	<!-- Section: Pages Content Update -->
-                    <div class="card">
-                        <h2>📝 صفحات کی تحریر (ترمیم)</h2>
-                        <form id="pageContentForm">
-                            <label>پیج منتخب کریں:</label>
-                            <select id="pageSelect" required>
-                                <option value="">پیج منتخب کریں...</option>
-                                <option value="examination">امتحانات (Examinations)</option>
-                                <option value="welcome">خوش آمدید (Welcome)</option>
-                                <option value="about">تعارف (About Us)</option>
-                            </select>
-
-                            <label>اردو تحریر:</label>
-                            <textarea id="pageTextUr" rows="3" placeholder="مثلاً: جامعہ میں ششماہی اور سالانہ امتحانات کا انعقاد نہایت شفافیت کے ساتھ کیا جاتا ہے..." required style="width:100%; padding:10px; font-family:'Jameel', serif; font-size:22px; border-radius:6px; border:1px solid #ccc; margin-top:8px;"></textarea>
-
-                            <label>العربية (Arabic):</label>
-                            <textarea id="pageTextAr" rows="3" dir="rtl" style="width:100%; padding:10px; font-family: 'AmiriLocal', serif; font-size:22px; border-radius:6px; border:1px solid #ccc; margin-top:8px;"></textarea>
-
-                            <label>English:</label>
-                            <textarea id="pageTextEn" rows="3" dir="ltr" style="width:100%; padding:10px; font-family: Arial, sans-serif; font-size:18px; border-radius:6px; border:1px solid #ccc; margin-top:8px;"></textarea>
-
-                            <label>हिन्दी (Hindi):</label>
-                            <textarea id="pageTextHi" rows="3" dir="ltr" style="width:100%; padding:10px; font-family: 'Noto Sans Devanagari', sans-serif; font-size:18px; border-radius:6px; border:1px solid #ccc; margin-top:8px;"></textarea>
-
-                            <button type="submit" class="submit-btn">تحریر اپڈیٹ کریں</button>
-                        </form>
-                    </div>
-
-                    <!-- Section 2: Dakhila Form -->
-                    <div class="card">
-                        <h2>📝 داخلہ فارم (پی ڈی ایف)</h2>
-                        <form id="admissionPdfForm">
-                            <label>فارم کا عنوان:</label>
-                            <input type="text" id="admissionTitle" placeholder="مثلاً: داخلہ فارم 2026-27" required>
-                            <label>پی ڈی ایف فائل منتخب کریں:</label>
-                            <input type="file" id="admissionFile" accept=".pdf" required>
-                            <button type="submit" class="submit-btn">فارم اپلوڈ کریں</button>
-                        </form>
-                    </div>
-
-                    <!-- Section 3: Results -->
-                    <div class="card">
-                        <h2>📄 امتحانی نتائج</h2>
-                        <form id="resultForm">
-                            <label>درجہ منتخب کریں:</label>
-                            <select id="resultClass" required>
-                                <option value="">درجہ منتخب کریں...</option>
-                                <option value="hifz">شعبہ حفظ و ناظرہ</option>
-                                <option value="idadia">درجہ اعدادیہ</option>
-                                <option value="ula">درجہ اولیٰ</option>
-                            </select>
-                            <label>رزلٹ کا عنوان:</label>
-                            <input type="text" id="resultTitle" placeholder="مثلاً: سالانہ امتحان 2026" required>
-                            <label>پی ڈی ایف فائل منتخب کریں:</label>
-                            <input type="file" id="resultFile" accept=".pdf" required>
-                            <button type="submit" class="submit-btn">رزلٹ اپلوڈ کریں</button>
-                        </form>
-                    </div>
-
-                    <!-- Section 4: Magazine -->
-                    <div class="card">
-                        <h2>📚 میگزین / مجلہ</h2>
-                        <form id="magForm">
-                            <label>میگزین کی قسم منتخب کریں:</label>
-                            <select id="magCategory" onchange="updateMagPlaceholder()" required>
-                                <option value="">قسم منتخب کریں...</option>
-                                <option value="studentMag">طلبہ کا سالانہ میگزین</option>
-                                <option value="jamiaMag">مجلہ استدراک (دو ماہی)</option>
-                            </select>
-                            <label>میگزین کا نام / شمارہ:</label>
-                            <input type="text" id="magTitle" placeholder="پہلے اوپر سے میگزین کی قسم منتخب کریں..." required>
-                            <label>پی ڈی ایف فائل منتخب کریں:</label>
-                            <input type="file" id="magFile" accept=".pdf" required>
-                            <button type="submit" class="submit-btn">میگزین اپلوڈ کریں</button>
-                        </form>
-                    </div>
-
-                    <!-- Section 5: Photos -->
-                    <div class="card">
-                        <h2>📸 تصاویر (گیلری)</h2>
-                        <form id="photoForm">
-                            <label>تصویر کا عنوان (اردو میں):</label>
-                            <input type="text" id="photoTitleUr" placeholder="مثلاً: سالانہ جلسہ" required>
-                            <label>العربية:</label>
-                            <input type="text" id="photoTitleAr" dir="rtl" style="font-family: 'AmiriLocal', serif;">
-                            <label>English:</label>
-                            <input type="text" id="photoTitleEn" dir="ltr" style="font-family: Arial, sans-serif;">
-                            <label>हिन्दी:</label>
-                            <input type="text" id="photoTitleHi" dir="ltr" style="font-family: 'Noto Sans Devanagari', sans-serif;">
-                            <label>تصویر منتخب کریں (JPG, PNG):</label>
-                            <input type="file" id="photoFile" accept="image/*" required>
-                            <button type="submit" class="submit-btn">تصویر اپلوڈ کریں</button>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-
-            <!-- TAB 2: MANAGE DATA (EDIT / DELETE) -->
-            <div id="manageTab" class="tab-content">
-                <div class="data-list-card">
-                    <h3>امتحانی نتائج (ڈیلیٹ/ایڈٹ)</h3>
-                    <div class="data-item">
-                        <div class="data-info">
-                            <strong>سالانہ امتحان - ۲۰۲۶ (درجہ اولیٰ)</strong>
-                            <span class="data-date">اپلوڈ کی تاریخ: 22 نومبر 2026</span>
-                        </div>
-                        <div class="action-btns">
-                            <button class="edit-btn">ترمیم کریں</button>
-                            <button class="delete-btn" onclick="confirmDelete()">حذف کریں</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <footer>جامعہ اسلامیہ دریاباد - ایڈمنسٹریشن پینل</footer>
-    </div>
-
-<script type="module">
-        // Firebase SDKs Import
+    <!-- 3. FIREBASE & JAVASCRIPT LOGIC -->
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getDatabase, ref as dbRef, set, push } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        // Your Firebase Config
+        // آپ کا پرانا اور ایکٹو فائر بیس پروجیکٹ کنفیگریشن
         const firebaseConfig = {
             apiKey: "AIzaSyBQ257lT1xbGEBQvWPl-0eWKXHPTzjT0wI",
             authDomain: "abuumairdailyazkar.firebaseapp.com",
@@ -446,69 +122,33 @@
             appId: "1:283668859897:web:06da60ff5a082d44afcb28"
         };
 
-        // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getDatabase(app);
 
-        // --- 1. FIREBASE LOGIN SYSTEM ---
+        // --- LOGIN SYSTEM ---
         window.checkLogin = function() {
-            const email = document.getElementById('adminUser').value; // Yahan ab Email likhi jayegi
+            const email = document.getElementById('adminUser').value;
             const pass = document.getElementById('adminPass').value;
-            
             signInWithEmailAndPassword(auth, email, pass)
-                .then((userCredential) => {
-                    document.getElementById('loginError').style.display = "none";
-                })
-                .catch((error) => {
-                    document.getElementById('loginError').innerText = "ای میل یا پاس ورڈ غلط ہے!";
+                .catch(() => {
                     document.getElementById('loginError').style.display = "block";
                 });
         };
 
-        window.logoutAdmin = function() {
-            signOut(auth).then(() => {
-                document.getElementById('adminUser').value = "";
-                document.getElementById('adminPass').value = "";
-            });
-        };
+        window.logoutAdmin = function() { signOut(auth); };
 
-        // Live Security Lock: Koi page refresh kare toh check karo login hai ya nahi
         onAuthStateChanged(auth, (user) => {
             if (user) {
                 document.getElementById('loginScreen').style.display = "none";
                 document.getElementById('mainAdminPanel').style.display = "block";
             } else {
                 document.getElementById('mainAdminPanel').style.display = "none";
-                document.getElementById('loginScreen').style.display = "flex";
+                document.getElementById('loginScreen').style.display = "block";
             }
         });
 
-        // --- 2. UPLOAD TAZA KHABAR (Notice) ---
-        document.getElementById('noticeForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const btn = e.target.querySelector('button');
-            btn.innerText = "اپڈیٹ ہو رہا ہے...";
-
-            const noticeData = {
-                ur: document.getElementById('noticeUr').value,
-                ar: document.getElementById('noticeAr').value,
-                en: document.getElementById('noticeEn').value,
-                hi: document.getElementById('noticeHi').value
-            };
-
-            try {
-                await set(ref(db, 'jamiaData/latestNotice'), noticeData);
-                alert("خبر کامیابی سے لائیو ہو گئی!");
-                btn.innerText = "خبر اپڈیٹ کریں";
-                e.target.reset();
-            } catch (error) {
-                alert("ایرر: " + error.message);
-                btn.innerText = "خبر اپڈیٹ کریں";
-            }
-        });
-
-        // --- UI Functions (Tabs & Placeholders) ---
+        // --- TAB SWITCHER ---
         window.switchTab = function(tabId) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
@@ -516,19 +156,80 @@
             event.target.classList.add('active');
         };
 
-        window.updateMagPlaceholder = function() {
-            const category = document.getElementById('magCategory').value;
-            const titleInput = document.getElementById('magTitle');
-            if (category === 'studentMag') titleInput.placeholder = "مثلاً: طلبہ میگزین - سالانہ نمبر ۲۰۲۶";
-            else if (category === 'jamiaMag') titleInput.placeholder = "مثلاً: مجلہ استدراک (مارچ و اپریل ۲۰۲۶)";
-            else titleInput.placeholder = "پہلے اوپر سے میگزین کی قسم منتخب کریں...";
-        };
+        // --- UPLOAD FORMS LOGIC ---
+        // 1. Notice
+        document.getElementById('noticeForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            btn.innerText = "اپڈیٹ ہو رہا ہے...";
+            try {
+                await set(dbRef(db, 'jamiaData/latestNotice'), {
+                    ur: document.getElementById('noticeUr').value,
+                    ar: document.getElementById('noticeAr').value,
+                    en: document.getElementById('noticeEn').value,
+                    hi: document.getElementById('noticeHi').value
+                });
+                alert("خبر کامیابی سے لائیو ہو گئی!");
+                e.target.reset();
+            } catch (error) { alert("Error: " + error.message); }
+            btn.innerText = "خبر اپڈیٹ کریں";
+        });
 
-        window.confirmDelete = function() {
-            if(confirm("کیا آپ واقعی اس فائل کو ڈیلیٹ کرنا چاہتے ہیں؟")) {
-                alert("یہ فیچر اگلے مرحلے میں شامل ہوگا۔");
-            }
-        };
+        // 2. Magazine
+        document.getElementById('magazineForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const category = document.getElementById('magCategory').value;
+            const title = document.getElementById('magTitle').value;
+            const link = document.getElementById('magLink').value;
+
+            btn.innerText = "محفوظ ہو رہا ہے..."; btn.disabled = true;
+            try {
+                await push(dbRef(db, `jamiaData/magazines/${category}`), { title: title, url: link, time: Date.now() });
+                alert("میگزین کا لنک کامیابی سے محفوظ ہو گیا!");
+                e.target.reset();
+            } catch (error) { alert("Error: " + error.message); }
+            btn.innerText = "میگزین محفوظ کریں"; btn.disabled = false;
+        });
+
+        // 3. Results
+        document.getElementById('resultForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const resClass = document.getElementById('resultClass').value;
+            const title = document.getElementById('resultTitle').value;
+            const link = document.getElementById('resultLink').value;
+
+            btn.innerText = "محفوظ ہو رہا ہے..."; btn.disabled = true;
+            try {
+                await push(dbRef(db, `jamiaData/results/${resClass}`), { title: title, url: link, time: Date.now() });
+                alert("امتحانی نتیجہ کامیابی سے محفوظ ہو گیا!");
+                e.target.reset();
+            } catch (error) { alert("Error: " + error.message); }
+            btn.innerText = "رزلٹ محفوظ کریں"; btn.disabled = false;
+        });
+
+        // 4. Photos
+        document.getElementById('photoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const link = document.getElementById('photoLink').value;
+
+            btn.innerText = "محفوظ ہو رہا ہے..."; btn.disabled = true;
+            try {
+                await push(dbRef(db, `jamiaData/photos`), {
+                    url: link,
+                    ur: document.getElementById('photoUr').value || "",
+                    ar: document.getElementById('photoAr').value || "",
+                    en: document.getElementById('photoEn').value || "",
+                    hi: document.getElementById('photoHi').value || "",
+                    time: Date.now()
+                });
+                alert("تصویر کا لنک کامیابی سے محفوظ ہو گیا!");
+                e.target.reset();
+            } catch (error) { alert("Error: " + error.message); }
+            btn.innerText = "تصویر محفوظ کریں"; btn.disabled = false;
+        });
     </script>
 </body>
 </html>
