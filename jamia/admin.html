@@ -5,21 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ایڈمن پینل - جامعہ اسلامیہ دریاباد</title>
     <style>
-        body { font-family: 'Jameel Noori Nastaleeq', Arial, sans-serif; background-color: #f4f7f6; margin: 0; padding: 0; }
+        /* Jameel Noori Nastaleeq Font Import */
+        @font-face {
+            font-family: 'Jameel Noori Nastaleeq';
+            src: url('https://abuumair.in/jameel.ttf') format('truetype');
+        }
+
+        body { 
+            font-family: 'Jameel Noori Nastaleeq', Arial, sans-serif; 
+            background-color: #f4f7f6; 
+            margin: 0; 
+            padding: 0; 
+            font-size: 18px; /* فونٹ سائز تھوڑا بڑا کیا ہے تاکہ نستعلیق واضح پڑھا جائے */
+        }
+        
         .container { max-width: 800px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #2c3e50; }
-        input, select, textarea, button { width: 100%; padding: 10px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; font-family: inherit; box-sizing: border-box; }
-        input[type="url"] { direction: ltr; text-align: left; }
-        button { background-color: #2980b9; color: white; border: none; cursor: pointer; font-size: 16px; font-weight: bold; }
+        h2 { text-align: center; color: #2c3e50; font-weight: normal; font-size: 28px; }
+        h3 { font-weight: normal; font-size: 22px; color: #34495e; }
+        input, select, textarea, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; font-family: inherit; font-size: 16px; box-sizing: border-box; }
+        input[type="url"] { direction: ltr; text-align: left; font-family: Arial, sans-serif; /* لنکس کے لیے نستعلیق نہیں، انگلش فونٹ رکھا ہے */ }
+        button { background-color: #2980b9; color: white; border: none; cursor: pointer; font-size: 18px; font-weight: normal; }
         button:hover { background-color: #34495e; }
         .tab-btn-container { display: flex; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .tab-btn { background-color: #ddd; color: #333; margin: 5px; width: auto; padding: 10px 20px; }
+        .tab-btn { background-color: #ddd; color: #333; margin: 5px; width: auto; padding: 10px 20px; border-radius: 4px;}
         .tab-btn.active { background-color: #27ae60; color: white; }
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         #loginError { color: red; text-align: center; display: none; margin-bottom: 15px; }
     </style>
 </head>
+
 <body>
 
     <!-- 1. LOGIN SCREEN -->
