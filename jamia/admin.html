@@ -16,14 +16,14 @@
             background-color: #f4f7f6; 
             margin: 0; 
             padding: 0; 
-            font-size: 18px; /* فونٹ سائز تھوڑا بڑا کیا ہے تاکہ نستعلیق واضح پڑھا جائے */
+            font-size: 18px; 
         }
         
         .container { max-width: 800px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         h2 { text-align: center; color: #2c3e50; font-weight: normal; font-size: 28px; }
-        h3 { font-weight: normal; font-size: 22px; color: #34495e; }
+        h3 { font-weight: normal; font-size: 22px; color: #34495e; border-bottom: 2px solid #eee; padding-bottom: 10px;}
         input, select, textarea, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; font-family: inherit; font-size: 16px; box-sizing: border-box; }
-        input[type="url"] { direction: ltr; text-align: left; font-family: Arial, sans-serif; /* لنکس کے لیے نستعلیق نہیں، انگلش فونٹ رکھا ہے */ }
+        input[type="url"] { direction: ltr; text-align: left; font-family: Arial, sans-serif; }
         button { background-color: #2980b9; color: white; border: none; cursor: pointer; font-size: 18px; font-weight: normal; }
         button:hover { background-color: #34495e; }
         .tab-btn-container { display: flex; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
@@ -32,9 +32,14 @@
         .tab-content { display: none; }
         .tab-content.active { display: block; }
         #loginError { color: red; text-align: center; display: none; margin-bottom: 15px; }
+
+        /* Delete List Styles */
+        .item-list { margin-top: 20px; }
+        .data-item { border: 1px solid #ddd; padding: 15px; margin-top: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; }
+        .del-btn { background-color: #e74c3c; width: auto; padding: 5px 15px; margin: 0; font-size: 16px; border-radius: 4px; }
+        .del-btn:hover { background-color: #c0392b; }
     </style>
 </head>
-
 <body>
 
     <!-- 1. LOGIN SCREEN -->
@@ -46,7 +51,7 @@
         <button onclick="checkLogin()">لاگ ان کریں</button>
     </div>
 
-    <!-- 2. MAIN ADMIN PANEL (Hidden by default) -->
+    <!-- 2. MAIN ADMIN PANEL -->
     <div id="mainAdminPanel" class="container" style="display: none;">
         <h2>جامعہ اسلامیہ دریاباد - کنٹرول پینل</h2>
         <button onclick="logoutAdmin()" style="background-color: #e74c3c; width: auto; padding: 5px 15px; float: left;">لاگ آؤٹ</button>
@@ -63,7 +68,7 @@
         <!-- TAB 1: Notice -->
         <div id="noticeTab" class="tab-content active">
             <form id="noticeForm">
-                <h3>تازہ ترین خبر اپڈیٹ کریں</h3>
+                <h3>تازہ ترین خبر اپڈیٹ کریں (ایڈٹ)</h3>
                 <textarea id="noticeUr" rows="3" placeholder="اردو میں خبر لکھیں..." required></textarea>
                 <textarea id="noticeAr" rows="3" placeholder="عربی میں خبر لکھیں..." required></textarea>
                 <textarea id="noticeEn" rows="3" placeholder="English News..." required dir="ltr"></textarea>
@@ -75,7 +80,7 @@
         <!-- TAB 2: Magazine -->
         <div id="magTab" class="tab-content">
             <form id="magazineForm">
-                <h3>میگزین اپلوڈ کریں</h3>
+                <h3>نیا میگزین شامل کریں</h3>
                 <select id="magCategory" required>
                     <option value="">میگزین کی قسم منتخب کریں...</option>
                     <option value="student_mag">طلبہ کا میگزین</option>
@@ -85,12 +90,16 @@
                 <input type="url" id="magLink" placeholder="میگزین کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
                 <button type="submit">میگزین محفوظ کریں</button>
             </form>
+            <div class="item-list">
+                <h3>پہلے سے موجود میگزین</h3>
+                <div id="magAdminList"></div>
+            </div>
         </div>
 
         <!-- TAB 3: Results -->
         <div id="resultTab" class="tab-content">
             <form id="resultForm">
-                <h3>امتحانی رزلٹ اپلوڈ کریں</h3>
+                <h3>نیا امتحانی رزلٹ شامل کریں</h3>
                 <select id="resultClass" required>
                     <option value="">درجہ منتخب کریں...</option>
                     <option value="hifz">شعبہ حفظ و ناظرہ</option>
@@ -105,12 +114,16 @@
                 <input type="url" id="resultLink" placeholder="رزلٹ کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
                 <button type="submit">رزلٹ محفوظ کریں</button>
             </form>
+            <div class="item-list">
+                <h3>پہلے سے موجود نتائج</h3>
+                <div id="resultAdminList"></div>
+            </div>
         </div>
 
         <!-- TAB 4: Photos -->
         <div id="photoTab" class="tab-content">
             <form id="photoForm">
-                <h3>گیلری کے لیے تصویر اپلوڈ کریں</h3>
+                <h3>نئی تصویر شامل کریں</h3>
                 <input type="url" id="photoLink" placeholder="تصویر کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
                 <input type="text" id="photoUr" placeholder="تصویر کی تفصیل (اردو)">
                 <input type="text" id="photoAr" placeholder="تصویر کی تفصیل (عربی)">
@@ -118,6 +131,10 @@
                 <input type="text" id="photoHi" placeholder="تصویر की تفصیل (हिंदी)">
                 <button type="submit">تصویر محفوظ کریں</button>
             </form>
+            <div class="item-list">
+                <h3>پہلے سے موجود تصاویر</h3>
+                <div id="photoAdminList"></div>
+            </div>
         </div>
     </div>
 
@@ -125,9 +142,8 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-        import { getDatabase, ref as dbRef, set, push } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
+        import { getDatabase, ref as dbRef, set, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-        // آپ کا پرانا اور ایکٹو فائر بیس پروجیکٹ کنفیگریشن
         const firebaseConfig = {
             apiKey: "AIzaSyBQ257lT1xbGEBQvWPl-0eWKXHPTzjT0wI",
             authDomain: "abuumairdailyazkar.firebaseapp.com",
@@ -146,11 +162,8 @@
             const email = document.getElementById('adminUser').value;
             const pass = document.getElementById('adminPass').value;
             signInWithEmailAndPassword(auth, email, pass)
-                .catch(() => {
-                    document.getElementById('loginError').style.display = "block";
-                });
+                .catch(() => { document.getElementById('loginError').style.display = "block"; });
         };
-
         window.logoutAdmin = function() { signOut(auth); };
 
         onAuthStateChanged(auth, (user) => {
@@ -171,6 +184,84 @@
             event.target.classList.add('active');
         };
 
+        // --- DELETE FUNCTION ---
+        window.deleteItem = async function(path) {
+            if(confirm("کیا آپ واقعی اسے ڈیلیٹ کرنا چاہتے ہیں؟")) {
+                try {
+                    await remove(dbRef(db, path));
+                    alert("ڈیٹا کامیابی سے ہٹا دیا گیا!");
+                } catch (error) { alert("Error: " + error.message); }
+            }
+        };
+
+        // --- LOAD EXISTING DATA (For Edit & Delete) ---
+        // 1. Notice (Load for Edit)
+        onValue(dbRef(db, 'jamiaData/latestNotice'), (snapshot) => {
+            if(snapshot.exists()) {
+                const data = snapshot.val();
+                document.getElementById('noticeUr').value = data.ur || "";
+                document.getElementById('noticeAr').value = data.ar || "";
+                document.getElementById('noticeEn').value = data.en || "";
+                document.getElementById('noticeHi').value = data.hi || "";
+            }
+        });
+
+        // 2. Magazines (Load for Delete)
+        onValue(dbRef(db, 'jamiaData/magazines'), (snapshot) => {
+            const list = document.getElementById('magAdminList');
+            list.innerHTML = '';
+            if(snapshot.exists()) {
+                snapshot.forEach(category => {
+                    const catName = category.key === 'jamia_mag' ? 'مجلہ استدراک' : 'طلبہ کا میگزین';
+                    category.forEach(item => {
+                        const data = item.val();
+                        const path = `jamiaData/magazines/${category.key}/${item.key}`;
+                        list.innerHTML += `
+                            <div class="data-item">
+                                <span><strong>${catName}:</strong> ${data.title}</span>
+                                <button class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
+                            </div>`;
+                    });
+                });
+            } else { list.innerHTML = "<p>کوئی میگزین موجود نہیں ہے۔</p>"; }
+        });
+
+        // 3. Results (Load for Delete)
+        onValue(dbRef(db, 'jamiaData/results'), (snapshot) => {
+            const list = document.getElementById('resultAdminList');
+            list.innerHTML = '';
+            if(snapshot.exists()) {
+                snapshot.forEach(resClass => {
+                    resClass.forEach(item => {
+                        const data = item.val();
+                        const path = `jamiaData/results/${resClass.key}/${item.key}`;
+                        list.innerHTML += `
+                            <div class="data-item">
+                                <span><strong>درجہ (${resClass.key}):</strong> ${data.title}</span>
+                                <button class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
+                            </div>`;
+                    });
+                });
+            } else { list.innerHTML = "<p>کوئی رزلٹ موجود نہیں ہے۔</p>"; }
+        });
+
+        // 4. Photos (Load for Delete)
+        onValue(dbRef(db, 'jamiaData/photos'), (snapshot) => {
+            const list = document.getElementById('photoAdminList');
+            list.innerHTML = '';
+            if(snapshot.exists()) {
+                snapshot.forEach(item => {
+                    const data = item.val();
+                    const path = `jamiaData/photos/${item.key}`;
+                    list.innerHTML += `
+                        <div class="data-item">
+                            <span>${data.ur || "بغیر کیپشن تصویر"}</span>
+                            <button class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
+                        </div>`;
+                });
+            } else { list.innerHTML = "<p>کوئی تصویر موجود نہیں ہے۔</p>"; }
+        });
+
         // --- UPLOAD FORMS LOGIC ---
         // 1. Notice
         document.getElementById('noticeForm').addEventListener('submit', async (e) => {
@@ -185,7 +276,6 @@
                     hi: document.getElementById('noticeHi').value
                 });
                 alert("خبر کامیابی سے لائیو ہو گئی!");
-                e.target.reset();
             } catch (error) { alert("Error: " + error.message); }
             btn.innerText = "خبر اپڈیٹ کریں";
         });
@@ -197,7 +287,6 @@
             const category = document.getElementById('magCategory').value;
             const title = document.getElementById('magTitle').value;
             const link = document.getElementById('magLink').value;
-
             btn.innerText = "محفوظ ہو رہا ہے..."; btn.disabled = true;
             try {
                 await push(dbRef(db, `jamiaData/magazines/${category}`), { title: title, url: link, time: Date.now() });
@@ -214,7 +303,6 @@
             const resClass = document.getElementById('resultClass').value;
             const title = document.getElementById('resultTitle').value;
             const link = document.getElementById('resultLink').value;
-
             btn.innerText = "محفوظ ہو رہا ہے..."; btn.disabled = true;
             try {
                 await push(dbRef(db, `jamiaData/results/${resClass}`), { title: title, url: link, time: Date.now() });
@@ -229,7 +317,6 @@
             e.preventDefault();
             const btn = e.target.querySelector('button');
             const link = document.getElementById('photoLink').value;
-
             btn.innerText = "محفوظ ہو رہا ہے..."; btn.disabled = true;
             try {
                 await push(dbRef(db, `jamiaData/photos`), {
