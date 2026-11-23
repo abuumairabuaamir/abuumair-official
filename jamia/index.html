@@ -144,7 +144,7 @@
             color: var(--accent-gold);
         }
 
-        /* Tazi Khabrein */
+     /* Tazi Khabrein */
         .news-ticker {
             background-color: var(--accent-gold);
             padding: 12px 20px;
@@ -152,6 +152,7 @@
             display: flex;
             align-items: center;
             font-size: 26px;
+            overflow: hidden;
         }
         .news-ticker span {
             background-color: var(--primary-dark);
@@ -160,8 +161,12 @@
             border-radius: 4px;
             margin: 0 15px;
             white-space: nowrap;
+            flex-shrink: 0; /* یہ تازہ ترین کے بٹن کو سکڑنے سے روکے گا */
         }
-
+        marquee {
+            flex: 1; /* یہ مارکی کو اسکرین کی پوری بچی ہوئی چوڑائی دے گا */
+            white-space: nowrap; /* یہ خبر کو ایک ہی لائن میں چلنے پر مجبور کرے گا */
+        }
         /* Pages System */
         .container { 
             max-width: 1200px; 
@@ -696,9 +701,22 @@
             });
 
             // Firebase live content updates
-            window.updateNoticeDisplay();
-            window.updatePhotoCaptions(lang);
-            window.updateResultsDisplay(); 
+        window.updateNoticeDisplay = function() {
+            const lang = document.getElementById('langSelect').value;
+            const marquee = document.querySelector('marquee');
+            
+            if (window.liveNoticeData && marquee) {
+                let textToShow = "";
+                
+                if (window.liveNoticeData[lang] && window.liveNoticeData[lang] !== "") {
+                    textToShow = window.liveNoticeData[lang];
+                } else if (window.liveNoticeData['ur']) {
+                    textToShow = window.liveNoticeData['ur'];
+                }
+
+                // یہ لائن ہر قسم کے 'Enter' اور پیراگراف کو ختم کر کے ایک سیدھی لائن بنا دے گی
+                marquee.innerText = textToShow.replace(/\n/g, "   |   ");
+            }
         };
     </script>
 </body>
