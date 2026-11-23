@@ -113,7 +113,6 @@
         .hero-banner {
             width: 100%;
             height: 380px;
-            /* Direct folder se image load hogi */
             background-image: linear-gradient(rgba(15, 76, 58, 0.85), rgba(15, 76, 58, 0.85)), url('banner.jpg');
             background-size: cover;
             background-position: center;
@@ -298,7 +297,7 @@
         <a onclick="showPage('photos')" class="nav-btn" data-key="photos">تصاویر</a>
     </div>
 
-    <!-- Banner (Updated) -->
+    <!-- Banner -->
     <div class="hero-banner">
         <h1 data-key="jamiaName">جامعہ اسلامیہ دریاباد</h1>
         <p data-key="bannerText" style="font-size: 30px; margin-top: 5px;">زیرِ نگرانی: اہل حدیث تعلیمی و رفاہی سوسائٹی</p>
@@ -370,7 +369,7 @@
             </div>
         </div>
 
- <!-- 5. RESULTS PAGE (Class-wise Archive) -->
+        <!-- RESULTS PAGE (Class-wise Archive) -->
         <div id="results" class="page-section">
             <div class="content-card">
                 <h2 class="section-title" data-key="results">نتائج</h2>
@@ -379,7 +378,8 @@
                 <!-- Class Selection Filter -->
                 <div style="background: #f4f7f6; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
                     <label data-key="selectClassLabel" style="font-weight:bold; margin-bottom:10px; display:block; color: var(--primary-dark);">اپنا درجہ منتخب کریں:</label>
-                    <select id="userResultClass" style="width:100%; padding:12px; font-family:'Jameel', serif; font-size:22px; border-radius:6px; border:1px solid #ccc; outline:none;">
+                    <!-- onchange par filter function chalega -->
+                    <select id="userResultClass" onchange="window.updateResultsDisplay()" style="width:100%; padding:12px; font-family:'Jameel', serif; font-size:22px; border-radius:6px; border:1px solid #ccc; outline:none;">
                         <option value="" data-key="optSelect">درجہ منتخب کریں...</option>
                         <option value="hifz" data-key="optHifz">شعبہ حفظ و ناظرہ</option>
                         <option value="idadia" data-key="optIdadia">درجہ اعدادیہ</option>
@@ -393,30 +393,21 @@
 
                 <!-- Results List (Fehrist) -->
                 <div id="resultsListArea">
-                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
-                        <span style="font-size:24px;">سالانہ امتحان - ۲۰۲۶</span>
-                        <a href="#" class="download-btn" style="margin-top:0;" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
-                    </div>
+                    <p style="text-align:center;">براہ کرم اوپر سے اپنا درجہ منتخب کریں۔</p>
                 </div>
             </div>
         </div>
 
-<!-- 6. STUDENT MAGAZINE PAGE -->
+        <!-- STUDENT MAGAZINE PAGE -->
         <div id="studentMag" class="page-section">
             <div class="content-card">
                 <h2 class="section-title" data-key="studentMag">طلبہ کا میگزین</h2>
                 <p data-key="studentMagText" style="margin-bottom: 20px;">جامعہ کے طلبہ کی علمی و ادبی تحریریں، مقالات اور شعری ذوق پر مبنی مجلہ۔</p>
-                
-                <div id="studentMagListArea">
-                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
-                        <span style="font-size:24px;">طلبہ میگزین - شمارہ ۲۰۲۶</span>
-                        <a href="#" class="download-btn" style="margin-top:0;" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
-                    </div>
-                </div>
+                <div id="studentMagListArea"></div>
             </div>
         </div>
 
-        <!-- 7. JAMIA MAGAZINE (ESTIDRAK) PAGE -->
+        <!-- JAMIA MAGAZINE (ESTIDRAK) PAGE -->
         <div id="jamiaMag" class="page-section">
             <div class="content-card">
                 <h2 class="section-title" data-key="jamiaMag">مجلہ استدراک</h2>
@@ -431,35 +422,26 @@
                     <li data-key="mag5">حالات حاضرہ کے مطابق اداریے اور مقالات میں صحتِ احادیث و آثار کا التزام۔</li>
                 </ul>
 
-                <div id="jamiaMagListArea">
-                    <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
-                        <span style="font-size:24px;">مجلہ استدراک - شمارہ ۱۰ (نومبر ۲۰۲۶)</span>
-                        <a href="#" class="download-btn" style="margin-top:0;" data-key="viewPdf">پی ڈی ایف دیکھیں</a>
-                    </div>
-                </div>
+                <div id="jamiaMagListArea"></div>
             </div>
         </div>
-<!-- 8. PHOTOS PAGE -->
+
+        <!-- PHOTOS PAGE -->
         <div id="photos" class="page-section">
             <div class="content-card">
                 <h2 class="section-title" data-key="photos">تصاویر</h2>
-                
-                <div class="gallery-grid" id="photoGalleryArea">
-                    <div style="background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; text-align: center;">
-                        <img src="photo1.jpg" alt="Jamia Photo" style="width: 100%; height: 250px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;">
-                        <p style="margin: 0; font-size: 22px; color: var(--primary-dark);">سالانہ جلسہ دستار بندی - ۲۰۲۶</p>
-                    </div>
-                </div>
+                <div class="gallery-grid" id="photoGalleryArea"></div>
             </div>
         </div>
+    </div>
+    
     <!-- Footer -->
     <footer>
         <span data-key="footerText">تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد</span>
     </footer>
 
-   <!-- JS Logic -->
-  <script type="module">
-        // --- FIREBASE SETUP ---
+    <!-- JS Logic with Firebase Fetching -->
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
@@ -476,10 +458,8 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-        // Global Variable for Live Notice Data
+        // --- 1. FETCH LIVE NOTICE ---
         window.liveNoticeData = null;
-
-        // Fetch Live Notice from Firebase
         const noticeRef = ref(db, 'jamiaData/latestNotice');
         onValue(noticeRef, (snapshot) => {
             const data = snapshot.val();
@@ -489,18 +469,122 @@
             }
         });
 
-        // Update Notice Text based on selected language
         window.updateNoticeDisplay = function() {
             const lang = document.getElementById('langSelect').value;
             const marquee = document.querySelector('marquee');
             
-            if (window.liveNoticeData) {
+            if (window.liveNoticeData && marquee) {
                 if (window.liveNoticeData[lang] && window.liveNoticeData[lang] !== "") {
                     marquee.innerText = window.liveNoticeData[lang];
                 } else if (window.liveNoticeData['ur']) {
                     marquee.innerText = window.liveNoticeData['ur'];
                 }
             }
+        };
+
+        // --- 2. FETCH MAGAZINES ---
+        const magRef = ref(db, 'jamiaData/magazines');
+        onValue(magRef, (snapshot) => {
+            const studentMagArea = document.getElementById('studentMagListArea');
+            const jamiaMagArea = document.getElementById('jamiaMagListArea');
+            
+            if(studentMagArea) studentMagArea.innerHTML = '';
+            if(jamiaMagArea) jamiaMagArea.innerHTML = '';
+
+            if(snapshot.exists()) {
+                const data = snapshot.val();
+                
+                // Student Magazine Load
+                if(data.student_mag && studentMagArea) {
+                    Object.values(data.student_mag).forEach(item => {
+                        studentMagArea.innerHTML += `
+                            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
+                                <span style="font-size:24px;">${item.title}</span>
+                                <a href="${item.url}" target="_blank" class="download-btn" style="margin-top:0;">پی ڈی ایف دیکھیں</a>
+                            </div>`;
+                    });
+                }
+                
+                // Jamia Mag Load
+                if(data.jamia_mag && jamiaMagArea) {
+                    Object.values(data.jamia_mag).forEach(item => {
+                        jamiaMagArea.innerHTML += `
+                            <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
+                                <span style="font-size:24px;">${item.title}</span>
+                                <a href="${item.url}" target="_blank" class="download-btn" style="margin-top:0;">پی ڈی ایف دیکھیں</a>
+                            </div>`;
+                    });
+                }
+            }
+        });
+
+        // --- 3. FETCH RESULTS ---
+        window.allResults = null;
+        const resultRef = ref(db, 'jamiaData/results');
+        onValue(resultRef, (snapshot) => {
+            if(snapshot.exists()){
+                window.allResults = snapshot.val();
+            } else {
+                window.allResults = null;
+            }
+            window.updateResultsDisplay();
+        });
+
+        window.updateResultsDisplay = function() {
+            const resultArea = document.getElementById('resultsListArea');
+            const selectedClass = document.getElementById('userResultClass').value;
+            
+            if(!resultArea) return;
+            resultArea.innerHTML = '';
+
+            if(selectedClass && window.allResults && window.allResults[selectedClass]) {
+                Object.values(window.allResults[selectedClass]).forEach(item => {
+                    resultArea.innerHTML += `
+                        <div style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
+                            <span style="font-size:24px;">${item.title}</span>
+                            <a href="${item.url}" target="_blank" class="download-btn" style="margin-top:0;">پی ڈی ایف دیکھیں</a>
+                        </div>`;
+                });
+            } else if (selectedClass) {
+                 resultArea.innerHTML = '<p style="text-align:center; color:red;">اس درجے کا کوئی رزلٹ موجود نہیں ہے۔</p>';
+            } else {
+                 resultArea.innerHTML = '<p style="text-align:center;">براہ کرم اوپر سے اپنا درجہ منتخب کریں۔</p>';
+            }
+        };
+
+        // --- 4. FETCH PHOTOS ---
+        const photoRef = ref(db, 'jamiaData/photos');
+        onValue(photoRef, (snapshot) => {
+            const photoArea = document.getElementById('photoGalleryArea');
+            if(photoArea && snapshot.exists()) {
+                photoArea.innerHTML = '';
+                const data = snapshot.val();
+                
+                Object.values(data).forEach(item => {
+                    const captionUr = item.ur || '';
+                    const captionAr = item.ar || captionUr;
+                    const captionEn = item.en || captionUr;
+                    const captionHi = item.hi || captionUr;
+                    
+                    photoArea.innerHTML += `
+                        <div style="background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; text-align: center;">
+                            <img src="${item.url}" alt="Jamia Photo" style="width: 100%; height: 250px; object-fit: cover; border-radius: 6px; margin-bottom: 10px;">
+                            <p style="margin: 0; font-size: 22px; color: var(--primary-dark);" class="photo-caption" data-ur="${captionUr}" data-ar="${captionAr}" data-en="${captionEn}" data-hi="${captionHi}">${captionUr}</p>
+                        </div>`;
+                });
+                
+                // Agar language change ho chuki ho toh naye photos par wahi language lagaye
+                const currentLang = document.getElementById('langSelect').value;
+                if(currentLang !== 'ur') {
+                    window.updatePhotoCaptions(currentLang);
+                }
+            }
+        });
+
+        window.updatePhotoCaptions = function(lang) {
+            document.querySelectorAll('.photo-caption').forEach(p => {
+                p.innerText = p.getAttribute(`data-${lang}`) || p.getAttribute('data-ur');
+            });
         };
 
         // --- PAGE NAVIGATION ---
@@ -548,8 +632,7 @@
                 mag3: "احکام و مسائل کے تعلق سے ضعیف و موضوع روایات کی تخریج و تحقیق۔", mag4: "اہم و حساس موضوعات پر علمی مقالات اور مختلف علاقوں سے آنے والے سوالات کے تحقیقی جوابات۔",
                 mag5: "حالات حاضرہ کے مطابق اداریے اور مقالات میں صحتِ احادیث و آثار کا التزام۔",
                 footerText: "تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد",
-                selectClassLabel: "اپنا درجہ منتخب کریں:", optSelect: "درجہ منتخب کریں...", optHifz: "شعبہ حفظ و ناظرہ", optIdadia: "درجہ اعدادیہ", optUla: "درجہ اولیٰ", optSania: "درجہ ثانیہ", optSalisa: "درجہ ثالثہ", optRabia: "درجہ رابعہ", optKhamisa: "درجہ خامسہ",
-                photo1Caption: "جنرل لائبریری"
+                selectClassLabel: "اپنا درجہ منتخب کریں:", optSelect: "درجہ منتخب کریں...", optHifz: "شعبہ حفظ و ناظرہ", optIdadia: "درجہ اعدادیہ", optUla: "درجہ اولیٰ", optSania: "درجہ ثانیہ", optSalisa: "درجہ ثالثہ", optRabia: "درجہ رابعہ", optKhamisa: "درجہ خامسہ"
             },
             ar: {
                 jamiaName: "الجامعة الإسلامية بدرياباد", home: "الرئيسية", about: "نبذة عنا", admission: "القبول",
@@ -585,8 +668,7 @@
                 mag3: "تخريج وتحقيق الروايات الضعيفة والموضوعة المتعلقة بالأحكام والمسائل.", mag4: "مقالات علمية حول موضوعات هامة وحساسة وإجابات محققة للأسئلة الواردة من مناطق مختلفة.",
                 mag5: "افتتاحيات تواكب الأحداث الجارية مع الالتزام بصحة الأحاديث والآثار في المقالات.",
                 footerText: "جميع الحقوق محفوظة © 2026 الجامعة الإسلامية بدرياباد",
-                selectClassLabel: "اختر صفك الدراسي:", optSelect: "اختر الصف...", optHifz: "قسم تحفيظ القرآن", optIdadia: "الصف الإعدادي", optUla: "الصف الأول", optSania: "الصف الثاني", optSalisa: "الصف الثالث", optRabia: "الصف الرابع", optKhamisa: "الصف الخامس",
-                photo1Caption: "المكتبة العامة"
+                selectClassLabel: "اختر صفك الدراسي:", optSelect: "اختر الصف...", optHifz: "قسم تحفيظ القرآن", optIdadia: "الصف الإعدادي", optUla: "الصف الأول", optSania: "الصف الثاني", optSalisa: "الصف الثالث", optRabia: "الصف الرابع", optKhamisa: "الصف الخامس"
             },
             en: {
                 jamiaName: "Jamia Islamia Dariyabad", home: "Home", about: "About Us", admission: "Admission",
@@ -622,8 +704,7 @@
                 mag3: "Research and extraction (Takhreej) of weak and fabricated narrations regarding rules and issues.", mag4: "Academic articles on important and sensitive topics and researched answers to questions coming from various regions.",
                 mag5: "Editorials based on current affairs and commitment to the authenticity of Ahadith and Athar in articles.",
                 footerText: "All rights reserved © 2026 Jamia Islamia Dariyabad",
-                selectClassLabel: "Select Your Class:", optSelect: "Select Class...", optHifz: "Hifz Department", optIdadia: "Preparatory Class", optUla: "First Year", optSania: "Second Year", optSalisa: "Third Year", optRabia: "Fourth Year", optKhamisa: "Fifth Year",
-                photo1Caption: "General Library"
+                selectClassLabel: "Select Your Class:", optSelect: "Select Class...", optHifz: "Hifz Department", optIdadia: "Preparatory Class", optUla: "First Year", optSania: "Second Year", optSalisa: "Third Year", optRabia: "Fourth Year", optKhamisa: "Fifth Year"
             },
             hi: {
                 jamiaName: "जामिया इस्लामिया दरियाबाद", home: "होम", about: "परिचय", admission: "दाखिला",
@@ -659,8 +740,7 @@
                 mag3: "कमजोर और मनगढ़ंत कथाओं का शोध।", mag4: "महत्वपूर्ण विषयों पर लेख और विभिन्न क्षेत्रों से आने वाले प्रश्नों के शोधित उत्तर।",
                 mag5: "वर्तमान मामलों के अनुसार संपादकीय।",
                 footerText: "सर्वाधिकार सुरक्षित © 2026 जामिया इस्लामिया दरियाबाद",
-                selectClassLabel: "अपनी कक्षा चुनें:", optSelect: "कक्षा चुनें...", optHifz: "हिफ्ज़ विभाग", optIdadia: "प्रारंभिक कक्षा", optUla: "प्रथम वर्ष", optSania: "द्वितीय वर्ष", optSalisa: "तृतीय वर्ष", optRabia: "चतुर्थ वर्ष", optKhamisa: "पंचम वर्ष",
-                photo1Caption: "जनरल लाइब्रेरी"
+                selectClassLabel: "अपनी कक्षा चुनें:", optSelect: "कक्षा चुनें...", optHifz: "हिफ्ज़ विभाग", optIdadia: "प्रारंभिक कक्षा", optUla: "प्रथम वर्ष", optSania: "द्वितीय वर्ष", optSalisa: "तृतीय वर्ष", optRabia: "चतुर्थ वर्ष", optKhamisa: "पंचम वर्ष"
             }
         };
 
@@ -691,8 +771,9 @@
                 }
             });
 
-            // Firebase live notice text update
+            // Firebase live text update
             window.updateNoticeDisplay();
+            window.updatePhotoCaptions(lang);
         };
     </script>
 </body>
