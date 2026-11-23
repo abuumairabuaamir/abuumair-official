@@ -54,9 +54,9 @@
         }
 
         /* Language Specific Adjustments - Desktop */
-        body.lang-ar { font-family: 'AmiriLocal', serif; font-size: 22px; } /* عربی کا سائز چھوٹا کیا گیا */
-        body.lang-en { font-family: 'Jameel', serif; font-size: 20px; line-height: 1.6; } /* انگلش کا سائز چھوٹا کیا گیا */
-        body.lang-hi { font-family: 'HindiFont', sans-serif; font-size: 22px; line-height: 1.6; } /* ہندی ttf شامل */
+        body.lang-ar { font-family: 'AmiriLocal', serif; font-size: 22px; }
+        body.lang-en { font-family: 'Jameel', serif; font-size: 20px; line-height: 1.6; } 
+        body.lang-hi { font-family: 'HindiFont', sans-serif; font-size: 22px; line-height: 1.6; }
         
         body.ltr { direction: ltr; text-align: left; }
         body.rtl { direction: rtl; text-align: right; }
@@ -160,11 +160,11 @@
             border-radius: 4px;
             margin: 0 15px;
             white-space: nowrap;
-            flex-shrink: 0; /* یہ تازہ ترین کے بٹن کو سکڑنے سے روکے گا */
+            flex-shrink: 0;
         }
         marquee {
-            flex: 1; /* یہ مارکی کو اسکرین کی پوری بچی ہوئی چوڑائی دے گا */
-            white-space: nowrap; /* یہ خبر کو ایک ہی لائن میں چلنے پر مجبور کرے گا */
+            flex: 1; 
+            white-space: nowrap;
         }
         
         /* Pages System */
@@ -232,6 +232,9 @@
             display: inline-block;
             margin-top: 15px;
             border: 1px solid var(--primary-dark);
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 18px;
         }
         .download-btn:hover { background-color: var(--white); color: var(--primary-dark); }
 
@@ -247,9 +250,9 @@
         /* MOBILE RESPONSIVE SETTINGS */
         @media (max-width: 768px) {
             body { font-size: 20px; line-height: 1.6; }
-            body.lang-ar { font-size: 18px; } /* موبائل پر عربی کا سائز چھوٹا */
-            body.lang-en { font-size: 15px; } /* موبائل پر انگلش کا سائز مزید چھوٹا */
-            body.lang-hi { font-size: 17px; } /* موبائل پر ہندی کا سائز */
+            body.lang-ar { font-size: 18px; } 
+            body.lang-en { font-size: 15px; } 
+            body.lang-hi { font-size: 17px; } 
             
             .navbar { padding: 10px 15px; flex-direction: column; gap: 10px; }
             .navbar-brand { font-size: 28px; }
@@ -446,6 +449,15 @@
         <span data-key="footerText">تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد</span>
     </footer>
 
+    <!-- PDF VIEWER MODAL (JUGADH) -->
+    <div id="pdfModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:99999;">
+        <div style="padding: 10px 20px; text-align: left; background: var(--primary-dark); display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--accent-gold);">
+            <span style="color: var(--accent-gold); font-size: 24px;" data-key="jamiaName">جامعہ اسلامیہ دریاباد</span>
+            <button onclick="window.closePdf()" style="background:#e74c3c; color:white; border:none; padding:8px 15px; border-radius:5px; font-size:18px; cursor:pointer;" data-key="closeBtn">بند کریں ✖</button>
+        </div>
+        <iframe id="pdfIframe" src="" style="width:100%; height:calc(100% - 60px); border:none; background:white;"></iframe>
+    </div>
+
     <!-- JS Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
@@ -467,8 +479,7 @@
         // --- FULL TRANSLATIONS SYSTEM ---
         const translations = {
             ur: {
-                jamiaName: "جامعہ اسلامیہ دریاباد", home: "ہوم", about: "تعارف", admission: "داخلہ",
-                examination: "امتحانات", results: "نتائج", studentMag: "طلبہ کا میگزین", jamiaMag: "مجلہ استدراک", photos: "تصاویر", 
+                jamiaName: "جامعہ اسلامیہ دریاباد", home: "ہوم", about: "تعارف", admission: "داخلہ", examination: "امتحانات", results: "نتائج", studentMag: "طلبہ کا میگزین", jamiaMag: "مجلہ استدراک", photos: "تصاویر", 
                 bannerText: "زیرِ نگرانی: اہل حدیث تعلیمی و رفاہی سوسائٹی", bannerDirector: "مشرفِ عام: فضیلۃ الشیخ الدکتور عبدالباری فتح اللہ المدنی حفظہ اللہ", 
                 newsTitle: "تازہ ترین:", newsMarquee: "نئے تعلیمی سال کے لیے داخلے جاری ہیں۔ فارم بھرنے کی آخری تاریخ ۲۰ شوال المکرم ہے۔",
                 welcomeHeading: "خوش آمدید", aboutText: "جامعہ اسلامیہ دریاباد ایک عظیم دینی درسگاہ ہے جہاں قرآن، حدیث، فقہ اور دیگر اسلامی علوم کے ساتھ ساتھ عصری تعلیم کا بھی بہترین انتظام ہے۔",
@@ -483,7 +494,7 @@
                 footerText: "تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد",
                 selectClassLabel: "اپنا درجہ منتخب کریں:", optSelect: "درجہ منتخب کریں...", optHifz: "شعبہ حفظ و ناظرہ", optIdadia: "درجہ اعدادیہ", optUla: "درجہ اولیٰ", optSania: "درجہ ثانیہ", optSalisa: "درجہ ثالثہ", optRabia: "درجہ رابعہ", optKhamisa: "درجہ خامسہ",
                 optSadisa: "درجہ سادسہ", optKulliya1: "کلیہ سال اول", optKulliya2: "کلیہ سال دوم", optKulliya3: "کلیہ سال آخر",
-                selectClassPrompt: "براہ کرم اوپر سے اپنا درجہ منتخب کریں۔", noResultFound: "اس درجے کا کوئی رزلٹ موجود نہیں ہے۔"
+                selectClassPrompt: "براہ کرم اوپر سے اپنا درجہ منتخب کریں۔", noResultFound: "اس درجے کا کوئی رزلٹ موجود نہیں ہے۔", closeBtn: "بند کریں ✖"
             },
             ar: {
                 jamiaName: "الجامعة الإسلامية بدرياباد", home: "الرئيسية", about: "نبذة عنا", admission: "القبول", examination: "الامتحانات", results: "النتائج", studentMag: "مجلة الطلاب", jamiaMag: "مجلة استدراك", photos: "الصور", 
@@ -498,7 +509,7 @@
                 footerText: "جميع الحقوق محفوظة © 2026 الجامعة الإسلامية بدرياباد",
                 selectClassLabel: "اختر صفك الدراسي:", optSelect: "اختر الصف...", optHifz: "قسم تحفيظ القرآن", optIdadia: "الصف الإعدادي", optUla: "الصف الأول", optSania: "الصف الثاني", optSalisa: "الصف الثالث", optRabia: "الصف الرابع", optKhamisa: "الصف الخامس",
                 optSadisa: "الصف السادس", optKulliya1: "كلية السنة الأولى", optKulliya2: "كلية السنة الثانية", optKulliya3: "كلية السنة الأخيرة",
-                selectClassPrompt: "يرجى تحديد صفك الدراسي من الأعلى.", noResultFound: "لا توجد نتائج مسجلة لهذا الصف."
+                selectClassPrompt: "يرجى تحديد صفك الدراسي من الأعلى.", noResultFound: "لا توجد نتائج مسجلة لهذا الصف.", closeBtn: "إغلاق ✖"
             },
             en: {
                 jamiaName: "Jamia Islamia Dariyabad", home: "Home", about: "About Us", admission: "Admission", examination: "Examination", results: "Results", studentMag: "Students Magazine", jamiaMag: "Jamia Magazine Estidrak", photos: "Photos", 
@@ -513,7 +524,7 @@
                 footerText: "All rights reserved © 2026 Jamia Islamia Dariyabad",
                 selectClassLabel: "Select Your Class:", optSelect: "Select Class...", optHifz: "Hifz Department", optIdadia: "Preparatory Class", optUla: "First Year", optSania: "Second Year", optSalisa: "Third Year", optRabia: "Fourth Year", optKhamisa: "Fifth Year",
                 optSadisa: "Sixth Year", optKulliya1: "College First Year", optKulliya2: "College Second Year", optKulliya3: "College Final Year",
-                selectClassPrompt: "Please select your class from the dropdown above.", noResultFound: "No results found for this class."
+                selectClassPrompt: "Please select your class from the dropdown above.", noResultFound: "No results found for this class.", closeBtn: "Close ✖"
             },
             hi: {
                 jamiaName: "जामिया इस्लामिया दरियाबाद", home: "होम", about: "परिचय", admission: "दाखिला", examination: "परीक्षा", results: "परिणाम", studentMag: "छात्र पत्रिका", jamiaMag: "पत्रिका इस्तिद्राक", photos: "तस्वीरें", 
@@ -528,8 +539,35 @@
                 footerText: "सर्वाधिकार सुरक्षित © 2026 जामिया इस्लामिया दरियाबाद",
                 selectClassLabel: "अपनी कक्षा चुनें:", optSelect: "कक्षा चुनें...", optHifz: "हिफ्ज़ विभाग", optIdadia: "प्रारंभिक कक्षा", optUla: "प्रथम वर्ष", optSania: "द्वितीय वर्ष", optSalisa: "तृतीय वर्ष", optRabia: "चतुर्थ वर्ष", optKhamisa: "पंचम वर्ष",
                 optSadisa: "छठा वर्ष", optKulliya1: "कॉलेज प्रथम वर्ष", optKulliya2: "कॉलेज द्वितीय वर्ष", optKulliya3: "कॉलेज अंतिम वर्ष",
-                selectClassPrompt: "कृपया ऊपर से अपनी कक्षा चुनें।", noResultFound: "इस कक्षा के लिए कोई परिणाम नहीं मिला।"
+                selectClassPrompt: "कृपया ऊपर से अपनी कक्षा चुनें।", noResultFound: "इस कक्षा के लिए कोई परिणाम नहीं मिला।", closeBtn: "बंद करें ✖"
             }
+        };
+
+        // --- NEW JUGADH: OPEN PDF IN IFRAME ---
+        window.openPdf = function(url) {
+            let cleanUrl = url;
+            
+            // Google Drive ke link ko 'preview' mode mein tabdeel karna (Drive App ko block karne ke liye)
+            if (cleanUrl.includes('drive.google.com')) {
+                if (cleanUrl.includes('/view')) {
+                    cleanUrl = cleanUrl.split('/view')[0] + '/preview';
+                } else if (cleanUrl.includes('uc?export=view&id=')) {
+                    let fileId = cleanUrl.split('id=')[1].split('&')[0];
+                    cleanUrl = 'https://drive.google.com/file/d/' + fileId + '/preview';
+                } else if (!cleanUrl.includes('/preview')) {
+                    cleanUrl += '/preview'; 
+                }
+            }
+            
+            document.getElementById('pdfIframe').src = cleanUrl;
+            document.getElementById('pdfModal').style.display = 'block';
+            document.body.style.overflow = 'hidden'; // Background ka scroll band
+        };
+
+        window.closePdf = function() {
+            document.getElementById('pdfModal').style.display = 'none';
+            document.getElementById('pdfIframe').src = '';
+            document.body.style.overflow = 'auto'; // Background ka scroll chalu
         };
 
         // --- 1. FETCH LIVE NOTICE ---
@@ -584,7 +622,7 @@
                         studentMagArea.innerHTML += `
                             <div class="dynamic-item-row" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
                                 <span style="font-size:24px;">${item.title}</span>
-                                <a href="${item.url}" target="_blank" class="download-btn" data-key="viewPdf" style="margin-top:0;">${viewPdfTxt}</a>
+                                <button onclick="window.openPdf('${item.url}')" class="download-btn" data-key="viewPdf" style="margin-top:0;">${viewPdfTxt}</button>
                             </div>`;
                     });
                 }
@@ -593,7 +631,7 @@
                         jamiaMagArea.innerHTML += `
                             <div class="dynamic-item-row" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
                                 <span style="font-size:24px;">${item.title}</span>
-                                <a href="${item.url}" target="_blank" class="download-btn" data-key="viewPdf" style="margin-top:0;">${viewPdfTxt}</a>
+                                <button onclick="window.openPdf('${item.url}')" class="download-btn" data-key="viewPdf" style="margin-top:0;">${viewPdfTxt}</button>
                             </div>`;
                     });
                 }
@@ -629,7 +667,7 @@
                     resultArea.innerHTML += `
                         <div class="dynamic-item-row" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #eee; padding-bottom:15px; margin-bottom:15px;">
                             <span style="font-size:24px;">${item.title}</span>
-                            <a href="${item.url}" target="_blank" class="download-btn" data-key="viewPdf" style="margin-top:0;">${msgViewPdf}</a>
+                            <button onclick="window.openPdf('${item.url}')" class="download-btn" data-key="viewPdf" style="margin-top:0;">${msgViewPdf}</button>
                         </div>`;
                 });
             } else if (selectedClass) {
