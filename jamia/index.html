@@ -4,6 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>جامعہ اسلامیہ دریاباد</title>
+    
+    <!-- App Logo & PWA Setup (Very Important for Install System) -->
+    <link rel="icon" type="image/png" href="logo.png">
+    <link rel="apple-touch-icon" href="logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="manifest" href="manifest.json">
+
     <style>
         /* CSS Reset - Horizontal Scroll Fix */
         * {
@@ -279,7 +287,8 @@
     </style>
 </head>
 <body class="rtl lang-ur">
-<!-- INSTALL APP BANNER (Dark Theme) -->
+
+    <!-- INSTALL APP BANNER (Dark Theme) -->
     <div id="installBanner" style="display:none; position:fixed; bottom:15px; left:5%; width:90%; background:#1a1a2e; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); z-index:9998; padding:15px; box-sizing:border-box; flex-direction:row; justify-content:space-between; align-items:center; direction:rtl; border: 1px solid #333;">
         <div style="display:flex; align-items:center; gap:12px; width: 100%;">
             <!-- Close Button -->
@@ -296,18 +305,6 @@
             
             <!-- Install Button -->
             <button id="installBtn" style="background:#e67e22; color:white; border:none; padding:8px 18px; border-radius:6px; font-family:'Jameel', serif; font-size:20px; font-weight: bold; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.3); white-space: nowrap;">📥 انسٹال کریں</button>
-        </div>
-    </div>
-
-    <!-- INSTRUCTION MODAL (FALLBACK) -->
-    <div id="guideModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center; direction:rtl;">
-        <div style="background:white; padding:25px; border-radius:12px; width:80%; max-width:400px; text-align:center; position:relative;">
-            <h3 style="color:var(--primary-dark); font-family:'Jameel', serif; font-size:32px; margin-bottom:15px; margin-top:0;">شارٹ کٹ بنانے کا طریقہ</h3>
-            <p style="font-family:Arial, sans-serif; font-size:16px; color:#333; line-height:1.8; margin-bottom:20px; text-align:right;">
-                <b>1.</b> براؤزر کے اوپر موجود تین نقطوں <b>(⋮)</b> پر کلک کریں۔<br><br>
-                <b>2.</b> مینیو میں سے <b>"Add to Home screen"</b> پر کلک کریں۔
-            </p>
-            <button onclick="document.getElementById('guideModal').style.display='none'" style="background:#e74c3c; color:white; border:none; padding:8px 25px; border-radius:6px; font-size:20px; cursor:pointer; font-family:'Jameel', serif;">بند کریں</button>
         </div>
     </div>
     
@@ -480,7 +477,7 @@
         <span data-key="footerText">تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد</span>
     </footer>
 
-<!-- PDF VIEWER MODAL (JUGADH) -->
+    <!-- PDF VIEWER MODAL (JUGADH) -->
     <div id="pdfModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:var(--primary-dark); z-index:99999; direction:rtl;">
         
         <!-- Header Bar -->
@@ -516,7 +513,7 @@
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
 
-// --- FULL TRANSLATIONS SYSTEM ---
+        // --- FULL TRANSLATIONS SYSTEM ---
         const translations = {
             ur: {
                 jamiaName: "جامعہ اسلامیہ دریاباد", home: "ہوم", about: "تعارف", admission: "داخلہ", examination: "امتحانات", results: "نتائج", studentMag: "طلبہ کا میگزین", jamiaMag: "مجلہ استدراک", photos: "تصاویر", 
@@ -582,7 +579,8 @@
                 selectClassPrompt: "कृपया ऊपर से अपनी कक्षा चुनें।", noResultFound: "इस कक्षा के लिए कोई परिणाम नहीं मिला।", closeBtn: "बंद करें"
             }
         };
-// --- NEW JUGADH: OPEN PDF IN IFRAME ---
+
+        // --- NEW JUGADH: OPEN PDF IN IFRAME ---
         window.openPdf = function(url) {
             let cleanUrl = url;
             
@@ -792,40 +790,7 @@
             window.updatePhotoCaptions(lang);
             window.updateResultsDisplay(); 
         };
-        // --- ADD TO HOME SCREEN (SHORTCUT) LOGIC ---
-        let deferredPrompt = null;
 
-        // کروم کے نیٹو ایونٹ کو کیچ کرنا
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-        });
-
-        // 2 سیکنڈ بعد بینر شو کرنا (موبائل اسکرین پر)
-        setTimeout(() => {
-            if (window.innerWidth <= 768 && !localStorage.getItem('jamiaShortcutClosed')) {
-                document.getElementById('shortcutBanner').style.display = 'flex';
-            }
-        }, 2000);
-
-        window.closeShortcutBanner = function() {
-            document.getElementById('shortcutBanner').style.display = 'none';
-            localStorage.setItem('jamiaShortcutClosed', 'true');
-        };
-
-        window.installShortcut = async function() {
-            document.getElementById('shortcutBanner').style.display = 'none';
-            
-            // اگر کروم کا اپنا شارٹ کٹ پاپ اپ دستیاب ہے
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                deferredPrompt = null;
-            } else {
-                // اگر پاپ اپ دستیاب نہیں (جیسے آئی فون)، تو مینول طریقہ دکھائیں
-                document.getElementById('guideModal').style.display = 'flex';
-            }
-        };
         // --- REAL PWA INSTALLATION LOGIC ---
         let deferredPrompt = null;
         const installBanner = document.getElementById('installBanner');
