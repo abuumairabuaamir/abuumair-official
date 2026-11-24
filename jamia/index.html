@@ -279,17 +279,24 @@
     </style>
 </head>
 <body class="rtl lang-ur">
-<!-- SHORTCUT BANNER -->
-    <div id="shortcutBanner" style="display:none; position:fixed; bottom:0; left:0; width:100%; background:#fff; box-shadow:0 -2px 10px rgba(0,0,0,0.15); z-index:9998; padding:10px 15px; box-sizing:border-box; flex-direction:row; justify-content:space-between; align-items:center; border-top:2px solid var(--accent-gold); direction:rtl;">
-        <div style="display:flex; align-items:center; gap:12px;">
-            <button onclick="closeShortcutBanner()" style="background:none; border:none; font-size:22px; color:#888; cursor:pointer; padding:0; line-height:1;">✖</button>
-            <div style="width:40px; height:40px; background:var(--primary-dark); border-radius:8px; display:flex; justify-content:center; align-items:center; color:var(--accent-gold); font-size:24px;">📱</div>
-            <div style="display:flex; flex-direction:column;">
-                <span data-key="jamiaName" style="font-family:'Jameel', serif; font-size:20px; color:var(--primary-dark); line-height:1;">جامعہ اسلامیہ دریاباد</span>
-                <span style="font-family:Arial, sans-serif; font-size:12px; color:#666; margin-top:4px;">ہوم اسکرین پر شارٹ کٹ بنائیں</span>
+<!-- INSTALL APP BANNER (Dark Theme) -->
+    <div id="installBanner" style="display:none; position:fixed; bottom:15px; left:5%; width:90%; background:#1a1a2e; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); z-index:9998; padding:15px; box-sizing:border-box; flex-direction:row; justify-content:space-between; align-items:center; direction:rtl; border: 1px solid #333;">
+        <div style="display:flex; align-items:center; gap:12px; width: 100%;">
+            <!-- Close Button -->
+            <button onclick="closeInstallBanner()" style="background:none; border:none; font-size:24px; color:#888; cursor:pointer; padding:0; line-height:1; margin-left: 5px;">✖</button>
+            
+            <!-- App Icon -->
+            <img src="logo.png" style="width:50px; height:50px; border-radius:10px; object-fit:cover; border:2px solid var(--accent-gold);">
+            
+            <!-- Text Content -->
+            <div style="display:flex; flex-direction:column; flex-grow: 1; text-align: right;">
+                <span style="font-family:'Jameel', serif; font-size:22px; color:var(--accent-gold); line-height:1;">جامعہ اسلامیہ دریاباد</span>
+                <span style="font-family:Arial, sans-serif; font-size:13px; color:#ccc; margin-top:5px;">تیز ترین رسائی کے لیے موبائل ایپ انسٹال کریں!</span>
             </div>
+            
+            <!-- Install Button -->
+            <button id="installBtn" style="background:#e67e22; color:white; border:none; padding:8px 18px; border-radius:6px; font-family:'Jameel', serif; font-size:20px; font-weight: bold; cursor:pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.3); white-space: nowrap;">📥 انسٹال کریں</button>
         </div>
-        <button onclick="installShortcut()" style="background:var(--primary-dark); color:var(--white); border:none; padding:5px 15px; border-radius:20px; font-family:'Jameel', serif; font-size:18px; border:1px solid var(--accent-gold); cursor:pointer;">شامل کریں</button>
     </div>
 
     <!-- INSTRUCTION MODAL (FALLBACK) -->
@@ -819,6 +826,55 @@
                 document.getElementById('guideModal').style.display = 'flex';
             }
         };
+        // --- REAL PWA INSTALLATION LOGIC ---
+        let deferredPrompt = null;
+        const installBanner = document.getElementById('installBanner');
+        const installBtn = document.getElementById('installBtn');
+
+        // Service Worker Register (Ye zaroori hai PWA install ke liye)
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('sw.js')
+            .then(() => console.log("Service Worker Registered"))
+            .catch((err) => console.log("SW Error:", err));
+        }
+
+        // Browser jab check karega ke app install ho sakti hai, tab ye event fire hoga
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Agar user ne pehle band nahi kiya toh 2 second baad banner show karo
+            if (!localStorage.getItem('jamiaAppClosed')) {
+                setTimeout(() => {
+                    installBanner.style.display = 'flex';
+                }, 2000);
+            }
+        });
+
+        // Install Button par click
+        if(installBtn) {
+            installBtn.addEventListener('click', async () => {
+                installBanner.style.display = 'none';
+                if (deferredPrompt) {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log(`User response: ${outcome}`);
+                    deferredPrompt = null;
+                }
+            });
+        }
+
+        // Banner Close Button
+        window.closeInstallBanner = function() {
+            installBanner.style.display = 'none';
+            localStorage.setItem('jamiaAppClosed', 'true');
+        };
+
+        // Agar app already install ho gayi toh banner chupao
+        window.addEventListener('appinstalled', () => {
+            installBanner.style.display = 'none';
+            deferredPrompt = null;
+        });
     </script>
 </body>
 </html>
