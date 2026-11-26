@@ -4,40 +4,309 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ایڈمن پینل - جامعہ اسلامیہ دریاباد</title>
+    <link rel="icon" type="image/png" href="./logo.png">
     <style>
-        /* Jameel Noori Nastaleeq Font Import */
+        /* Local & Fallback Fonts Setup */
         @font-face {
-            font-family: 'Jameel Noori Nastaleeq';
-            src: url('https://abuumair.in/jameel.ttf') format('truetype');
+            font-family: 'Jameel';
+            src: url('jameel.ttf') format('truetype'),
+                 url('https://abuumair.in/jameel.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'AmiriLocal';
+            src: url('amiri.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'HindiFont';
+            src: url('hindi.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        :root {
+            --primary-dark: #0f4c3a;
+            --primary-light: #187a5d;
+            --accent-gold: #d4af37;
+            --bg-light: #f4f7f6;
+            --text-dark: #2c3e50;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body { 
-            font-family: 'Jameel Noori Nastaleeq', Arial, sans-serif; 
-            background-color: #f4f7f6; 
-            margin: 0; 
-            padding: 0; 
-            font-size: 18px; 
+            font-family: 'Jameel', serif; 
+            font-weight: normal;
+            background-color: var(--bg-light); 
+            color: var(--text-dark);
+            font-size: 21px;
+            line-height: 1.7;
+            padding: 15px;
+        }
+
+        .top-bar {
+            max-width: 860px;
+            margin: 15px auto 0 auto;
+            background: var(--primary-dark);
+            color: var(--accent-gold);
+            padding: 14px 24px;
+            border-radius: 10px 10px 0 0;
+            border-bottom: 3px solid var(--accent-gold);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .top-bar-title {
+            font-size: 28px;
+            font-weight: normal;
         }
         
-        .container { max-width: 800px; margin: 50px auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h2 { text-align: center; color: #2c3e50; font-weight: normal; font-size: 28px; }
-        h3 { font-weight: normal; font-size: 22px; color: #34495e; border-bottom: 2px solid #eee; padding-bottom: 10px;}
-        input, select, textarea, button { width: 100%; padding: 12px; margin: 10px 0; border-radius: 5px; border: 1px solid #ccc; font-family: inherit; font-size: 16px; box-sizing: border-box; }
-        input[type="url"] { direction: ltr; text-align: left; font-family: Arial, sans-serif; }
-        button { background-color: #2980b9; color: white; border: none; cursor: pointer; font-size: 18px; font-weight: normal; }
-        button:hover { background-color: #34495e; }
-        .tab-btn-container { display: flex; justify-content: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .tab-btn { background-color: #ddd; color: #333; margin: 5px; width: auto; padding: 10px 20px; border-radius: 4px;}
-        .tab-btn.active { background-color: #27ae60; color: white; }
+        .container { 
+            max-width: 860px; 
+            margin: 0 auto 40px auto; 
+            background: var(--white); 
+            padding: 26px; 
+            border-radius: 0 0 10px 10px; 
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08); 
+        }
+        #loginScreen.container {
+            max-width: 460px;
+            margin-top: 60px;
+            border-radius: 10px;
+            border-top: 4px solid var(--primary-dark);
+        }
+
+        h2 { 
+            text-align: center; 
+            color: var(--primary-dark); 
+            font-weight: normal; 
+            font-size: 32px; 
+            margin-bottom: 15px;
+        }
+        h3 { 
+            font-weight: normal; 
+            font-size: 25px; 
+            color: var(--primary-dark); 
+            border-bottom: 2px solid #edf2ef; 
+            padding-bottom: 8px;
+            margin-bottom: 14px;
+        }
+
+        input, select, textarea, button { 
+            width: 100%; 
+            padding: 10px 14px; 
+            margin: 8px 0; 
+            border-radius: 6px; 
+            border: 1px solid #cbd8d2; 
+            font-family: inherit; 
+            font-size: 20px; 
+            font-weight: normal;
+            outline: none;
+        }
+        input:focus, select:focus, textarea:focus {
+            border-color: var(--primary-dark);
+        }
+        input[type="url"], input[type="email"], input[type="password"] { 
+            direction: ltr; 
+            text-align: left; 
+            font-family: Arial, sans-serif; 
+            font-size: 16px;
+        }
+        .ar-input {
+            font-family: 'AmiriLocal', serif;
+            font-size: 20px;
+        }
+        .en-input {
+            direction: ltr;
+            text-align: left;
+            font-size: 18px;
+        }
+        .hi-input {
+            font-family: 'HindiFont', sans-serif;
+            direction: ltr;
+            text-align: left;
+            font-size: 18px;
+        }
+
+        button { 
+            background-color: var(--primary-dark); 
+            color: var(--white); 
+            border: 1px solid var(--primary-dark); 
+            cursor: pointer; 
+            font-size: 21px; 
+            transition: all 0.2s;
+        }
+        button:hover { 
+            background-color: var(--primary-light); 
+        }
+        button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .logout-btn {
+            background-color: #c0392b;
+            border-color: #c0392b;
+            color: var(--white);
+            width: auto;
+            padding: 4px 16px;
+            margin: 0;
+            font-size: 18px;
+        }
+        .logout-btn:hover {
+            background-color: #a93226;
+        }
+
+        /* Tabs */
+        .tab-btn-container { 
+            display: grid; 
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 8px;
+            margin-bottom: 24px; 
+        }
+        .tab-btn { 
+            background-color: #eef4f1; 
+            color: var(--primary-dark); 
+            border: 1px solid #d2e0da;
+            margin: 0; 
+            padding: 8px 10px; 
+            border-radius: 6px;
+            font-size: 20px;
+            text-align: center;
+        }
+        .tab-btn:hover {
+            background-color: #dfece6;
+        }
+        .tab-btn.active { 
+            background-color: var(--primary-dark); 
+            color: var(--accent-gold); 
+            border-color: var(--primary-dark);
+        }
+
         .tab-content { display: none; }
         .tab-content.active { display: block; }
-        #loginError { color: red; text-align: center; display: none; margin-bottom: 15px; }
+        #loginError { color: #c0392b; text-align: center; display: none; margin-bottom: 10px; }
 
-        /* Delete List Styles */
-        .item-list { margin-top: 20px; }
-        .data-item { border: 1px solid #ddd; padding: 15px; margin-top: 10px; border-radius: 6px; display: flex; justify-content: space-between; align-items: center; background: #fafafa; }
-        .del-btn { background-color: #e74c3c; width: auto; padding: 5px 15px; margin: 0; font-size: 16px; border-radius: 4px; }
-        .del-btn:hover { background-color: #c0392b; }
+        /* Collapsible Translations Box */
+        .toggle-lang-btn {
+            background: #f4f8f6;
+            color: var(--primary-dark);
+            border: 1px dashed var(--primary-light);
+            font-size: 19px;
+            padding: 7px 14px;
+            margin: 6px 0 10px 0;
+        }
+        .toggle-lang-btn:hover {
+            background: #e6f0ec;
+        }
+        .extra-langs-box {
+            display: none;
+            background: #f9fbfa;
+            border: 1px solid #e1ebe6;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 8px;
+        }
+
+        /* Item Lists */
+        .item-list { margin-top: 26px; }
+        .data-item { 
+            border: 1px solid #dce6e2; 
+            border-right: 4px solid var(--primary-dark);
+            padding: 12px 16px; 
+            margin-top: 10px; 
+            border-radius: 6px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            gap: 12px;
+            background: #fafcfb; 
+        }
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .item-badge {
+            color: #9e7e1b;
+            font-size: 18px;
+        }
+        .item-title {
+            color: var(--primary-dark);
+            font-size: 22px;
+        }
+        .item-sub {
+            color: #555;
+            font-size: 19px;
+        }
+        .action-btns {
+            display: flex;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+        .edit-btn {
+            background-color: #eef5f2;
+            color: var(--primary-dark);
+            border: 1px solid #bfd8ce;
+            width: auto;
+            padding: 4px 14px;
+            margin: 0;
+            font-size: 18px;
+        }
+        .edit-btn:hover {
+            background-color: var(--primary-dark);
+            color: var(--white);
+        }
+        .del-btn { 
+            background-color: #fdf0ef; 
+            color: #c0392b;
+            border: 1px solid #f1c4c0;
+            width: auto; 
+            padding: 4px 14px; 
+            margin: 0; 
+            font-size: 18px; 
+        }
+        .del-btn:hover { 
+            background-color: #c0392b; 
+            color: var(--white);
+        }
+        .cancel-btn {
+            background-color: #7f8c8d;
+            border-color: #7f8c8d;
+            color: var(--white);
+        }
+        .cancel-btn:hover {
+            background-color: #6c7a7b;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 8px; font-size: 19px; }
+            .top-bar { padding: 12px 16px; }
+            .top-bar-title { font-size: 23px; }
+            .container { padding: 18px 14px; }
+            .tab-btn-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .tab-btn { font-size: 18px; padding: 7px 6px; }
+            .data-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .action-btns {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
     </style>
 </head>
 <body>
@@ -52,88 +321,136 @@
     </div>
 
     <!-- 2. MAIN ADMIN PANEL -->
-    <div id="mainAdminPanel" class="container" style="display: none;">
-        <h2>جامعہ اسلامیہ دریاباد - کنٹرول پینل</h2>
-        <button onclick="logoutAdmin()" style="background-color: #e74c3c; width: auto; padding: 5px 15px; float: left;">لاگ آؤٹ</button>
-        <div style="clear: both;"></div>
-
-        <!-- Tabs -->
-        <div class="tab-btn-container">
-            <button class="tab-btn active" onclick="switchTab('noticeTab')">تازہ خبر</button>
-            <button class="tab-btn" onclick="switchTab('magTab')">میگزین</button>
-            <button class="tab-btn" onclick="switchTab('resultTab')">امتحانی نتائج</button>
-            <button class="tab-btn" onclick="switchTab('photoTab')">تصاویر</button>
+    <div id="mainAdminPanel" style="display: none;">
+        <div class="top-bar">
+            <div class="top-bar-title">جامعہ اسلامیہ دریاباد - کنٹرول پینل</div>
+            <button onclick="logoutAdmin()" class="logout-btn">لاگ آؤٹ</button>
         </div>
 
-        <!-- TAB 1: Notice -->
-        <div id="noticeTab" class="tab-content active">
-            <form id="noticeForm">
-                <h3>تازہ ترین خبر اپڈیٹ کریں (ایڈٹ)</h3>
-                <textarea id="noticeUr" rows="3" placeholder="اردو میں خبر لکھیں..." required></textarea>
-                <textarea id="noticeAr" rows="3" placeholder="عربی میں خبر لکھیں..." required></textarea>
-                <textarea id="noticeEn" rows="3" placeholder="English News..." required dir="ltr"></textarea>
-                <textarea id="noticeHi" rows="3" placeholder="हिंदी में खबर लिखें..." required></textarea>
-                <button type="submit">خبر اپڈیٹ کریں</button>
-            </form>
-        </div>
-
-        <!-- TAB 2: Magazine -->
-        <div id="magTab" class="tab-content">
-            <form id="magazineForm">
-                <h3>نیا میگزین شامل کریں</h3>
-                <select id="magCategory" required>
-                    <option value="">میگزین کی قسم منتخب کریں...</option>
-                    <option value="student_mag">طلبہ کا میگزین</option>
-                    <option value="jamia_mag">مجلہ استدراک</option>
-                </select>
-                <input type="text" id="magTitle" placeholder="میگزین کا نام / شمارہ نمبر (اردو میں)" required>
-                <input type="url" id="magLink" placeholder="میگزین کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
-                <button type="submit">میگزین محفوظ کریں</button>
-            </form>
-            <div class="item-list">
-                <h3>پہلے سے موجود میگزین</h3>
-                <div id="magAdminList"></div>
+        <div class="container">
+            <!-- Tabs -->
+            <div class="tab-btn-container">
+                <button class="tab-btn active" onclick="switchTab('noticeTab', this)">تازہ خبر</button>
+                <button class="tab-btn" onclick="switchTab('annTab', this)">اعلانات</button>
+                <button class="tab-btn" onclick="switchTab('magTab', this)">میگزین</button>
+                <button class="tab-btn" onclick="switchTab('resultTab', this)">امتحانی نتائج</button>
+                <button class="tab-btn" onclick="switchTab('photoTab', this)">تصاویر</button>
             </div>
-        </div>
 
-        <!-- TAB 3: Results -->
-        <div id="resultTab" class="tab-content">
-            <form id="resultForm">
-                <h3>نیا امتحانی رزلٹ شامل کریں</h3>
-                <select id="resultClass" required>
-                    <option value="">درجہ منتخب کریں...</option>
-                    <option value="hifz">شعبہ حفظ و ناظرہ</option>
-                    <option value="idadia">درجہ اعدادیہ</option>
-                    <option value="ula">درجہ اولیٰ</option>
-                    <option value="sania">درجہ ثانیہ</option>
-                    <option value="salisa">درجہ ثالثہ</option>
-                    <option value="rabia">درجہ رابعہ</option>
-                    <option value="khamisa">درجہ خامسہ</option>
-                </select>
-                <input type="text" id="resultTitle" placeholder="امتحان کا نام (جیسے: ششماہی 2026)" required>
-                <input type="url" id="resultLink" placeholder="رزلٹ کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
-                <button type="submit">رزلٹ محفوظ کریں</button>
-            </form>
-            <div class="item-list">
-                <h3>پہلے سے موجود نتائج</h3>
-                <div id="resultAdminList"></div>
+            <!-- TAB 1: Notice Ticker -->
+            <div id="noticeTab" class="tab-content active">
+                <form id="noticeForm">
+                    <h3>تازہ ترین خبر (پٹی) اپڈیٹ کریں</h3>
+                    <textarea id="noticeUr" rows="2" placeholder="اردو میں خبر لکھیں..." required></textarea>
+                    <textarea id="noticeAr" class="ar-input" rows="2" placeholder="عربی میں خبر لکھیں..." required></textarea>
+                    <textarea id="noticeEn" class="en-input" rows="2" placeholder="English News..." required></textarea>
+                    <textarea id="noticeHi" class="hi-input" rows="2" placeholder="हिंदी में खबर लिखें..." required></textarea>
+                    <button type="submit">خبر اپڈیٹ کریں</button>
+                </form>
             </div>
-        </div>
 
-        <!-- TAB 4: Photos -->
-        <div id="photoTab" class="tab-content">
-            <form id="photoForm">
-                <h3>نئی تصویر شامل کریں</h3>
-                <input type="url" id="photoLink" placeholder="تصویر کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
-                <input type="text" id="photoUr" placeholder="تصویر کی تفصیل (اردو)">
-                <input type="text" id="photoAr" placeholder="تصویر کی تفصیل (عربی)">
-                <input type="text" id="photoEn" placeholder="Caption (English)" dir="ltr">
-                <input type="text" id="photoHi" placeholder="تصویر की تفصیل (हिंदी)">
-                <button type="submit">تصویر محفوظ کریں</button>
-            </form>
-            <div class="item-list">
-                <h3>پہلے سے موجود تصاویر</h3>
-                <div id="photoAdminList"></div>
+            <!-- TAB 2: Announcements (Add / Edit / Delete) -->
+            <div id="annTab" class="tab-content">
+                <form id="announcementForm">
+                    <h3 id="annFormHeading">نیا اعلان شامل کریں</h3>
+                    <input type="hidden" id="editAnnId" value="">
+                    <input type="text" id="annDate" placeholder="تاریخ (مثلاً: 16 جمادی الاولیٰ 1448ھ / 26 نومبر 2026ء)">
+                    <input type="text" id="annTitleUr" placeholder="اعلان کا عنوان (اردو) *" required>
+                    <textarea id="annBodyUr" rows="4" placeholder="اعلان کی مکمل تفصیل (اردو) *" required></textarea>
+
+                    <button type="button" class="toggle-lang-btn" onclick="toggleExtraAnnLangs()">+ دیگر زبانوں (عربی، انگلش، ہندی) میں ترجمہ شامل کریں (اختیاری)</button>
+                    
+                    <div id="extraAnnLangsBox" class="extra-langs-box">
+                        <input type="text" id="annTitleAr" class="ar-input" placeholder="عنوان الإعلان (العربية)">
+                        <textarea id="annBodyAr" class="ar-input" rows="3" placeholder="تفاصيل الإعلان (العربية)"></textarea>
+
+                        <input type="text" id="annTitleEn" class="en-input" placeholder="Announcement Title (English)">
+                        <textarea id="annBodyEn" class="en-input" rows="3" placeholder="Announcement Details (English)"></textarea>
+
+                        <input type="text" id="annTitleHi" class="hi-input" placeholder="सूचना का शीर्षक (हिन्दी)">
+                        <textarea id="annBodyHi" class="hi-input" rows="3" placeholder="सूचना का विवरण (हिन्दी)"></textarea>
+                    </div>
+
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="submit" id="saveAnnBtn" style="flex: 2;">اعلان شائع کریں</button>
+                        <button type="button" id="cancelAnnEditBtn" class="cancel-btn" onclick="resetAnnouncementForm()" style="display: none; flex: 1;">منسوخ کریں</button>
+                    </div>
+                </form>
+
+                <div class="item-list">
+                    <h3>پہلے سے موجود اعلانات</h3>
+                    <div id="annAdminList"></div>
+                </div>
+            </div>
+
+            <!-- TAB 3: Magazine -->
+            <div id="magTab" class="tab-content">
+                <form id="magazineForm">
+                    <h3>نیا میگزین شامل کریں</h3>
+                    <select id="magCategory" required>
+                        <option value="">میگزین کی قسم منتخب کریں...</option>
+                        <option value="student_mag">طلبہ کا میگزین</option>
+                        <option value="jamia_mag">مجلہ استدراک</option>
+                    </select>
+                    <input type="text" id="magTitle" placeholder="میگزین کا نام / شمارہ نمبر (اردو میں)" required>
+                    <input type="url" id="magLink" placeholder="میگزین کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
+                    <button type="submit">میگزین محفوظ کریں</button>
+                </form>
+                <div class="item-list">
+                    <h3>پہلے سے موجود میگزین</h3>
+                    <div id="magAdminList"></div>
+                </div>
+            </div>
+
+            <!-- TAB 4: Results (Updated Classes + Fasli System) -->
+            <div id="resultTab" class="tab-content">
+                <form id="resultForm">
+                    <h3>نیا امتحانی رزلٹ شامل کریں</h3>
+                    <select id="resultClass" required>
+                        <option value="">درجہ منتخب کریں...</option>
+                        <option value="mutawassita1">متوسطہ اولیٰ</option>
+                        <option value="mutawassita2">متوسطہ ثانیہ</option>
+                        <option value="mutawassita3">متوسطہ ثالثہ</option>
+                        <option value="thanawiyya1">ثانویہ اولیٰ</option>
+                        <option value="thanawiyya2">ثانویہ ثانیہ</option>
+                        <option value="thanawiyya3">ثانویہ ثالثہ</option>
+                        <option value="thanawiyya4">ثانویہ رابعہ</option>
+                        <option value="kulliya1">کلیہ سال اول</option>
+                        <option value="kulliya2">کلیہ سال دوم</option>
+                        <option value="kulliya3">کلیہ سال ثالث</option>
+                    </select>
+
+                    <select id="resultSemester" required>
+                        <option value="">فصل (امتحان) منتخب کریں...</option>
+                        <option value="fasl1">فصلِ اول (ششماہی)</option>
+                        <option value="fasl2">فصلِ ثانی (سالانہ)</option>
+                    </select>
+
+                    <input type="text" id="resultTitle" placeholder="امتحان کا نام (مثلاً: ششماہی امتحان 2026ء)" required>
+                    <input type="url" id="resultLink" placeholder="رزلٹ کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
+                    <button type="submit">رزلٹ محفوظ کریں</button>
+                </form>
+                <div class="item-list">
+                    <h3>پہلے سے موجود نتائج</h3>
+                    <div id="resultAdminList"></div>
+                </div>
+            </div>
+
+            <!-- TAB 5: Photos -->
+            <div id="photoTab" class="tab-content">
+                <form id="photoForm">
+                    <h3>نئی تصویر شامل کریں</h3>
+                    <input type="url" id="photoLink" placeholder="تصویر کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
+                    <input type="text" id="photoUr" placeholder="تصویر کی تفصیل (اردو)">
+                    <input type="text" id="photoAr" class="ar-input" placeholder="تصویر کی تفصیل (عربی)">
+                    <input type="text" id="photoEn" class="en-input" placeholder="Caption (English)">
+                    <input type="text" id="photoHi" class="hi-input" placeholder="तस्वीर का विवरण (हिन्दी)">
+                    <button type="submit">تصویر محفوظ کریں</button>
+                </form>
+                <div class="item-list">
+                    <h3>پہلے سے موجود تصاویر</h3>
+                    <div id="photoAdminList"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -157,6 +474,32 @@
         const auth = getAuth(app);
         const db = getDatabase(app);
 
+        // Class & Semester Readable Labels Map
+        const classLabels = {
+            mutawassita1: "متوسطہ اولیٰ",
+            mutawassita2: "متوسطہ ثانیہ",
+            mutawassita3: "متوسطہ ثالثہ",
+            thanawiyya1: "ثانویہ اولیٰ",
+            thanawiyya2: "ثانویہ ثانیہ",
+            thanawiyya3: "ثانویہ ثالثہ",
+            thanawiyya4: "ثانویہ رابعہ",
+            kulliya1: "کلیہ سال اول",
+            kulliya2: "کلیہ سال دوم",
+            kulliya3: "کلیہ سال ثالث",
+            hifz: "شعبہ حفظ و ناظرہ",
+            idadia: "درجہ اعدادیہ",
+            ula: "درجہ اولیٰ",
+            sania: "درجہ ثانیہ",
+            salisa: "درجہ ثالثہ",
+            rabia: "درجہ رابعہ",
+            khamisa: "درجہ خامسہ"
+        };
+
+        const semesterLabels = {
+            fasl1: "فصلِ اول (ششماہی)",
+            fasl2: "فصلِ ثانی (سالانہ)"
+        };
+
         // --- LOGIN SYSTEM ---
         window.checkLogin = function() {
             const email = document.getElementById('adminUser').value;
@@ -177,11 +520,11 @@
         });
 
         // --- TAB SWITCHER ---
-        window.switchTab = function(tabId) {
+        window.switchTab = function(tabId, btnEl) {
             document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.getElementById(tabId).classList.add('active');
-            event.target.classList.add('active');
+            if (btnEl) btnEl.classList.add('active');
         };
 
         // --- DELETE FUNCTION ---
@@ -194,7 +537,7 @@
             }
         };
 
-        // --- LOAD EXISTING DATA (For Edit & Delete) ---
+        // --- LOAD EXISTING DATA ---
         // 1. Notice (Load for Edit)
         onValue(dbRef(db, 'jamiaData/latestNotice'), (snapshot) => {
             if(snapshot.exists()) {
@@ -206,7 +549,78 @@
             }
         });
 
-        // 2. Magazines (Load for Delete)
+        // 2. Announcements (Load for Edit & Delete)
+        window.adminAnnouncementsMap = {};
+        onValue(dbRef(db, 'jamiaData/announcements'), (snapshot) => {
+            const list = document.getElementById('annAdminList');
+            list.innerHTML = '';
+            window.adminAnnouncementsMap = snapshot.exists() ? snapshot.val() : {};
+
+            const entries = Object.entries(window.adminAnnouncementsMap)
+                .map(([id, item]) => ({ id, ...item }))
+                .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+            if (entries.length > 0) {
+                entries.forEach(item => {
+                    const path = `jamiaData/announcements/${item.id}`;
+                    list.innerHTML += `
+                        <div class="data-item">
+                            <div class="item-info">
+                                <span class="item-badge">${item.date || ""}</span>
+                                <span class="item-title">${item.title_ur || ""}</span>
+                                <span class="item-sub">${(item.body_ur || "").substring(0, 90)}${(item.body_ur || "").length > 90 ? "..." : ""}</span>
+                            </div>
+                            <div class="action-btns">
+                                <button type="button" class="edit-btn" onclick="editAnnouncement('${item.id}')">ترمیم</button>
+                                <button type="button" class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
+                            </div>
+                        </div>`;
+                });
+            } else {
+                list.innerHTML = "<p>کوئی اعلان موجود نہیں ہے۔</p>";
+            }
+        });
+
+        window.toggleExtraAnnLangs = function() {
+            const box = document.getElementById('extraAnnLangsBox');
+            box.style.display = (box.style.display === 'none' || box.style.display === '') ? 'block' : 'none';
+        };
+
+        window.editAnnouncement = function(id) {
+            const item = window.adminAnnouncementsMap[id];
+            if (!item) return;
+
+            document.getElementById('editAnnId').value = id;
+            document.getElementById('annDate').value = item.date || "";
+            document.getElementById('annTitleUr').value = item.title_ur || "";
+            document.getElementById('annBodyUr').value = item.body_ur || "";
+            document.getElementById('annTitleAr').value = item.title_ar || "";
+            document.getElementById('annBodyAr').value = item.body_ar || "";
+            document.getElementById('annTitleEn').value = item.title_en || "";
+            document.getElementById('annBodyEn').value = item.body_en || "";
+            document.getElementById('annTitleHi').value = item.title_hi || "";
+            document.getElementById('annBodyHi').value = item.body_hi || "";
+
+            if (item.title_ar || item.body_ar || item.title_en || item.body_en || item.title_hi || item.body_hi) {
+                document.getElementById('extraAnnLangsBox').style.display = 'block';
+            }
+
+            document.getElementById('annFormHeading').innerText = "اعلان میں ترمیم کریں";
+            document.getElementById('saveAnnBtn').innerText = "تبدیلیاں محفوظ کریں";
+            document.getElementById('cancelAnnEditBtn').style.display = 'inline-block';
+            document.getElementById('announcementForm').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        window.resetAnnouncementForm = function() {
+            document.getElementById('announcementForm').reset();
+            document.getElementById('editAnnId').value = "";
+            document.getElementById('annFormHeading').innerText = "نیا اعلان شامل کریں";
+            document.getElementById('saveAnnBtn').innerText = "اعلان شائع کریں";
+            document.getElementById('cancelAnnEditBtn').style.display = 'none';
+            document.getElementById('extraAnnLangsBox').style.display = 'none';
+        };
+
+        // 3. Magazines (Load for Delete)
         onValue(dbRef(db, 'jamiaData/magazines'), (snapshot) => {
             const list = document.getElementById('magAdminList');
             list.innerHTML = '';
@@ -218,34 +632,42 @@
                         const path = `jamiaData/magazines/${category.key}/${item.key}`;
                         list.innerHTML += `
                             <div class="data-item">
-                                <span><strong>${catName}:</strong> ${data.title}</span>
-                                <button class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
+                                <div class="item-info">
+                                    <span class="item-badge">${catName}</span>
+                                    <span class="item-title">${data.title}</span>
+                                </div>
+                                <button type="button" class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
                             </div>`;
                     });
                 });
             } else { list.innerHTML = "<p>کوئی میگزین موجود نہیں ہے۔</p>"; }
         });
 
-        // 3. Results (Load for Delete)
+        // 4. Results (Load for Delete with Readable Class & Fasl)
         onValue(dbRef(db, 'jamiaData/results'), (snapshot) => {
             const list = document.getElementById('resultAdminList');
             list.innerHTML = '';
             if(snapshot.exists()) {
                 snapshot.forEach(resClass => {
+                    const readableClass = classLabels[resClass.key] || resClass.key;
                     resClass.forEach(item => {
                         const data = item.val();
+                        const readableFasl = data.semester && semesterLabels[data.semester] ? ` — ${semesterLabels[data.semester]}` : "";
                         const path = `jamiaData/results/${resClass.key}/${item.key}`;
                         list.innerHTML += `
                             <div class="data-item">
-                                <span><strong>درجہ (${resClass.key}):</strong> ${data.title}</span>
-                                <button class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
+                                <div class="item-info">
+                                    <span class="item-badge">${readableClass}${readableFasl}</span>
+                                    <span class="item-title">${data.title}</span>
+                                </div>
+                                <button type="button" class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
                             </div>`;
                     });
                 });
             } else { list.innerHTML = "<p>کوئی رزلٹ موجود نہیں ہے۔</p>"; }
         });
 
-        // 4. Photos (Load for Delete)
+        // 5. Photos (Load for Delete)
         onValue(dbRef(db, 'jamiaData/photos'), (snapshot) => {
             const list = document.getElementById('photoAdminList');
             list.innerHTML = '';
@@ -255,8 +677,8 @@
                     const path = `jamiaData/photos/${item.key}`;
                     list.innerHTML += `
                         <div class="data-item">
-                            <span>${data.ur || "بغیر کیپشن تصویر"}</span>
-                            <button class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
+                            <span class="item-title">${data.ur || "بغیر کیپشن تصویر"}</span>
+                            <button type="button" class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
                         </div>`;
                 });
             } else { list.innerHTML = "<p>کوئی تصویر موجود نہیں ہے۔</p>"; }
@@ -280,7 +702,45 @@
             btn.innerText = "خبر اپڈیٹ کریں";
         });
 
-        // 2. Magazine
+        // 2. Announcements (Add / Update)
+        document.getElementById('announcementForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('saveAnnBtn');
+            const editId = document.getElementById('editAnnId').value;
+            const existingItem = editId ? window.adminAnnouncementsMap[editId] : null;
+
+            btn.disabled = true;
+            btn.innerText = "محفوظ ہو رہا ہے...";
+
+            const payload = {
+                date: document.getElementById('annDate').value.trim() || new Date().toLocaleDateString('en-GB'),
+                title_ur: document.getElementById('annTitleUr').value.trim(),
+                body_ur: document.getElementById('annBodyUr').value.trim(),
+                title_ar: document.getElementById('annTitleAr').value.trim(),
+                body_ar: document.getElementById('annBodyAr').value.trim(),
+                title_en: document.getElementById('annTitleEn').value.trim(),
+                body_en: document.getElementById('annBodyEn').value.trim(),
+                title_hi: document.getElementById('annTitleHi').value.trim(),
+                body_hi: document.getElementById('annBodyHi').value.trim(),
+                timestamp: existingItem && existingItem.timestamp ? existingItem.timestamp : Date.now()
+            };
+
+            try {
+                if (editId) {
+                    await set(dbRef(db, `jamiaData/announcements/${editId}`), payload);
+                    alert("اعلان کامیابی سے اپڈیٹ ہو گیا!");
+                } else {
+                    await push(dbRef(db, 'jamiaData/announcements'), payload);
+                    alert("نیا اعلان کامیابی سے شائع ہو گیا!");
+                }
+                resetAnnouncementForm();
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+            btn.disabled = false;
+        });
+
+        // 3. Magazine
         document.getElementById('magazineForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
@@ -296,23 +756,29 @@
             btn.innerText = "میگزین محفوظ کریں"; btn.disabled = false;
         });
 
-        // 3. Results
+        // 4. Results (With Semester)
         document.getElementById('resultForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
             const resClass = document.getElementById('resultClass').value;
+            const resSemester = document.getElementById('resultSemester').value;
             const title = document.getElementById('resultTitle').value;
             const link = document.getElementById('resultLink').value;
             btn.innerText = "محفوظ ہو رہا ہے..."; btn.disabled = true;
             try {
-                await push(dbRef(db, `jamiaData/results/${resClass}`), { title: title, url: link, time: Date.now() });
+                await push(dbRef(db, `jamiaData/results/${resClass}`), { 
+                    title: title, 
+                    url: link, 
+                    semester: resSemester,
+                    time: Date.now() 
+                });
                 alert("امتحانی نتیجہ کامیابی سے محفوظ ہو گیا!");
                 e.target.reset();
             } catch (error) { alert("Error: " + error.message); }
             btn.innerText = "رزلٹ محفوظ کریں"; btn.disabled = false;
         });
 
-        // 4. Photos
+        // 5. Photos
         document.getElementById('photoForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = e.target.querySelector('button');
