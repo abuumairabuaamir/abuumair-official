@@ -1556,7 +1556,23 @@
             }
         };
 
-        // --- 4. FETCH PHOTOS ---
+      // --- 4. FETCH PHOTOS (AUTO GOOGLE DRIVE IMAGE CONVERTER) ---
+        function formatDriveImageUrl(url) {
+            if (!url) return '';
+            if (url.includes('drive.google.com')) {
+                let fileId = '';
+                if (url.includes('/d/')) {
+                    fileId = url.split('/d/')[1].split('/')[0].split('?')[0];
+                } else if (url.includes('id=')) {
+                    fileId = url.split('id=')[1].split('&')[0];
+                }
+                if (fileId) {
+                    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w1200`;
+                }
+            }
+            return url;
+        }
+
         const photoRef = ref(db, 'jamiaData/photos');
         onValue(photoRef, (snapshot) => {
             const photoArea = document.getElementById('photoGalleryArea');
@@ -1569,11 +1585,12 @@
                     const captionAr = item.ar || captionUr;
                     const captionEn = item.en || captionUr;
                     const captionHi = item.hi || captionUr;
+                    const directImgUrl = formatDriveImageUrl(item.url);
                     
                     photoArea.innerHTML += `
-                        <div style="background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; text-align: center;">
-                            <img src="${item.url}" alt="Jamia Photo">
-                            <p style="margin: 0; font-size: 21px; color: var(--primary-dark);" class="photo-caption" data-ur="${captionUr}" data-ar="${captionAr}" data-en="${captionEn}" data-hi="${captionHi}">${captionUr}</p>
+                        <div onclick="window.openPdf('${item.url}')" style="background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; text-align: center; cursor: pointer;">
+                            <img src="${directImgUrl}" alt="Jamia Photo" loading="lazy">
+                            <p style="margin: 8px 0 0 0; font-size: 21px; color: var(--primary-dark);" class="photo-caption" data-ur="${captionUr}" data-ar="${captionAr}" data-en="${captionEn}" data-hi="${captionHi}">${captionUr}</p>
                         </div>`;
                 });
                 
@@ -1583,13 +1600,7 @@
                 }
             }
         });
-
-        window.updatePhotoCaptions = function(lang) {
-            document.querySelectorAll('.photo-caption').forEach(p => {
-                p.innerText = p.getAttribute(`data-${lang}`) || p.getAttribute('data-ur');
-            });
-        };
-
+        
         // --- PAGE NAVIGATION ---
         window.showPage = function(pageId, el) {
             document.querySelectorAll('.page-section').forEach(page => page.classList.remove('active'));
