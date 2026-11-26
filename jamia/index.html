@@ -1556,7 +1556,9 @@
             }
         };
 
-      // --- 4. FETCH PHOTOS (AUTO GOOGLE DRIVE IMAGE CONVERTER) ---
+   // --- 4. FETCH PHOTOS (CLEAN MULTILINGUAL RENDER) ---
+        window.allPhotosData = {};
+
         function formatDriveImageUrl(url) {
             if (!url) return '';
             if (url.includes('drive.google.com')) {
@@ -1575,31 +1577,38 @@
 
         const photoRef = ref(db, 'jamiaData/photos');
         onValue(photoRef, (snapshot) => {
-            const photoArea = document.getElementById('photoGalleryArea');
-            if(photoArea && snapshot.exists()) {
-                photoArea.innerHTML = '';
-                const data = snapshot.val();
-                
-                Object.values(data).forEach(item => {
-                    const captionUr = item.ur || '';
-                    const captionAr = item.ar || captionUr;
-                    const captionEn = item.en || captionUr;
-                    const captionHi = item.hi || captionUr;
-                    const directImgUrl = formatDriveImageUrl(item.url);
-                    
-                    photoArea.innerHTML += `
-                        <div onclick="window.openPdf('${item.url}')" style="background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; text-align: center; cursor: pointer;">
-                            <img src="${directImgUrl}" alt="Jamia Photo" loading="lazy">
-                            <p style="margin: 8px 0 0 0; font-size: 21px; color: var(--primary-dark);" class="photo-caption" data-ur="${captionUr}" data-ar="${captionAr}" data-en="${captionEn}" data-hi="${captionHi}">${captionUr}</p>
-                        </div>`;
-                });
-                
-                const currentLang = document.getElementById('langSelect').value;
-                if(currentLang !== 'ur') {
-                    window.updatePhotoCaptions(currentLang);
-                }
-            }
+            window.allPhotosData = snapshot.exists() ? snapshot.val() : {};
+            const currentLang = document.getElementById('langSelect').value || 'ur';
+            window.updatePhotoCaptions(currentLang);
         });
+
+        window.updatePhotoCaptions = function(lang) {
+            const photoArea = document.getElementById('photoGalleryArea');
+            if (!photoArea) return;
+            photoArea.innerHTML = '';
+
+            Object.values(window.allPhotosData || {}).forEach(item => {
+                const captionText = (item[lang] && item[lang].trim() !== '') ? item[lang] : (item.ur || '');
+                const directImgUrl = formatDriveImageUrl(item.url);
+
+                const card = document.createElement('div');
+                card.style.cssText = 'background: #f9f9f9; padding: 10px; border-radius: 8px; border: 1px solid #eee; text-align: center; cursor: pointer;';
+                card.onclick = () => window.openPdf(item.url);
+
+                const img = document.createElement('img');
+                img.src = directImgUrl;
+                img.alt = captionText || 'Jamia Photo';
+                img.loading = 'lazy';
+
+                const p = document.createElement('p');
+                p.style.cssText = 'margin: 8px 0 0 0; font-size: 21px; color: var(--primary-dark);';
+                p.textContent = captionText;
+
+                card.appendChild(img);
+                card.appendChild(p);
+                photoArea.appendChild(card);
+            });
+        };
         
         // --- PAGE NAVIGATION ---
         window.showPage = function(pageId, el) {
