@@ -102,10 +102,18 @@
             margin-bottom: 14px;
         }
 
+        .field-label {
+            display: block;
+            color: var(--primary-dark);
+            font-size: 19px;
+            margin-top: 8px;
+            margin-bottom: 2px;
+        }
+
         input, select, textarea, button { 
             width: 100%; 
             padding: 10px 14px; 
-            margin: 8px 0; 
+            margin: 6px 0; 
             border-radius: 6px; 
             border: 1px solid #cbd8d2; 
             font-family: inherit; 
@@ -125,6 +133,8 @@
         .ar-input {
             font-family: 'AmiriLocal', serif;
             font-size: 20px;
+            direction: rtl;
+            text-align: right;
         }
         .en-input {
             direction: ltr;
@@ -229,13 +239,28 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            gap: 12px;
+            gap: 14px;
             background: #fafcfb; 
+        }
+        .photo-item-left {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            flex: 1;
+        }
+        .photo-thumb {
+            width: 72px;
+            height: 72px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid #cbd8d2;
+            background: #eef4f1;
+            flex-shrink: 0;
         }
         .item-info {
             display: flex;
             flex-direction: column;
-            gap: 2px;
+            gap: 3px;
         }
         .item-badge {
             color: #9e7e1b;
@@ -247,7 +272,16 @@
         }
         .item-sub {
             color: #555;
-            font-size: 19px;
+            font-size: 18px;
+        }
+        .lang-tag {
+            display: inline-block;
+            background: #e8f1ed;
+            color: var(--primary-dark);
+            padding: 0 7px;
+            border-radius: 4px;
+            font-size: 15px;
+            margin-left: 5px;
         }
         .action-btns {
             display: flex;
@@ -301,6 +335,9 @@
             .data-item {
                 flex-direction: column;
                 align-items: flex-start;
+            }
+            .photo-item-left {
+                width: 100%;
             }
             .action-btns {
                 width: 100%;
@@ -436,16 +473,25 @@
                 </div>
             </div>
 
-            <!-- TAB 5: Photos -->
+            <!-- TAB 5: Photos (Add / Edit / Delete + 4-Language Captions) -->
             <div id="photoTab" class="tab-content">
                 <form id="photoForm">
-                    <h3>نئی تصویر شامل کریں</h3>
-                    <input type="url" id="photoLink" placeholder="تصویر کا گوگل ڈرائیو لنک (URL) یہاں پیسٹ کریں" required>
-                    <input type="text" id="photoUr" placeholder="تصویر کی تفصیل (اردو)">
-                    <input type="text" id="photoAr" class="ar-input" placeholder="تصویر کی تفصیل (عربی)">
-                    <input type="text" id="photoEn" class="en-input" placeholder="Caption (English)">
-                    <input type="text" id="photoHi" class="hi-input" placeholder="तस्वीर का विवरण (हिन्दी)">
-                    <button type="submit">تصویر محفوظ کریں</button>
+                    <h3 id="photoFormHeading">نئی تصویر شامل کریں</h3>
+                    <input type="hidden" id="editPhotoId" value="">
+                    
+                    <label class="field-label">گوگل ڈرائیو تصویر کا لنک (URL) *</label>
+                    <input type="url" id="photoLink" placeholder="https://drive.google.com/file/d/..." required>
+                    
+                    <label class="field-label">تصویر کی تفصیل (چاروں زبانوں میں ترجمہ):</label>
+                    <input type="text" id="photoUr" placeholder="اردو تفصیل (مثلاً: سالانہ جلسہ تقسیمِ انعامات)">
+                    <input type="text" id="photoAr" class="ar-input" placeholder="تفاصيل الصورة بالعربية (مثال: الحفل السنوي)">
+                    <input type="text" id="photoEn" class="en-input" placeholder="English Caption (e.g. Annual Ceremony)">
+                    <input type="text" id="photoHi" class="hi-input" placeholder="हिन्दी विवरण (जैसे: वार्षिक समारोह)">
+                    
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button type="submit" id="savePhotoBtn" style="flex: 2;">تصویر محفوظ کریں</button>
+                        <button type="button" id="cancelPhotoEditBtn" class="cancel-btn" onclick="resetPhotoForm()" style="display: none; flex: 1;">منسوخ کریں</button>
+                    </div>
                 </form>
                 <div class="item-list">
                     <h3>پہلے سے موجود تصاویر</h3>
@@ -473,6 +519,23 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getDatabase(app);
+
+        // Helper: Convert Google Drive link to direct thumbnail preview
+        function formatDriveImageUrl(url) {
+            if (!url) return '';
+            if (url.includes('drive.google.com')) {
+                let fileId = '';
+                if (url.includes('/d/')) {
+                    fileId = url.split('/d/')[1].split('/')[0].split('?')[0];
+                } else if (url.includes('id=')) {
+                    fileId = url.split('id=')[1].split('&')[0];
+                }
+                if (fileId) {
+                    return `https://drive.google.com/thumbnail?id=${fileId}&sz=w300`;
+                }
+            }
+            return url;
+        }
 
         // Class & Semester Readable Labels Map
         const classLabels = {
@@ -667,22 +730,62 @@
             } else { list.innerHTML = "<p>کوئی رزلٹ موجود نہیں ہے۔</p>"; }
         });
 
-        // 5. Photos (Load for Delete)
+        // 5. Photos (Load for Edit & Delete with All 4 Languages)
+        window.adminPhotosMap = {};
         onValue(dbRef(db, 'jamiaData/photos'), (snapshot) => {
             const list = document.getElementById('photoAdminList');
             list.innerHTML = '';
+            window.adminPhotosMap = snapshot.exists() ? snapshot.val() : {};
+
             if(snapshot.exists()) {
                 snapshot.forEach(item => {
                     const data = item.val();
                     const path = `jamiaData/photos/${item.key}`;
+                    const thumbUrl = formatDriveImageUrl(data.url);
                     list.innerHTML += `
                         <div class="data-item">
-                            <span class="item-title">${data.ur || "بغیر کیپشن تصویر"}</span>
-                            <button type="button" class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
+                            <div class="photo-item-left">
+                                <img src="${thumbUrl}" class="photo-thumb" alt="Photo" onerror="this.style.display='none'">
+                                <div class="item-info">
+                                    <span class="item-title"><span class="lang-tag">اردو</span> ${data.ur || "—"}</span>
+                                    <span class="item-sub"><span class="lang-tag">عربی</span> ${data.ar || "—"}</span>
+                                    <span class="item-sub"><span class="lang-tag">English</span> ${data.en || "—"}</span>
+                                    <span class="item-sub"><span class="lang-tag">हिन्दी</span> ${data.hi || "—"}</span>
+                                </div>
+                            </div>
+                            <div class="action-btns">
+                                <button type="button" class="edit-btn" onclick="editPhoto('${item.key}')">ترمیم</button>
+                                <button type="button" class="del-btn" onclick="deleteItem('${path}')">ڈیلیٹ</button>
+                            </div>
                         </div>`;
                 });
             } else { list.innerHTML = "<p>کوئی تصویر موجود نہیں ہے۔</p>"; }
         });
+
+        window.editPhoto = function(id) {
+            const item = window.adminPhotosMap[id];
+            if (!item) return;
+
+            document.getElementById('editPhotoId').value = id;
+            document.getElementById('photoLink').value = item.url || "";
+            document.getElementById('photoUr').value = item.ur || "";
+            document.getElementById('photoAr').value = item.ar || "";
+            document.getElementById('photoEn').value = item.en || "";
+            document.getElementById('photoHi').value = item.hi || "";
+
+            document.getElementById('photoFormHeading').innerText = "تصویر اور ترجمے میں ترمیم کریں";
+            document.getElementById('savePhotoBtn').innerText = "تبدیلیاں محفوظ کریں";
+            document.getElementById('cancelPhotoEditBtn').style.display = 'inline-block';
+            document.getElementById('photoForm').scrollIntoView({ behavior: 'smooth' });
+        };
+
+        window.resetPhotoForm = function() {
+            document.getElementById('photoForm').reset();
+            document.getElementById('editPhotoId').value = "";
+            document.getElementById('photoFormHeading').innerText = "نئی تصویر شامل کریں";
+            document.getElementById('savePhotoBtn').innerText = "تصویر محفوظ کریں";
+            document.getElementById('cancelPhotoEditBtn').style.display = 'none';
+        };
 
         // --- UPLOAD FORMS LOGIC ---
         // 1. Notice
@@ -778,25 +881,40 @@
             btn.innerText = "رزلٹ محفوظ کریں"; btn.disabled = false;
         });
 
-        // 5. Photos
+        // 5. Photos (Add & Update with 4 Languages)
         document.getElementById('photoForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = e.target.querySelector('button');
-            const link = document.getElementById('photoLink').value;
-            btn.innerText = "محفوظ ہو رہا ہے..."; btn.disabled = true;
+            const btn = document.getElementById('savePhotoBtn');
+            const editId = document.getElementById('editPhotoId').value;
+            const existingPhoto = editId ? window.adminPhotosMap[editId] : null;
+            const link = document.getElementById('photoLink').value.trim();
+
+            btn.innerText = "محفوظ ہو رہا ہے...";
+            btn.disabled = true;
+
+            const payload = {
+                url: link,
+                ur: document.getElementById('photoUr').value.trim(),
+                ar: document.getElementById('photoAr').value.trim(),
+                en: document.getElementById('photoEn').value.trim(),
+                hi: document.getElementById('photoHi').value.trim(),
+                time: existingPhoto && existingPhoto.time ? existingPhoto.time : Date.now()
+            };
+
             try {
-                await push(dbRef(db, `jamiaData/photos`), {
-                    url: link,
-                    ur: document.getElementById('photoUr').value || "",
-                    ar: document.getElementById('photoAr').value || "",
-                    en: document.getElementById('photoEn').value || "",
-                    hi: document.getElementById('photoHi').value || "",
-                    time: Date.now()
-                });
-                alert("تصویر کا لنک کامیابی سے محفوظ ہو گیا!");
-                e.target.reset();
-            } catch (error) { alert("Error: " + error.message); }
-            btn.innerText = "تصویر محفوظ کریں"; btn.disabled = false;
+                if (editId) {
+                    await set(dbRef(db, `jamiaData/photos/${editId}`), payload);
+                    alert("تصویر اور ترجمہ کامیابی سے اپڈیٹ ہو گیا!");
+                } else {
+                    await push(dbRef(db, `jamiaData/photos`), payload);
+                    alert("تصویر اور ترجمہ کامیابی سے محفوظ ہو گیا!");
+                }
+                resetPhotoForm();
+            } catch (error) {
+                alert("Error: " + error.message);
+            }
+            btn.innerText = "تصویر محفوظ کریں";
+            btn.disabled = false;
         });
     </script>
 </body>
