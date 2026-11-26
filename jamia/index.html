@@ -10,7 +10,7 @@
     <link rel="apple-touch-icon" href="./logo.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <link rel="manifest" href="./manifest.json?v=6">
+    <link rel="manifest" href="./manifest.json?v=9">
 
     <style>
         /* CSS Reset */
@@ -81,10 +81,12 @@
         .top-fixed-strip {
             background: linear-gradient(90deg, #062219 0%, #0b382a 50%, #062219 100%);
             color: #e8ca68;
-            padding: 5px 28px;
+            padding: 5px 18px;
             border-bottom: 1px solid rgba(212, 175, 55, 0.45);
         }
         .strip-inner {
+            max-width: 1160px;
+            margin: 0 auto;
             width: 100%;
             display: flex;
             flex-direction: column;
@@ -125,11 +127,16 @@
         .navbar {
             background: linear-gradient(180deg, #0f4c3a 0%, #0c3f30 100%);
             color: var(--white);
+            padding: 8px 18px;
+            border-bottom: 2px solid rgba(212, 175, 55, 0.55);
+        }
+        .navbar-inner {
+            max-width: 1160px;
+            margin: 0 auto;
+            width: 100%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 8px 28px;
-            border-bottom: 2px solid rgba(212, 175, 55, 0.55);
         }
         .brand-wrap {
             display: flex;
@@ -176,33 +183,39 @@
         }
         .lang-switcher select option { background-color: var(--primary-dark); color: var(--white); }
 
-        /* Main Menu - Desktop & Aligned Layout */
-        .nav-links {
+        /* Main Menu - Desktop Aligned Single-Row Layout */
+        .nav-links-wrapper {
             background-color: var(--white);
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 16px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             border-bottom: 1px solid #e2ebe7;
+            padding: 9px 18px;
+        }
+        .nav-links {
+            max-width: 1160px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 6px;
         }
         .nav-links a {
+            flex: 1 1 auto;
             color: var(--primary-dark);
             text-decoration: none;
-            font-size: 21px;
-            padding: 5px 14px;
+            font-size: 19.5px;
+            padding: 5px 10px;
             border-radius: 7px;
             border: 1px solid #e7efec;
             background-color: #fafcfb;
             transition: all 0.25s ease;
             cursor: pointer;
             text-align: center;
+            white-space: nowrap;
         }
-        body.lang-ar .nav-links a { font-size: 18px; }
-        body.lang-en .nav-links a { font-size: 15.5px; padding: 6px 12px; }
-        body.lang-hi .nav-links a { font-size: 16.5px; padding: 6px 12px; }
+        body.lang-ar .nav-links a { font-size: 16.5px; padding: 5px 8px; }
+        body.lang-en .nav-links a { font-size: 14px; padding: 6px 8px; }
+        body.lang-hi .nav-links a { font-size: 14.5px; padding: 6px 8px; }
 
         .nav-links a:hover {
             background-color: #eef5f2;
@@ -219,7 +232,7 @@
         /* Banner */
         .hero-banner {
             width: 100%;
-            height: 310px;
+            min-height: 320px;
             background-image: linear-gradient(rgba(15, 76, 58, 0.86), rgba(15, 76, 58, 0.86)), url('banner.jpg');
             background-size: cover;
             background-position: center;
@@ -229,42 +242,56 @@
             justify-content: center;
             color: var(--white);
             text-align: center;
-            padding: 20px;
+            padding: 28px 20px;
         }
         .hero-banner h1 { font-size: 46px; font-weight: normal; margin: 0; color: var(--accent-gold); line-height: 1.3; }
         body.lang-ar .hero-banner h1 { font-size: 38px; }
         body.lang-en .hero-banner h1 { font-size: 34px; }
         body.lang-hi .hero-banner h1 { font-size: 36px; }
         
-        .banner-supervisor {
-            background-color: rgba(9, 51, 38, 0.68);
-            border: 1px solid rgba(212, 175, 55, 0.7);
-            padding: 4px 22px;
-            border-radius: 50px;
-            margin-top: 12px;
-            font-size: 22px;
-            color: var(--accent-gold);
+        .banner-supervisors-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            margin-top: 14px;
+            max-width: 1120px;
         }
-        body.lang-ar .banner-supervisor { font-size: 19px; }
-        body.lang-en .banner-supervisor { font-size: 16px; }
-        body.lang-hi .banner-supervisor { font-size: 17px; }
+        .banner-supervisor {
+            background-color: rgba(9, 51, 38, 0.72);
+            border: 1px solid rgba(212, 175, 55, 0.75);
+            padding: 4px 20px;
+            border-radius: 50px;
+            font-size: 20.5px;
+            color: var(--accent-gold);
+            line-height: 1.4;
+        }
+        body.lang-ar .banner-supervisor { font-size: 18px; }
+        body.lang-en .banner-supervisor { font-size: 15px; }
+        body.lang-hi .banner-supervisor { font-size: 16px; }
 
         /* Tazi Khabrein */
         .news-ticker {
             background-color: var(--accent-gold);
             padding: 8px 18px;
             color: var(--primary-dark);
-            display: flex;
-            align-items: center;
             font-size: 23px;
             overflow: hidden;
+        }
+        .news-ticker-inner {
+            max-width: 1160px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            width: 100%;
         }
         .news-ticker span {
             background-color: var(--primary-dark);
             color: var(--white);
             padding: 3px 14px;
             border-radius: 4px;
-            margin: 0 12px;
+            margin-inline-end: 12px;
             white-space: nowrap;
             flex-shrink: 0;
         }
@@ -402,7 +429,7 @@
         /* Staff Grid */
         .staff-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 15px;
             margin-top: 15px;
         }
@@ -440,28 +467,43 @@
         body.lang-en .staff-role { font-size: 15px; }
         body.lang-hi .staff-role { font-size: 16px; }
 
-        /* Contact & Bank Grid */
+        /* Contact & Bank Grid - Equal 2 Columns on Desktop */
         .contact-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 22px;
             margin-top: 15px;
+            align-items: stretch;
         }
         .contact-box {
             background: #f4f7f6;
             border: 1px solid #dce6e2;
             border-radius: 10px;
-            padding: 20px;
+            padding: 22px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
         }
         .contact-box h3 {
             color: var(--primary-dark);
             font-weight: normal;
             font-size: 27px;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             border-bottom: 2px solid var(--accent-gold);
             display: inline-block;
             padding-bottom: 2px;
+            align-self: flex-start;
         }
+        .contact-row {
+            margin-top: 9px;
+            line-height: 1.65;
+        }
+        .contact-highlight {
+            color: var(--primary-dark);
+            font-size: 24px;
+        }
+        body.lang-en .contact-highlight { font-size: 19px; }
+        body.lang-hi .contact-highlight { font-size: 20px; }
         .ltr-num {
             direction: ltr;
             unicode-bidi: embed;
@@ -473,8 +515,8 @@
         /* Results Filter Grid */
         .filter-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-            gap: 15px;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
             background: #f4f7f6;
             padding: 18px;
             border-radius: 8px;
@@ -509,10 +551,28 @@
 
         .gallery-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
             gap: 18px;
         }
         .gallery-grid img { width: 100%; height: 240px; object-fit: cover; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+
+        /* Install App Floating Banner (Responsive Desktop + Mobile) */
+        .install-banner {
+            display: none;
+            position: fixed;
+            bottom: 18px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 92%;
+            max-width: 500px;
+            background: #1a1a2e;
+            border-radius: 12px;
+            box-shadow: 0 10px 28px rgba(0,0,0,0.45);
+            z-index: 9998;
+            padding: 12px 16px;
+            direction: rtl;
+            border: 1px solid rgba(212, 175, 55, 0.45);
+        }
 
         footer {
             background-color: var(--primary-dark);
@@ -529,7 +589,12 @@
             margin-top: 5px;
         }
 
-        /* MOBILE RESPONSIVE SETTINGS */
+        /* TABLET & MOBILE RESPONSIVE SETTINGS */
+        @media (max-width: 992px) {
+            .staff-grid { grid-template-columns: repeat(2, 1fr); }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
         @media (max-width: 768px) {
             body { font-size: 19px; line-height: 1.6; }
             body.lang-ar { font-size: 18px; } 
@@ -566,12 +631,14 @@
             }
             
             /* Clean 3-Column Aligned Grid for Navigation Buttons on Mobile */
+            .nav-links-wrapper {
+                padding: 8px 10px;
+                background-color: #f0f5f3;
+            }
             .nav-links {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
                 gap: 6px;
-                padding: 8px 10px;
-                background-color: #f0f5f3;
             }
             .nav-links a {
                 width: 100%;
@@ -585,12 +652,13 @@
                 background-color: var(--white);
                 border: 1px solid #dce6e2;
                 border-radius: 6px;
+                white-space: normal;
             }
             body.lang-ar .nav-links a { font-size: 15px; }
             body.lang-en .nav-links a { font-size: 12px; }
             body.lang-hi .nav-links a { font-size: 13px; }
             
-            .hero-banner { height: auto; padding: 28px 15px; }
+            .hero-banner { min-height: auto; padding: 26px 15px; }
             .hero-banner h1 { font-size: 32px; }
             body.lang-ar .hero-banner h1 { font-size: 27px; }
             body.lang-en .hero-banner h1 { font-size: 24px; }
@@ -599,18 +667,33 @@
             .hero-banner p { font-size: 19px !important; }
             body.lang-en .hero-banner p, body.lang-hi .hero-banner p { font-size: 15px !important; }
 
-            .banner-supervisor { font-size: 16.5px; padding: 4px 14px; }
-            body.lang-ar .banner-supervisor { font-size: 14px; }
-            body.lang-en .banner-supervisor { font-size: 12.5px; }
-            body.lang-hi .banner-supervisor { font-size: 13px; }
+            .banner-supervisors-wrap {
+                flex-direction: column;
+                gap: 7px;
+                margin-top: 10px;
+                width: 100%;
+            }
+            .banner-supervisor {
+                font-size: 15.5px;
+                padding: 4px 14px;
+                max-width: 100%;
+            }
+            body.lang-ar .banner-supervisor { font-size: 13.5px; }
+            body.lang-en .banner-supervisor { font-size: 12px; }
+            body.lang-hi .banner-supervisor { font-size: 12.5px; }
             
-            .news-ticker { font-size: 19px; padding: 7px 10px; flex-direction: column; align-items: flex-start; gap: 4px;}
-            .news-ticker span { margin: 0; font-size: 17px; }
+            .news-ticker { font-size: 19px; padding: 7px 10px; }
+            .news-ticker-inner { flex-direction: column; align-items: flex-start; gap: 4px; }
+            .news-ticker span { margin-inline-end: 0; font-size: 17px; }
             
             .content-card { padding: 18px; }
             .section-title { font-size: 26px; }
             ul.styled-list li::before { font-size: 22px; top: -2px; }
             footer { font-size: 17px; padding: 14px; }
+
+            .staff-grid, .contact-grid, .filter-grid, .gallery-grid {
+                grid-template-columns: 1fr;
+            }
             .filter-select { font-size: 18px; }
             .ann-title { font-size: 22px; }
             .ann-body { font-size: 19px; }
@@ -621,28 +704,16 @@
 </head>
 <body class="rtl lang-ur">
 
-    <!-- INSTALL APP BANNER -->
-    <div id="installBanner" style="display:none; position:fixed; bottom:15px; left:5%; width:90%; background:#1a1a2e; border-radius:12px; box-shadow:0 10px 25px rgba(0,0,0,0.5); z-index:9998; padding:12px 14px; box-sizing:border-box; flex-direction:row; justify-content:space-between; align-items:center; direction:rtl; border: 1px solid #333;">
-        <div style="display:flex; align-items:center; gap:10px; width: 100%;">
-            <button onclick="closeInstallBanner()" style="background:none; border:none; font-size:22px; color:#888; cursor:pointer; padding:0; line-height:1;">✖</button>
-            <img src="./logo.png" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230f4c3a%22/><text x=%2250%22 y=%2265%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22%23d4af37%22>ج</text></svg>';" style="width:44px; height:44px; border-radius:10px; object-fit:cover; border:1px solid var(--accent-gold);">
+    <!-- INSTALL APP BANNER (DIRECT NATIVE PROMPT) -->
+    <div id="installBanner" class="install-banner">
+        <div style="display:flex; align-items:center; gap:12px; width: 100%;">
+            <button onclick="closeInstallBanner()" style="background:none; border:none; font-size:20px; color:#888; cursor:pointer; padding:0; line-height:1;">✖</button>
+            <img src="./logo.png" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%230f4c3a%22/><text x=%2250%22 y=%2265%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22%23d4af37%22>ج</text></svg>';" style="width:46px; height:46px; border-radius:10px; object-fit:cover; border:1px solid var(--accent-gold);">
             <div style="display:flex; flex-direction:column; flex-grow: 1; text-align: right;">
-                <span data-key="jamiaName" style="font-family:'Jameel', serif; font-size:20px; color:var(--accent-gold); line-height:1.1;">جامعہ اسلامیہ دریاباد</span>
+                <span data-key="jamiaName" style="font-family:'Jameel', serif; font-size:21px; color:var(--accent-gold); line-height:1.1;">جامعہ اسلامیہ دریاباد</span>
                 <span data-key="installBannerSub" style="font-family:Arial, sans-serif; font-size:12px; color:#ccc; margin-top:4px;">تیز ترین رسائی کے لیے موبائل ایپ انسٹال کریں!</span>
             </div>
-            <button id="installBtn" data-key="installBtnText" style="background:#e67e22; color:white; border:none; padding:6px 15px; border-radius:6px; font-family:'Jameel', serif; font-size:18px; cursor:pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.3); white-space: nowrap;">انسٹال کریں</button>
-        </div>
-    </div>
-
-    <!-- INSTRUCTION MODAL (FALLBACK) -->
-    <div id="guideModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999; justify-content:center; align-items:center; direction:rtl;">
-        <div style="background:white; padding:24px; border-radius:12px; width:84%; max-width:390px; text-align:center; position:relative;">
-            <h3 style="color:var(--primary-dark); font-family:'Jameel', serif; font-size:28px; margin-bottom:12px; font-weight:normal;">شارٹ کٹ بنانے کا طریقہ</h3>
-            <p style="font-family:Arial, sans-serif; font-size:15px; color:#333; line-height:1.7; margin-bottom:18px; text-align:right;">
-                1. براؤزر کے اوپر موجود تین نقطوں (⋮) پر کلک کریں۔<br><br>
-                2. مینیو میں سے "Add to Home screen" یا "Install app" پر کلک کریں۔
-            </p>
-            <button onclick="document.getElementById('guideModal').style.display='none'" data-key="closeBtn" style="background:#c0392b; color:white; border:none; padding:6px 22px; border-radius:6px; font-size:19px; cursor:pointer; font-family:'Jameel', serif;">بند کریں</button>
+            <button id="installBtn" data-key="installBtnText" style="background:#e67e22; color:white; border:none; padding:6px 16px; border-radius:6px; font-family:'Jameel', serif; font-size:18px; cursor:pointer; box-shadow: 0 3px 6px rgba(0,0,0,0.3); white-space: nowrap;">انسٹال کریں</button>
         </div>
     </div>
     
@@ -656,56 +727,67 @@
                 </div>
                 <div class="strip-row strip-row-bottom">
                     <span class="strip-founder-label" data-key="founderLabel">مؤسس:</span>
-                    <span class="strip-founder-name" data-key="founderName">فضیلۃ الشیخ ڈاکٹر عبد الباری بن فتح المدنی</span>
+                    <span class="strip-founder-name" data-key="founderName">فضیلۃ الشیخ ڈاکٹر عبد الباری بن فتح اللہ المدنی</span>
                 </div>
             </div>
         </div>
         <div class="navbar">
-            <div class="brand-wrap">
-                <img src="./logo.png" onerror="this.style.display='none'" class="brand-logo" alt="Logo">
-                <div class="navbar-brand" data-key="jamiaName">جامعہ اسلامیہ دریاباد</div>
-            </div>
-            <div class="lang-switcher">
-                <select id="langSelect" onchange="changeLanguage()">
-                    <option value="ur">اردو</option>
-                    <option value="ar">العربية</option>
-                    <option value="en">English</option>
-                    <option value="hi">हिन्दी</option>
-                </select>
+            <div class="navbar-inner">
+                <div class="brand-wrap">
+                    <img src="./logo.png" onerror="this.style.display='none'" class="brand-logo" alt="Logo">
+                    <div class="navbar-brand" data-key="jamiaName">جامعہ اسلامیہ دریاباد</div>
+                </div>
+                <div class="lang-switcher">
+                    <select id="langSelect" onchange="changeLanguage()">
+                        <option value="ur">اردو</option>
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                        <option value="hi">हिन्दी</option>
+                    </select>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Main Menu -->
-    <nav class="nav-links">
-        <a onclick="showPage('home', this)" class="nav-btn active" data-key="home">ہوم</a>
-        <a onclick="showPage('announcements', this)" class="nav-btn" data-key="announcements">اعلانات</a>
-        <a onclick="showPage('about', this)" class="nav-btn" data-key="about">تعارف</a>
-        <a onclick="showPage('staff', this)" class="nav-btn" data-key="staff">اساتذہ و عملہ</a>
-        <a onclick="showPage('admission', this)" class="nav-btn" data-key="admission">داخلہ</a>
-        <a onclick="showPage('examination', this)" class="nav-btn" data-key="examination">امتحانات</a>
-        <a onclick="showPage('results', this)" class="nav-btn" data-key="results">نتائج</a>
-        <a onclick="showPage('studentMag', this)" class="nav-btn" data-key="studentMag">طلبہ کا میگزین</a>
-        <a onclick="showPage('jamiaMag', this)" class="nav-btn" data-key="jamiaMag">مجلہ استدراک</a>
-        <a onclick="showPage('photos', this)" class="nav-btn" data-key="photos">تصاویر</a>
-        <a onclick="showPage('contact', this)" class="nav-btn" data-key="contact">رابطہ</a>
-    </nav>
+    <div class="nav-links-wrapper">
+        <nav class="nav-links">
+            <a onclick="showPage('home', this)" class="nav-btn active" data-key="home">ہوم</a>
+            <a onclick="showPage('announcements', this)" class="nav-btn" data-key="announcements">اعلانات</a>
+            <a onclick="showPage('about', this)" class="nav-btn" data-key="about">تعارف</a>
+            <a onclick="showPage('staff', this)" class="nav-btn" data-key="staff">اساتذہ و عملہ</a>
+            <a onclick="showPage('admission', this)" class="nav-btn" data-key="admission">داخلہ</a>
+            <a onclick="showPage('examination', this)" class="nav-btn" data-key="examination">امتحانات</a>
+            <a onclick="showPage('results', this)" class="nav-btn" data-key="results">نتائج</a>
+            <a onclick="showPage('studentMag', this)" class="nav-btn" data-key="studentMag">طلبہ کا میگزین</a>
+            <a onclick="showPage('jamiaMag', this)" class="nav-btn" data-key="jamiaMag">مجلہ استدراک</a>
+            <a onclick="showPage('photos', this)" class="nav-btn" data-key="photos">تصاویر</a>
+            <a onclick="showPage('contact', this)" class="nav-btn" data-key="contact">رابطہ</a>
+        </nav>
+    </div>
 
     <!-- Banner -->
     <div class="hero-banner">
         <h1 data-key="jamiaName">جامعہ اسلامیہ دریاباد</h1>
         <p data-key="bannerText" style="font-size: 27px; margin-top: 4px;">زیرِ نگرانی: اہل حدیث تعلیمی و رفاہی سوسائٹی</p>
-        <div class="banner-supervisor">
-            <span data-key="bannerDirector">مؤسس و ناظمِ اعلیٰ: فضیلۃ الشیخ ڈاکٹر عبد الباری بن فتح المدنی حفظہ اللہ</span>
+        <div class="banner-supervisors-wrap">
+            <div class="banner-supervisor">
+                <span data-key="bannerDirector">مؤسس و مشرفِ عام: فضیلۃ الشیخ ڈاکٹر عبد الباری بن فتح اللہ المدنی حفظہ اللہ</span>
+            </div>
+            <div class="banner-supervisor">
+                <span data-key="bannerNazim">امین عام و ناظمِ اعلیٰ: فضیلۃ الشیخ عتیق الرحمن الندوی حفظہ اللہ</span>
+            </div>
         </div>
     </div>
 
     <!-- News Ticker -->
     <div class="news-ticker">
-        <span data-key="newsTitle">تازہ ترین:</span>
-        <marquee direction="right" scrollamount="6" data-key="newsMarquee">
-            نئے تعلیمی سال کے لیے داخلے جاری ہیں۔ فارم بھرنے کی آخری تاریخ ۲۰ شوال المکرم ہے۔
-        </marquee>
+        <div class="news-ticker-inner">
+            <span data-key="newsTitle">تازہ ترین:</span>
+            <marquee direction="right" scrollamount="6" data-key="newsMarquee">
+                نئے تعلیمی سال کے لیے داخلے جاری ہیں۔ فارم بھرنے کی آخری تاریخ ۲۰ شوال المکرم ہے۔
+            </marquee>
+        </div>
     </div>
 
     <!-- Pages Container -->
@@ -886,12 +968,20 @@
                 <div class="contact-grid">
                     <div class="contact-box">
                         <h3 data-key="addressHeading">خط و کتابت کا پتہ</h3>
-                        <p data-key="fullAddress" style="margin-top: 8px;">ناظمِ اعلیٰ جامعہ اسلامیہ دریاباد، پوسٹ دودھارا، ضلع سنت کبیر نگر، یو پی - 272125</p>
-                        <p style="margin-top: 12px;">
-                            <span data-key="phoneLabel">رابطہ نمبر:</span> 
+                        <p class="contact-row">
+                            <span data-key="nazimLabel">امین عام و ناظمِ اعلیٰ:</span> 
+                            <span class="contact-highlight" data-key="nazimName">فضیلۃ الشیخ عتیق الرحمن الندوی</span>
+                        </p>
+                        <p class="contact-row" data-key="fullAddress">جامعہ اسلامیہ دریاباد، پوسٹ دودھارا، ضلع سنت کبیر نگر، یو پی - 272125</p>
+                        <p class="contact-row">
+                            <span data-key="phoneLabel">رابطہ نمبر (امین عام و ناظمِ اعلیٰ):</span> 
                             <a href="tel:+919451859733" class="ltr-num" style="color: var(--primary-dark); text-decoration: none;">+91-9451859733</a>
                         </p>
-                        <p style="margin-top: 8px;">
+                        <p class="contact-row">
+                            <span data-key="shaikhPhoneLabel">شیخ الجامعہ (فضیلۃ الشیخ سیف الرحمن المدنی):</span> 
+                            <a href="tel:+919044330940" class="ltr-num" style="color: var(--primary-dark); text-decoration: none;">+91 90443 30940</a>
+                        </p>
+                        <p class="contact-row">
                             <span data-key="emailLabel">ای میل:</span> 
                             <a href="mailto:jamiadariyabad@gmail.com" class="ltr-num" style="color: var(--primary-dark); text-decoration: none;">jamiadariyabad@gmail.com</a>
                         </p>
@@ -899,15 +989,15 @@
 
                     <div class="contact-box">
                         <h3 data-key="bankHeading">ترسیلِ زر (بینک تفصیلات)</h3>
-                        <p style="margin-top: 8px;">
+                        <p class="contact-row">
                             <span data-key="accHolderLabel">نامِ اکاؤنٹ:</span> 
                             <span data-key="accHolderName">اہل حدیث تعلیمی و رفاہی سوسائٹی / جامعہ اسلامیہ دریاباد</span>
                         </p>
-                        <p style="margin-top: 10px;">
+                        <p class="contact-row">
                             <span data-key="accNumLabel">اکاؤنٹ نمبر (A/C):</span> 
                             <span class="ltr-num">33210868791</span>
                         </p>
-                        <p style="margin-top: 8px;">
+                        <p class="contact-row">
                             <span data-key="ifscLabel">آئی ایف ایس سی کوڈ (IFSC):</span> 
                             <span class="ltr-num">SBIN0015532</span>
                         </p>
@@ -921,7 +1011,7 @@
     <!-- Footer -->
     <footer>
         <div data-key="footerText">تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد</div>
-        <div class="footer-sub" data-key="footerAddress">پوسٹ دودھارا، ضلع سنت کبیر نگر، یو پی - 272125 | رابطہ: 9451859733-91+</div>
+        <div class="footer-sub" data-key="footerAddress">پوسٹ دودھارا، ضلع سنت کبیر نگر، یو پی - 272125 | رابطہ: 9451859733-91+ | 9044330940-91+</div>
     </footer>
 
     <!-- PDF VIEWER MODAL -->
@@ -1117,9 +1207,11 @@
         // --- FULL TRANSLATIONS SYSTEM ---
         const translations = {
             ur: {
-                jamiaName: "جامعہ اسلامیہ دریاباد", estYearText: "سنِ تأسیس: 1990ء / 1411ھ", founderLabel: "مؤسس:", founderName: "فضیلۃ الشیخ ڈاکٹر عبد الباری بن فتح المدنی",
+                jamiaName: "جامعہ اسلامیہ دریاباد", estYearText: "سنِ تأسیس: 1990ء / 1411ھ", founderLabel: "مؤسس:", founderName: "فضیلۃ الشیخ ڈاکٹر عبد الباری بن فتح اللہ المدنی",
                 home: "ہوم", announcements: "اعلانات", about: "تعارف", staff: "اساتذہ و عملہ", admission: "داخلہ", examination: "امتحانات", results: "نتائج", studentMag: "طلبہ کا میگزین", jamiaMag: "مجلہ استدراک", photos: "تصاویر", contact: "رابطہ",
-                bannerText: "زیرِ نگرانی: اہل حدیث تعلیمی و رفاہی سوسائٹی", bannerDirector: "مؤسس و ناظمِ اعلیٰ: فضیلۃ الشیخ ڈاکٹر عبد الباری بن فتح المدنی حفظہ اللہ", 
+                bannerText: "زیرِ نگرانی: اہل حدیث تعلیمی و رفاہی سوسائٹی",
+                bannerDirector: "مؤسس و مشرفِ عام: فضیلۃ الشیخ ڈاکٹر عبد الباری بن فتح اللہ المدنی حفظہ اللہ",
+                bannerNazim: "امین عام و ناظمِ اعلیٰ: فضیلۃ الشیخ عتیق الرحمن الندوی حفظہ اللہ",
                 newsTitle: "تازہ ترین:", newsMarquee: "نئے تعلیمی سال کے لیے داخلے جاری ہیں۔ فارم بھرنے کی آخری تاریخ ۲۰ شوال المکرم ہے۔",
                 welcomeHeading: "خوش آمدید", aboutText: "جامعہ اسلامیہ دریاباد ایک عظیم دینی درسگاہ ہے جہاں قرآن، حدیث، فقہ اور دیگر اسلامی علوم کے ساتھ ساتھ عصری تعلیم کا بھی بہترین انتظام ہے۔ ہمارا مقصد ایسی نسل تیار کرنا ہے جو دین اور دنیا دونوں میں کامیابی حاصل کر سکے۔",
                 latestAnnouncementsHeading: "اہم اعلانات", viewAllAnnBtn: "تمام اعلانات دیکھیں", loadingText: "لوڈ ہو رہا ہے...",
@@ -1140,18 +1232,21 @@
                 optKul1: "کلیہ سال اول", optKul2: "کلیہ سال دوم", optKul3: "کلیہ سال ثالث",
                 selectSemesterLabel: "فصل (امتحان) منتخب کریں:", optAllFasl: "تمام فصول", optFasl1: "فصلِ اول (ششماہی)", optFasl2: "فصلِ ثانی (سالانہ)",
                 selectClassPrompt: "براہ کرم اوپر سے اپنا درجہ منتخب کریں۔", noResultFound: "اس درجے کا کوئی رزلٹ موجود نہیں ہے۔",
-                addressHeading: "خط و کتابت کا پتہ", fullAddress: "ناظمِ اعلیٰ جامعہ اسلامیہ دریاباد، پوسٹ دودھارا، ضلع سنت کبیر نگر، یو پی - 272125",
-                phoneLabel: "رابطہ نمبر:", emailLabel: "ای میل:",
+                addressHeading: "خط و کتابت کا پتہ", nazimLabel: "امین عام و ناظمِ اعلیٰ:", nazimName: "فضیلۃ الشیخ عتیق الرحمن الندوی",
+                fullAddress: "جامعہ اسلامیہ دریاباد، پوسٹ دودھارا، ضلع سنت کبیر نگر، یو پی - 272125",
+                phoneLabel: "رابطہ نمبر (امین عام و ناظمِ اعلیٰ):", shaikhPhoneLabel: "شیخ الجامعہ (فضیلۃ الشیخ سیف الرحمن المدنی):", emailLabel: "ای میل:",
                 bankHeading: "ترسیلِ زر (بینک تفصیلات)", accHolderLabel: "نامِ اکاؤنٹ:", accHolderName: "اہل حدیث تعلیمی و رفاہی سوسائٹی / جامعہ اسلامیہ دریاباد",
                 accNumLabel: "اکاؤنٹ نمبر (A/C):", ifscLabel: "آئی ایف ایس سی کوڈ (IFSC):",
                 footerText: "تمام حقوق محفوظ ہیں © 2026 جامعہ اسلامیہ دریاباد",
-                footerAddress: "پوسٹ دودھارا، ضلع سنت کبیر نگر، یو پی - 272125 | رابطہ: 9451859733-91+",
+                footerAddress: "پوسٹ دودھارا، ضلع سنت کبیر نگر، یو پی - 272125 | رابطہ: 9451859733-91+ | 9044330940-91+",
                 installBannerSub: "تیز ترین رسائی کے لیے موبائل ایپ انسٹال کریں!", installBtnText: "انسٹال کریں", closeBtn: "بند کریں"
             },
             ar: {
-                jamiaName: "الجامعة الإسلامية بدرياباد", estYearText: "سنة التأسيس: 1990م / 1411هـ", founderLabel: "المؤسس:", founderName: "فضيلة الشيخ الدكتور عبد الباري بن فتح المدني",
+                jamiaName: "الجامعة الإسلامية بدرياباد", estYearText: "سنة التأسيس: 1990م / 1411هـ", founderLabel: "المؤسس:", founderName: "فضيلة الشيخ الدكتور عبد الباري بن فتح الله المدني",
                 home: "الرئيسية", announcements: "الإعلانات", about: "نبذة عنا", staff: "الأساتذة والموظفون", admission: "القبول", examination: "الامتحانات", results: "النتائج", studentMag: "مجلة الطلاب", jamiaMag: "مجلة استدراك", photos: "الصور", contact: "اتصل بنا",
-                bannerText: "تحت إشراف: جمعية أهل الحديث التعليمية والرفاهية", bannerDirector: "المؤسس والمشرف العام: فضيلة الشيخ الدكتور عبد الباري بن فتح المدني حفظه الله", 
+                bannerText: "تحت إشراف: جمعية أهل الحديث التعليمية والرفاهية",
+                bannerDirector: "المؤسس والمشرف العام: فضيلة الشيخ الدكتور عبد الباري بن فتح الله المدني حفظه الله",
+                bannerNazim: "الأمين العام وناظم الجامعة: فضيلة الشيخ عتيق الرحمن الندوي حفظه الله",
                 newsTitle: "آخر الأخبار:", newsMarquee: "القبول للعام الدراسي الجديد مستمر. آخر موعد لتقديم الاستمارات هو 20 شوال.",
                 welcomeHeading: "مرحباً بكم", aboutText: "الجامعة الإسلامية بدرياباد هي مؤسسة تعليمية دينية عظيمة توفر تعليماً ممتازاً في القرآن والحديث والفقه وغيرها من العلوم الإسلامية إلى جانب التعليم العصري.",
                 latestAnnouncementsHeading: "أهم الإعلانات", viewAllAnnBtn: "عرض جميع الإعلانات", loadingText: "جاري التحميل...",
@@ -1171,18 +1266,21 @@
                 optKul1: "السنة الأولى من الكلية", optKul2: "السنة الثانية من الكلية", optKul3: "السنة الثالثة من الكلية",
                 selectSemesterLabel: "اختر الفصل الدراسي:", optAllFasl: "جميع الفصول", optFasl1: "الفصل الدراسي الأول (نصف سنوي)", optFasl2: "الفصل الدراسي الثاني (سنوي)",
                 selectClassPrompt: "يرجى تحديد صفك الدراسي من الأعلى.", noResultFound: "لا توجد نتائج مسجلة لهذا الصف.",
-                addressHeading: "عنوان المراسلة", fullAddress: "ناظم الجامعة الإسلامية بدرياباد، بريد دودهارا، مديرية سنت كبير نغر، يو بي - 272125، الهند",
-                phoneLabel: "رقم الهاتف:", emailLabel: "البريد الإلكتروني:",
+                addressHeading: "عنوان المراسلة", nazimLabel: "الأمين العام وناظم الجامعة:", nazimName: "فضيلة الشيخ عتيق الرحمن الندوي",
+                fullAddress: "الجامعة الإسلامية بدرياباد، بريد دودهارا، مديرية سنت كبير نغر، يو بي - 272125، الهند",
+                phoneLabel: "رقم الهاتف (الأمين العام وناظم الجامعة):", shaikhPhoneLabel: "شيخ الجامعة (فضيلة الشيخ سيف الرحمن المدني):", emailLabel: "البريد الإلكتروني:",
                 bankHeading: "بيانات الحساب البنكي للتبرعات", accHolderLabel: "اسم الحساب:", accHolderName: "جمعية أهل الحديث التعليمية والرفاهية / الجامعة الإسلامية بدرياباد",
                 accNumLabel: "رقم الحساب (A/C):", ifscLabel: "رمز IFSC:",
                 footerText: "جميع الحقوق محفوظة © 2026 الجامعة الإسلامية بدرياباد",
-                footerAddress: "بريد دودهارا، سنت كبير نغر، يو بي - 272125 | هاتف: 9451859733-91+",
+                footerAddress: "بريد دودهارا، سنت كبير نغر، يو بي - 272125 | هاتف: 9451859733-91+ | 9044330940-91+",
                 installBannerSub: "قم بتثبيت التطبيق للوصول السريع!", installBtnText: "تثبيت", closeBtn: "إغلاق"
             },
             en: {
-                jamiaName: "Jamia Islamia Dariyabad", estYearText: "Est.: 1990 CE / 1411 AH", founderLabel: "Founder:", founderName: "Fazeelat Ash-Sheikh Dr. Abdul Bari bin Fath Al-Madani",
+                jamiaName: "Jamia Islamia Dariyabad", estYearText: "Est.: 1990 CE / 1411 AH", founderLabel: "Founder:", founderName: "Fazeelat Ash-Sheikh Dr. Abdul Bari bin Fathullah Al-Madani",
                 home: "Home", announcements: "Announcements", about: "About Us", staff: "Faculty & Staff", admission: "Admission", examination: "Examination", results: "Results", studentMag: "Students Magazine", jamiaMag: "Jamia Magazine Estidrak", photos: "Photos", contact: "Contact Us",
-                bannerText: "Under the Supervision of: Ahl-e-Hadees Educational & Welfare Society", bannerDirector: "Founder & General Supervisor: Fazeelat Ash-Sheikh Dr. Abdul Bari bin Fath Al-Madani", 
+                bannerText: "Under the Supervision of: Ahl-e-Hadees Educational & Welfare Society",
+                bannerDirector: "Founder & General Supervisor: Fazeelat Ash-Sheikh Dr. Abdul Bari bin Fathullah Al-Madani",
+                bannerNazim: "General Secretary & Nazim-e-Ala: Fazeelat Ash-Sheikh Atiqur Rahman An-Nadwi",
                 newsTitle: "Latest News:", newsMarquee: "Admissions for the new academic year are open. The last date to apply is 20th Shawwal.",
                 welcomeHeading: "Welcome", aboutText: "Jamia Islamia Dariyabad is a prestigious religious institution offering excellent education in Quran, Hadith, Fiqh along with modern subjects.",
                 latestAnnouncementsHeading: "Important Announcements", viewAllAnnBtn: "View All Announcements", loadingText: "Loading...",
@@ -1202,18 +1300,21 @@
                 optKul1: "College First Year", optKul2: "College Second Year", optKul3: "College Third Year",
                 selectSemesterLabel: "Select Semester / Exam:", optAllFasl: "All Semesters", optFasl1: "First Semester (Half-Yearly)", optFasl2: "Second Semester (Annual)",
                 selectClassPrompt: "Please select your class from the dropdown above.", noResultFound: "No results found for this class.",
-                addressHeading: "Correspondence Address", fullAddress: "Nazim-e-Ala, Jamia Islamia Dariyabad, Post Dudhara, Dist. Sant Kabir Nagar, U.P. - 272125",
-                phoneLabel: "Contact Number:", emailLabel: "Email:",
+                addressHeading: "Correspondence Address", nazimLabel: "General Secretary & Nazim-e-Ala:", nazimName: "Fazeelat Ash-Sheikh Atiqur Rahman An-Nadwi",
+                fullAddress: "Jamia Islamia Dariyabad, Post Dudhara, Dist. Sant Kabir Nagar, U.P. - 272125",
+                phoneLabel: "Contact Number (General Secretary & Nazim-e-Ala):", shaikhPhoneLabel: "Sheikh-ul-Jamia (Fazeelat Ash-Sheikh Saifur Rahman Al-Madani):", emailLabel: "Email:",
                 bankHeading: "Bank Details for Remittance", accHolderLabel: "Account Name:", accHolderName: "Ahl-e-Hadees Educational & Welfare Society / Jamia Islamia Dariyabad",
                 accNumLabel: "Account No. (A/C):", ifscLabel: "IFSC Code:",
                 footerText: "All rights reserved © 2026 Jamia Islamia Dariyabad",
-                footerAddress: "Post Dudhara, Dist. Sant Kabir Nagar, U.P. - 272125 | Contact: +91-9451859733",
+                footerAddress: "Post Dudhara, Dist. Sant Kabir Nagar, U.P. - 272125 | Contact: +91-9451859733 | +91 90443 30940",
                 installBannerSub: "Install the mobile app for faster access!", installBtnText: "Install", closeBtn: "Close"
             },
             hi: {
-                jamiaName: "जामिया इस्लामिया दरियाबाद", estYearText: "स्थापना: 1990 ई. / 1411 हि.", founderLabel: "संस्थापक:", founderName: "फ़ज़ीलत अश-शेख डॉ. अब्दुल बारी बिन फ़तह अल-मदनी",
+                jamiaName: "जामिया इस्लामिया दरियाबाद", estYearText: "स्थापना: 1990 ई. / 1411 हि.", founderLabel: "संस्थापक:", founderName: "फ़ज़ीलत अश-शेख डॉ. अब्दुल बारी बिन फ़तहुल्लाह अल-मदनी",
                 home: "होम", announcements: "सूचनाएं", about: "परिचय", staff: "शिक्षक एवं कर्मचारी", admission: "दाखिला", examination: "परीक्षा", results: "परिणाम", studentMag: "छात्र पत्रिका", jamiaMag: "पत्रिका इस्तिद्राक", photos: "तस्वीरें", contact: "संपर्क करें",
-                bannerText: "देखरेख: अहल-ए-हदीस एजुकेशनल एंड वेलफेयर सोसाइटी", bannerDirector: "संस्थापक एवं महासचिव: फ़ज़ीलत अश-शेख डॉ. अब्दुल बारी बिन फ़तह अल-मदनी", 
+                bannerText: "देखरेख: अहल-ए-हदीस एजुकेशनल एंड वेलफेयर सोसाइटी",
+                bannerDirector: "संस्थापक एवं महासचिव: फ़ज़ीलत अश-शेख डॉ. अब्दुल बारी बिन फ़तहुल्लाह अल-मदनी",
+                bannerNazim: "महासचिव एवं नाज़िम-ए-आला: फ़ज़ीलत अश-शेख अतीक़ुर्रहमान अन-नदवी",
                 newsTitle: "ताज़ा ख़बर:", newsMarquee: "नए शैक्षणिक वर्ष के लिए दाखिले जारी हैं। फॉर्म भरने की अंतिम तिथि 20 शव्वाल है।",
                 welcomeHeading: "स्वागत है", aboutText: "जामिया इस्लामिया दरियाबाद एक महान धार्मिक शिक्षण संस्थान है जहाँ कुरान, हदीस, फिकह के साथ-साथ आधुनिक शिक्षा का बेहतरीन प्रबंध है।",
                 latestAnnouncementsHeading: "महत्वपूर्ण सूचनाएं", viewAllAnnBtn: "सभी सूचनाएं देखें", loadingText: "लोड हो रहा है...",
@@ -1233,12 +1334,13 @@
                 optKul1: "कॉलेज प्रथम वर्ष", optKul2: "कॉलेज द्वितीय वर्ष", optKul3: "कॉलेज तृतीय वर्ष",
                 selectSemesterLabel: "सेमेस्टर (परीक्षा) चुनें:", optAllFasl: "सभी सेमेस्टर", optFasl1: "प्रथम सेमेस्टर (छमाही)", optFasl2: "द्वितीय सेमेस्टर (वार्षिक)",
                 selectClassPrompt: "कृपया ऊपर से अपनी कक्षा चुनें।", noResultFound: "इस कक्षा के लिए कोई परिणाम नहीं मिला।",
-                addressHeading: "पत्राचार का पता", fullAddress: "नाज़िम-ए-आला, जामिया इस्लामिया दरियाबाद, पोस्ट दुधारा, जिला संत कबीर नगर, उ.प्र. - 272125",
-                phoneLabel: "संपर्क नंबर:", emailLabel: "ईमेल:",
+                addressHeading: "पत्राचार का पता", nazimLabel: "महासचिव एवं नाज़िम-ए-आला:", nazimName: "फ़ज़ीलत अश-शेख अतीक़ुर्रहमान अन-नदवी",
+                fullAddress: "जामिया इस्लामिया दरियाबाद, पोस्ट दुधारा, जिला संत कबीर नगर, उ.प्र. - 272125",
+                phoneLabel: "संपर्क नंबर (महासचिव एवं नाज़िम-ए-आला):", shaikhPhoneLabel: "शेख़ुल जामिया (फ़ज़ीलत अश-शेख़ सैफ़ुर्रहमान अल-मदनी):", emailLabel: "ईमेल:",
                 bankHeading: "बैंक विवरण (सहयोग हेतु)", accHolderLabel: "खाता नाम:", accHolderName: "अहल-ए-हदीस एजुकेशनल एंड वेलफेयर सोसाइटी / जामिया इस्लामिया दरियाबाद",
                 accNumLabel: "खाता संख्या (A/C):", ifscLabel: "IFSC कोड:",
                 footerText: "सर्वाधिकार सुरक्षित © 2026 जामिया इस्लामिया दरियाबाद",
-                footerAddress: "पोस्ट दुधारा, जिला संत कबीर नगर, उ.प्र. - 272125 | संपर्क: +91-9451859733",
+                footerAddress: "पोस्ट दुधारा, जिला संत कबीर नगर, उ.प्र. - 272125 | संपर्क: +91-9451859733 | +91 90443 30940",
                 installBannerSub: "तेज़ पहुँच के लिए मोबाइल ऐप इंस्टॉल करें!", installBtnText: "इंस्टॉल करें", closeBtn: "बंद करें"
             }
         };
@@ -1533,7 +1635,7 @@
             window.updateResultsDisplay(); 
         };
 
-        // --- REAL PWA INSTALLATION LOGIC ---
+        // --- DIRECT NATIVE PWA INSTALLATION LOGIC ---
         let deferredPrompt = null;
         const installBanner = document.getElementById('installBanner');
         const installBtn = document.getElementById('installBtn');
@@ -1544,28 +1646,27 @@
             .catch((err) => console.log("SW Error:", err));
         }
 
+        // Direct native install prompt catch
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
+            
+            if (!localStorage.getItem('jamiaAppClosed')) {
+                setTimeout(() => {
+                    installBanner.style.display = 'block';
+                }, 1500);
+            }
         });
 
-        setTimeout(() => {
-            if (!localStorage.getItem('jamiaAppClosed')) {
-                installBanner.style.display = 'flex';
-            }
-        }, 2000);
-
-        if(installBtn) {
+        // Direct 1-click native install prompt on button click
+        if (installBtn) {
             installBtn.addEventListener('click', async () => {
+                if (!deferredPrompt) return;
                 installBanner.style.display = 'none';
-                if (deferredPrompt) {
-                    deferredPrompt.prompt();
-                    await deferredPrompt.userChoice;
-                    deferredPrompt = null;
-                } else {
-                    const guideModal = document.getElementById('guideModal');
-                    if (guideModal) guideModal.style.display = 'flex';
-                }
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`Install prompt outcome: ${outcome}`);
+                deferredPrompt = null;
             });
         }
 
